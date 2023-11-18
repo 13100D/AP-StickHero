@@ -15,8 +15,10 @@
       <GaussianBlur radius="30" />
     </effect>
   </ImageView>
+
+  <!-- HBox for buttons with transparent background -->
   <HBox spacing="10">
-    <Button fx:id="switchButton" text="Switch to Screen 2"/>
-    <Button fx:id="volumeButton" text="Toggle Volume"/>
+    <Button fx:id="switchButton" text="Switch to Screen 2" style="-fx-background-color: transparent;"/>
+    <Button fx:id="volumeButton" text="" style="-fx-background-color: transparent;"/>
   </HBox>
 </StackPane>
