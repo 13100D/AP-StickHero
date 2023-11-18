@@ -7,12 +7,12 @@
 <?import javafx.scene.layout.StackPane?>
 
 <StackPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="com.example.controller.Screen1Controller">
+           fx:controller="com.example.controller.Screen2Controller">
   <ImageView>
-    <Image url="@test.png" />
+    <Image url="@bgnice.gif" />
   </ImageView>
   <HBox spacing="10">
-    <Button fx:id="switchButton" text="Switch to Screen 2"/>
+    <Button fx:id="switchButton" text="Switch to Screen 1"/>
     <Button fx:id="volumeButton" text="Toggle Volume"/>
   </HBox>
 </StackPane>
