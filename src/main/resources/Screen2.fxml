@@ -13,6 +13,6 @@
   </ImageView>
   <HBox spacing="10">
     <Button fx:id="switchButton" text="Switch to Screen 1"/>
-    <Button fx:id="volumeButton" text="Toggle Volume"/>
+    <Button fx:id="helpButton" text="help"/>
   </HBox>
 </StackPane>

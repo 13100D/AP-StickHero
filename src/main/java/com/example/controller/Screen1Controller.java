@@ -11,14 +11,33 @@ public class Screen1Controller extends ControllerBase {
     private Button switchButton;
 
     @FXML
+    private Button volumeButton;
+
+    private boolean isMuted = false;
+
+    @FXML
     private void initialize() {
         switchButton.setOnAction(e -> switchToScreen2());
+        volumeButton.setOnAction(e -> toggleVolume());
+        setButtonImage(volumeButton, "/soundyesicon.png");
     }
 
     private void switchToScreen2() {
-        // Add logic specific to Screen 1
         System.out.println("Switching to Screen 2");
-        stage.getScene().setRoot(loadFXML("Screen2.fxml"));
+        stage.getScene().setRoot(loadFXML("/Screen2.fxml"));
+    }
+
+    private void toggleVolume() {
+        isMuted = !isMuted;
+        updateVolumeButtonImage();
+        // Add logic to control audio volume based on the 'isMuted' state
+        // For simplicity, we'll just print a message here
+        System.out.println("Volume is " + (isMuted ? "muted" : "unmuted"));
+    }
+
+    private void updateVolumeButtonImage() {
+        String imageName = isMuted ? "/soundmutedicon.png" : "/soundyesicon.png";
+        setButtonImage(volumeButton, imageName);
     }
 
     private Image getImage(String imageName) {
@@ -29,6 +48,4 @@ public class Screen1Controller extends ControllerBase {
         ImageView imageView = new ImageView(getImage(imageName));
         button.setGraphic(imageView);
     }
-
-    // Additional methods and event handlers for Screen 1 can be added here
 }
