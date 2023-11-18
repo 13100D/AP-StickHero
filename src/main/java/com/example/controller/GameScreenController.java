@@ -5,7 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class Screen2Controller extends ControllerBase {
+public class GameScreenController extends ControllerBase {
 
     @FXML
     private Button switchButton;
@@ -25,7 +25,7 @@ public class Screen2Controller extends ControllerBase {
     private void switchToScreen1() {
         // Add logic specific to Screen 2
         System.out.println("Switching to Screen 1");
-        stage.getScene().setRoot(loadFXML("/Screen1.fxml"));
+        stage.getScene().setRoot(loadFXML("/MainScreen.fxml"));
     }
 
 

@@ -5,7 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class Screen1Controller extends ControllerBase {
+public class MainScreenController extends ControllerBase {
 
     @FXML
     private Button switchButton;
@@ -27,10 +27,11 @@ public class Screen1Controller extends ControllerBase {
 
     private void switchToScreen2() {
         System.out.println("Switching to Screen 2");
-        stage.getScene().setRoot(loadFXML("/Screen2.fxml"));
+        stage.getScene().setRoot(loadFXML("/GameScreen.fxml"));
     }
 
     private void toggleVolume() {
+        switchButton.setLayoutX(switchButton.getLayoutX()+50);
         isMuted = !isMuted;
         updateVolumeButtonImage();
         // Add logic to control audio volume based on the 'isMuted' state

@@ -8,7 +8,7 @@
 <?import javafx.scene.effect.GaussianBlur?>
 
 <StackPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="com.example.controller.Screen1Controller">
+           fx:controller="com.example.controller.MainScreenController">
   <ImageView>
     <Image url="@bg.jpg" />
     <effect>
@@ -17,11 +17,13 @@
   </ImageView>
 
   <!-- HBox for buttons with transparent background -->
-  <HBox spacing="10">
+  <HBox spacing="700">
     <ImageView fx:id="switchButtonImage"
                fitWidth="50" fitHeight="50"
                pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER"/>
     <Button fx:id="switchButton" text="" style="-fx-background-color: transparent;" StackPane.alignment="CENTER"/>
+  </HBox>
+  <HBox spacing="10">
     <ImageView fx:id="volumeButtonImage"
                fitWidth="50" fitHeight="50"
                pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER"/>

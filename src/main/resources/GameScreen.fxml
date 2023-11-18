@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.StackPane?>
 
 <StackPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="com.example.controller.Screen2Controller">
+           fx:controller="com.example.controller.GameScreenController">
   <ImageView>
     <Image url="@bg.jpg" />
   </ImageView>
