@@ -18,6 +18,8 @@ public class Screen2Controller extends ControllerBase {
         helpButton.setOnAction(e -> System.out.println("Help button pressed"));
         setButtonImage(helpButton, "/helpicon.png");
         setButtonImage(switchButton, "/redoicon.png");
+        switchButton.setLayoutX(500);
+        switchButton.setLayoutY(300);
     }
 
     private void switchToScreen1() {
