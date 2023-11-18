@@ -1,11 +1,6 @@
-module com.example.stickhero {
+module com.example.controller {
     requires javafx.controls;
     requires javafx.fxml;
-
-    requires org.controlsfx.controls;
-    requires net.synedra.validatorfx;
-    requires com.almasb.fxgl.all;
-
-    opens com.example.stickhero to javafx.fxml;
-    exports com.example.stickhero;
+    opens com.example to javafx.fxml;
+    exports com.example;
 }
