@@ -10,23 +10,21 @@
 <StackPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.example.controller.MainScreenController">
   <ImageView>
-    <Image url="@bg.jpg" />
+    <Image url="@testbg.jpg" />
     <effect>
       <GaussianBlur radius="30" />
     </effect>
   </ImageView>
 
   <!-- HBox for buttons with transparent background -->
-  <HBox spacing="700">
+  <HBox spacing="0">
     <ImageView fx:id="switchButtonImage"
                fitWidth="50" fitHeight="50"
-               pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER"/>
-    <Button fx:id="switchButton" text="" style="-fx-background-color: transparent;" StackPane.alignment="CENTER"/>
-  </HBox>
-  <HBox spacing="10">
+               pickOnBounds="true" preserveRatio="false" StackPane.alignment="TOP_RIGHT"/>
+    <Button fx:id="switchButton" text="" style="-fx-background-color: transparent;" StackPane.alignment="CENTER" scaleY="0.5" scaleX="0.5" alignment="TOP_RIGHT"/>
     <ImageView fx:id="volumeButtonImage"
                fitWidth="50" fitHeight="50"
-               pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER"/>
-    <Button fx:id="volumeButton" text="" style="-fx-background-color: transparent;" StackPane.alignment="CENTER"/>
+               pickOnBounds="true" preserveRatio="false" StackPane.alignment="CENTER"/>
+    <Button fx:id="volumeButton" text="" style="-fx-background-color: transparent;" StackPane.alignment="CENTER" scaleY="0.5" scaleX="0.5" alignment="CENTER"/>
   </HBox>
 </StackPane>

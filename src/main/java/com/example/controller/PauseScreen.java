@@ -8,28 +8,30 @@ import javafx.scene.image.ImageView;
 public class PauseScreen extends ControllerBase {
 
     @FXML
-    private Button switchButton;
+    private Button menubutton;
 
     @FXML
-    private Button volumeButton;
+    private Button resumebutton;
 
     private boolean isMuted = false;
 
     @FXML
     private void initialize() {
-        switchButton.setOnAction(e -> switchToScreen2());
+        menubutton.setOnAction(e -> switchToMainScreen());
 //        volumeButton.setOnAction(e -> toggleVolume());
-//        setButtonImage(volumeButton, "/soundyesicon.png");
-//        setButtonImage(switchButton, "/start.png");
-        switchButton.setLayoutX(1500);
-        switchButton.setLayoutY(1300);
+        setButtonImage(menubutton, "/redoicon.png");
+        setButtonImage(resumebutton, "/playicon.png");
+        resumebutton.setOnAction(e -> switchToGameScreen());
     }
 
-    private void switchToScreen2() {
-        System.out.println("Switching to Screen 2");
+    private void switchToMainScreen() { // back to main menu
+        System.out.println("Switching to mainScreen");
+        stage.getScene().setRoot(loadFXML("/MainScreen.fxml"));
+    }
+    private void switchToGameScreen() { //resume
+        System.out.println("Switching to gameScreen");
         stage.getScene().setRoot(loadFXML("/GameScreen.fxml"));
     }
-
 //    private void toggleVolume() {
 //        isMuted = !isMuted;
 //        updateVolumeButtonImage();

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.example.controller.GameOverScreen">
+  <ImageView>
+    <Image url="@bg.jpg" />
+  </ImageView>
+  <HBox spacing="10">
+    <Button fx:id="reviveButton" text="" style="-fx-background-color: transparent;"/>
+    <Button fx:id="menuButton" text="" style="-fx-background-color: transparent;"/>
+  </HBox>
+</StackPane>

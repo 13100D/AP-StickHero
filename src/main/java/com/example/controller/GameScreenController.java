@@ -14,18 +14,18 @@ public class GameScreenController extends ControllerBase {
 
     @FXML
     private void initialize() {
-        switchButton.setOnAction(e -> switchToScreen1());
+        switchButton.setOnAction(e -> switchToPauseScreen());
         helpButton.setOnAction(e -> System.out.println("Help button pressed"));
         setButtonImage(helpButton, "/helpicon.png");
-        setButtonImage(switchButton, "/redoicon.png");
+        setButtonImage(switchButton, "/pauseicon.png");
         switchButton.setLayoutX(500);
         switchButton.setLayoutY(300);
     }
 
-    private void switchToScreen1() {
+    private void switchToPauseScreen() {
         // Add logic specific to Screen 2
-        System.out.println("Switching to Screen 1");
-        stage.getScene().setRoot(loadFXML("/MainScreen.fxml"));
+        System.out.println("Switching to Pause Screen ");
+        stage.getScene().setRoot(loadFXML("/PauseScreen.fxml"));
     }
 
 

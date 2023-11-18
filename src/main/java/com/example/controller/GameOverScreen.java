@@ -8,23 +8,28 @@ import javafx.scene.image.ImageView;
 public class GameOverScreen extends ControllerBase {
 
     @FXML
-    private Button switchButton;
+    private Button reviveButton;
 
     @FXML
-    private Button volumeButton;
+    private Button menuButton;
 
     private boolean isMuted = false;
 
     @FXML
     private void initialize() {
-        switchButton.setOnAction(e -> switchToScreen2());
-        setButtonImage(volumeButton, "/soundyesicon.png");
-        setButtonImage(switchButton, "/start.png");
+        reviveButton.setOnAction(e -> switchToGame());
+        menuButton.setOnAction(e -> switchToMainScreen());
+        setButtonImage(menuButton, "/redoicon.png");
+        setButtonImage(reviveButton, "/playicon.png");
     }
 
-    private void switchToScreen2() {
-        System.out.println("Switching to Screen 2");
+    private void switchToGame() {
+        System.out.println("Switching back to game");
         stage.getScene().setRoot(loadFXML("/GameScreen.fxml"));
+    }
+    private void switchToMainScreen() { // back to main menu
+        System.out.println("Switching to mainScreen");
+        stage.getScene().setRoot(loadFXML("/MainScreen.fxml"));
     }
 
 //    private void toggleVolume() {
