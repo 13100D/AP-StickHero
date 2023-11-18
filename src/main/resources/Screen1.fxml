@@ -8,7 +8,7 @@
 <?import javafx.scene.effect.GaussianBlur?>
 
 <StackPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="com.example.Screen1Controller">
+           fx:controller="com.example.controller.Screen1Controller">
   <ImageView>
     <Image url="@bgnice.gif" />
     <effect>
