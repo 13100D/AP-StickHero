@@ -20,6 +20,7 @@ public class Screen1Controller extends ControllerBase {
         switchButton.setOnAction(e -> switchToScreen2());
         volumeButton.setOnAction(e -> toggleVolume());
         setButtonImage(volumeButton, "/soundyesicon.png");
+        setButtonImage(switchButton, "/start.png");
     }
 
     private void switchToScreen2() {

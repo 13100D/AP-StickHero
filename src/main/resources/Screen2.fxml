@@ -12,7 +12,7 @@
     <Image url="@bg.jpg" />
   </ImageView>
   <HBox spacing="10">
-    <Button fx:id="switchButton" text="Switch to Screen 2" style="-fx-background-color: transparent;"/>
+    <Button fx:id="switchButton" text="" style="-fx-background-color: transparent;"/>
     <Button fx:id="helpButton" text="" style="-fx-background-color: transparent;"/>
   </HBox>
 </StackPane>
