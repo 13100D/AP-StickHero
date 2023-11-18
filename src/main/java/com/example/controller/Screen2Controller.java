@@ -15,6 +15,7 @@ public class Screen2Controller extends ControllerBase {
     @FXML
     private void initialize() {
         switchButton.setOnAction(e -> switchToScreen1());
+        helpButton.setOnAction(e -> System.out.println("Help button pressed"));
         setButtonImage(helpButton, "/helpicon.png");
     }
 
@@ -23,6 +24,8 @@ public class Screen2Controller extends ControllerBase {
         System.out.println("Switching to Screen 1");
         stage.getScene().setRoot(loadFXML("/Screen1.fxml"));
     }
+
+
 
     private Image getImage(String imageName) {
         return new Image(getClass().getResourceAsStream(imageName));
