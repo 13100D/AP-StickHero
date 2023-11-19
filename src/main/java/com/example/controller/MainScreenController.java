@@ -13,6 +13,8 @@ public class MainScreenController extends ControllerBase {
     @FXML
     private Button volumeButton;
 
+    private Button restartButton;
+
     private boolean isMuted = false;
 
     @FXML
@@ -51,5 +53,15 @@ public class MainScreenController extends ControllerBase {
     private void setButtonImage(Button button, String imageName) {
         ImageView imageView = new ImageView(getImage(imageName));
         button.setGraphic(imageView);
+    }
+
+    private void reloadGame()
+    {
+
+    }
+
+    private void buySprites()
+    {
+
     }
 }

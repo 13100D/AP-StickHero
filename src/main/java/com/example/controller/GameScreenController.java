@@ -5,6 +5,8 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.util.Objects;
+
 public class GameScreenController extends ControllerBase {
 
     @FXML
@@ -28,10 +30,8 @@ public class GameScreenController extends ControllerBase {
         stage.getScene().setRoot(loadFXML("/PauseScreen.fxml"));
     }
 
-
-
     private Image getImage(String imageName) {
-        return new Image(getClass().getResourceAsStream(imageName));
+        return new Image(Objects.requireNonNull(getClass().getResourceAsStream(imageName)));
     }
 
     private void setButtonImage(Button button, String imageName) {
@@ -39,6 +39,6 @@ public class GameScreenController extends ControllerBase {
         button.setGraphic(imageView);
     }
 
-    // Additional methods and event handlers for Screen 2 can be added here
+    //additional methods and event handlers for screen 2
 }
 

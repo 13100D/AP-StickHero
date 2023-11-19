@@ -53,4 +53,9 @@ public class PauseScreen extends ControllerBase {
         ImageView imageView = new ImageView(getImage(imageName));
         button.setGraphic(imageView);
     }
+
+    private void saveGame()
+    {
+
+    }
 }
