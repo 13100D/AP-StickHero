@@ -23,8 +23,6 @@ public class MainScreenController extends ControllerBase {
         volumeButton.setOnAction(e -> toggleVolume());
         setButtonImage(volumeButton, "/soundyesicon.png");
         setButtonImage(switchButton, "/start.png");
-        switchButton.setLayoutX(1500);
-        switchButton.setLayoutY(1300);
     }
 
     private void switchToScreen2() {

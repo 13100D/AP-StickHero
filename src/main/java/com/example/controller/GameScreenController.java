@@ -20,8 +20,6 @@ public class GameScreenController extends ControllerBase {
         helpButton.setOnAction(e -> System.out.println("Help button pressed"));
         setButtonImage(helpButton, "/helpicon.png");
         setButtonImage(switchButton, "/pauseicon.png");
-        switchButton.setLayoutX(500);
-        switchButton.setLayoutY(300);
     }
 
     private void switchToPauseScreen() {
