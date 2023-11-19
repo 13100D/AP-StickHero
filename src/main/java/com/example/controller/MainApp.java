@@ -20,7 +20,6 @@ public class MainApp extends Application {
         primaryStage.setTitle("Multi-Screen App");
 
         showScreen("/MainScreen.fxml");
-
         primaryStage.show();
     }
 
