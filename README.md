@@ -7,3 +7,6 @@
 - [Riya Sachdeva - 2022411](https://github.com/riyasach189)
 - [Aarav Mathur - 2022005](https://github.com/13100D)
 - Group No. 131
+
+# Citations
+All graphics are copyrights of their creators, we are just borrowing them.
