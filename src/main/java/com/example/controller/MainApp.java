@@ -17,7 +17,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        primaryStage.setTitle("Multi-Screen App");
+        primaryStage.setTitle("Stick Hero");
 
         showScreen("/MainScreen.fxml");
         primaryStage.show();
