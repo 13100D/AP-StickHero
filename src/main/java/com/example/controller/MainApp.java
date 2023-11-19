@@ -28,7 +28,7 @@ public class MainApp extends Application {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
             Parent root = loader.load();
-            Scene scene = new Scene(root, 600, 400);
+            Scene scene = new Scene(root, 1920, 1080);
 
             // Set the controller's stage reference
             ControllerBase controller = loader.getController();
