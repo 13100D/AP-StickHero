@@ -15,9 +15,8 @@
 
   <!-- HBox for buttons with transparent background -->
   <HBox>
-    <ImageView fx:id="switchButtonImage" fitHeight="50" fitWidth="50.0" pickOnBounds="true" preserveRatio="false" />
     <Button fx:id="switchButton" scaleX="0.5" scaleY="0.5" style="-fx-background-color: transparent;" translateX="660" translateY="280" />
-    <ImageView fx:id="volumeButtonImage" fitHeight="50" fitWidth="50" pickOnBounds="true" preserveRatio="false" />
-    <Button fx:id="volumeButton" scaleX="0.4" scaleY="0.4" style="-fx-background-color: transparent;" translateX="1142" translateY="-60"/>
+    <Button fx:id="volumeButton" scaleX="0.4" scaleY="0.4" style="-fx-background-color: transparent;" translateX="1237" translateY="-60"/>
+    <Button fx:id="helpButton" style="-fx-background-color: transparent;" scaleX="0.4" scaleY="0.4" translateY="30" translateX="1020"/>
   </HBox>
 </StackPane>

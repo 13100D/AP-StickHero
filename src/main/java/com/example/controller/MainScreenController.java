@@ -15,13 +15,18 @@ public class MainScreenController extends ControllerBase {
 
     private Button restartButton;
 
+    @FXML
+    private Button helpButton;
+
     private boolean isMuted = false;
 
     @FXML
     private void initialize() {
         switchButton.setOnAction(e -> switchToScreen2());
+        helpButton.setOnAction(e -> System.out.println("Help button pressed"));
         volumeButton.setOnAction(e -> toggleVolume());
         setButtonImage(volumeButton, "/soundyesicon.png");
+        setButtonImage(helpButton, "/helpicon.png");
         setButtonImage(switchButton, "/start.png");
     }
 
