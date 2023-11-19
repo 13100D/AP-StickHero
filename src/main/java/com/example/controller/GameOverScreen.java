@@ -13,6 +13,8 @@ public class GameOverScreen extends ControllerBase {
     @FXML
     private Button menuButton;
 
+    private Button restartButton;
+
     private boolean isMuted = false;
 
     @FXML
