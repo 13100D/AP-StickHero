@@ -9,7 +9,7 @@
     <Image url="@bg.jpg" />
   </ImageView>
   <HBox spacing="10">
-    <Button fx:id="reviveButton" style="-fx-background-color: transparent;" text="" />
-    <Button fx:id="menuButton" style="-fx-background-color: transparent;" text="" />
+    <Button fx:id="reviveButton" style="-fx-background-color: transparent;" text="" scaleX="0.4" scaleY="0.4" translateY="-60" translateX="-60"/>
+    <Button fx:id="menuButton" style="-fx-background-color: transparent;" text="" scaleX="0.4" scaleY="0.4" translateY="-60" translateX="1530"/>
   </HBox>
 </StackPane>

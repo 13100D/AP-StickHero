@@ -12,7 +12,7 @@
     <Image url="@bg_main.jpg" />
   </ImageView>
   <HBox spacing="10">
-    <Button fx:id="switchButton" text="" style="-fx-background-color: transparent;"/>
-    <Button fx:id="helpButton" text="" style="-fx-background-color: transparent;"/>
+    <Button fx:id="switchButton" text="" style="-fx-background-color: transparent;" scaleX="0.4" scaleY="0.4" translateY="-60" translateX="-60"/>
+    <Button fx:id="helpButton" text="" style="-fx-background-color: transparent;" scaleX="0.4" scaleY="0.4" translateY="-60" translateX="1530"/>
   </HBox>
 </StackPane>
