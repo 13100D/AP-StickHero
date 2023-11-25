@@ -58,6 +58,10 @@ public class GameScreenController extends ControllerBase {
                 keyPressedTime = System.currentTimeMillis();
             }
             else{
+                Thread stickplay = new Thread(()->{
+                    //run 2 frames worth of stick animation till it reaches peak length climax and cums
+                });
+                stickplay.start();
                 sticklength+= 1;
                 // the below test statement proved that after 0.5 seconds ~ we enter long press state all presses smaller than this may be safely ignored under no animation
                 //or we just start animation with a certain length so essentially we start animation to start extending stick here
@@ -78,12 +82,15 @@ public class GameScreenController extends ControllerBase {
             long duration = keyReleasedTime - keyPressedTime;
             System.out.println("Key pressed duration: " + duration + " milliseconds");
             keyPressedTime = 0;
+            Thread running = new Thread(()->{
+                if(System.currentTimeMillis()-keyReleasedTime>3*duration){
+                    // send ninja to the shadow dimension then decide what to do with this cunt depending on how far he stuck his cock out
+                }
+                sticklength+= 1;
 
-            while(System.currentTimeMillis()-keyReleasedTime<3*duration){
-//                if(System.currentTimeMillis()-keyReleasedTime<2*duration){
-//                    System.out.println("runing animation dundundudun");
-//                }
-            }
+
+            });
+            running.start();
 
         }
 
