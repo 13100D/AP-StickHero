@@ -2,27 +2,24 @@ package com.example.controller;
 import java.util.Random;
 
 public class Platform {
-
+    Random rand = new Random();
     private double distance;
     private double width;
 
-    public Platform(double distance, double width) {
+    public Platform() {
         this.distance = randomDistanceGenerator();
         this.width = randomWidthGenerator();
     }
 
     private double randomDistanceGenerator()
     {
-        return 0;
+        return rand.nextInt(500);
     }
 
     private double randomWidthGenerator()
     {
-        return 0;
+        return rand.nextInt(50);
     }
 
-    private double getMidPoint()
-    {
-        return 0;
-    }
+
 }

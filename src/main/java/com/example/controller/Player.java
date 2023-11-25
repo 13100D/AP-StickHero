@@ -1,6 +1,7 @@
 package com.example.controller;
 
 public class Player {
+
     private int currentScore;
 
     public void extendStick()
