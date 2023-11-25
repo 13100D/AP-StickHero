@@ -19,16 +19,18 @@ public abstract class ControllerBase {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
             Parent root = loader.load();
-            Scene scene = new Scene(root, 1920, 1080);
 
             // Set the controller's stage reference
             ControllerBase controller = loader.getController();
             controller.setStage(stage);
 
-            stage.setScene(scene);
+            return root;
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println("\n\n\n FUCKING ERRORS AAAAAAAAAAAAA \n\n\n");
         return null;
     }
+
 }
+

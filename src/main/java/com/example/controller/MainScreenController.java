@@ -1,6 +1,8 @@
 package com.example.controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -22,7 +24,7 @@ public class MainScreenController extends ControllerBase {
 
     @FXML
     private void initialize() {
-        switchButton.setOnAction(e -> switchToScreen2());
+        switchButton.setOnAction(e -> switchToGameScreen());
         helpButton.setOnAction(e -> System.out.println("Help button pressed"));
         volumeButton.setOnAction(e -> toggleVolume());
         setButtonImage(volumeButton, "/soundyesicon.png");
@@ -30,9 +32,14 @@ public class MainScreenController extends ControllerBase {
         setButtonImage(switchButton, "/start.png");
     }
 
-    private void switchToScreen2() {
-        System.out.println("Switching to Screen 2");
-        stage.getScene().setRoot(loadFXML("/GameScreen.fxml"));
+    private void switchToGameScreen() {
+        System.out.println("Starting Game");
+        Parent root = loadFXML("/GameScreen.fxml");
+        Scene scene = new Scene(root, 1920, 1080);
+        System.out.println("switched screens supposedly???");
+        stage.setScene(scene);
+        stage.getScene().setOnKeyPressed(GameScreenController::handleKeyPress);
+        stage.getScene().setOnKeyReleased(GameScreenController::handleKeyRelease);
     }
 
     private void toggleVolume() {

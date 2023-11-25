@@ -1,6 +1,8 @@
 package com.example.controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -32,12 +34,16 @@ public class GameOverScreen extends ControllerBase {
 
     private void switchToGame() {
         System.out.println("Switching back to game");
-        stage.getScene().setRoot(loadFXML("/GameScreen.fxml"));
+        Parent root = loadFXML("/GameScreen.fxml");
+        Scene scene = new Scene(root, 1920, 1080);
+        stage.setScene(scene);
     }
 
     private void switchToMainScreen() { // back to the main menu
         System.out.println("Switching to mainScreen");
-        stage.getScene().setRoot(loadFXML("/MainScreen.fxml"));
+        Parent root = loadFXML("/MainScreen.fxml");
+        Scene scene = new Scene(root, 1920, 1080);
+        stage.setScene(scene);
     }
 
     private void saveCherries() {
