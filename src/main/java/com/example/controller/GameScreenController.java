@@ -20,6 +20,9 @@ public class GameScreenController extends ControllerBase {
 
     private static long keyPressedTime = 0; // Time when the key was pressed
     private static boolean keydown = false;
+
+    private static double sticklength = 0;
+
     @FXML
     private void initialize() {
         switchButton.setOnAction(e -> switchToPauseScreen());
@@ -54,6 +57,15 @@ public class GameScreenController extends ControllerBase {
                 keydown = true;
                 keyPressedTime = System.currentTimeMillis();
             }
+            else{
+                sticklength+= 1;
+                // the below test statement proved that after 0.5 seconds ~ we enter long press state all presses smaller than this may be safely ignored under no animation
+                //or we just start animation with a certain length so essentially we start animation to start extending stick here
+                //as for the animation details the input repeats with a pretty much consistent delay of 32-34 ms meaning a 30 calls per second so for a smooth 60 fps animation we should call a 2 frame animation here
+                //call animation and set a length then run logic for moving player that length and handling input taps for cherry flipping
+//                System.out.println("for duration of time: "+(System.currentTimeMillis()-keyPressedTime)+" registered keypresses: " +sticklength);
+                //handle the animations for the keypressed down here ( should repeatedly end up being called idk why )
+            }
         }
     }
 
@@ -67,7 +79,14 @@ public class GameScreenController extends ControllerBase {
             System.out.println("Key pressed duration: " + duration + " milliseconds");
             keyPressedTime = 0;
 
+            while(System.currentTimeMillis()-keyReleasedTime<3*duration){
+//                if(System.currentTimeMillis()-keyReleasedTime<2*duration){
+//                    System.out.println("runing animation dundundudun");
+//                }
+            }
+
         }
+
         //additional methods and event handlers for screen 2
     }
 
