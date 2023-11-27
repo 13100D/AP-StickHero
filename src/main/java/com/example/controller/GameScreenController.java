@@ -8,11 +8,23 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 
 import java.util.Objects;
 
 public class GameScreenController extends ControllerBase {
 
+    public static Rectangle platform_current_standing;
+    public static Rectangle platform_next_target;
+
+    public static Rectangle perfecttarget;
+    @FXML
+    private static Rectangle stick = new Rectangle();
+
+    public static Rectangle player; // add as a attribute to player class??? maybe also include the stick probably hm also make out proper methods there itself instead of the thread here ( proper formatting )
     @FXML
     private Button switchButton;
     @FXML
@@ -29,7 +41,11 @@ public class GameScreenController extends ControllerBase {
         helpButton.setOnAction(e -> System.out.println("Help button pressed"));
         setButtonImage(helpButton, "/helpicon.png");
         setButtonImage(switchButton, "/pauseicon.png");
-//        switchButton.setOnKeyReleased(this::handleKeyRelease);
+        stick.setWidth(7.0);
+        stick.setHeight(10.0);
+        stick.setTranslateX(-525.0);
+        stick.setTranslateY(72.0);
+        stick.setRotate(0);
     }
 
     private void switchToPauseScreen() {
@@ -59,6 +75,9 @@ public class GameScreenController extends ControllerBase {
             }
             else{
                 Thread stickplay = new Thread(()->{
+//                    stick.setX(500);
+                    System.out.println(stick.getTranslateX());
+                    stick.setHeight(stick.getHeight()+5);
                     //run 2 frames worth of stick animation till it reaches peak length climax and cums
                 });
                 stickplay.start();
@@ -83,8 +102,9 @@ public class GameScreenController extends ControllerBase {
             System.out.println("Key pressed duration: " + duration + " milliseconds");
             keyPressedTime = 0;
             Thread running = new Thread(()->{
-                if(System.currentTimeMillis()-keyReleasedTime>3*duration){
+                while(System.currentTimeMillis()-keyReleasedTime<3*duration){
                     // send ninja to the shadow dimension then decide what to do with this cunt depending on how far he stuck his cock out
+
                 }
                 sticklength+= 1;
 
