@@ -14,6 +14,7 @@ public class PauseScreen extends ControllerBase {
 
     @FXML
     private Button resumebutton;
+    private Button saveGame;
 
     private boolean isMuted = false;
 
@@ -62,6 +63,6 @@ public class PauseScreen extends ControllerBase {
 
     private void saveGame()
     {
-
+        Player.saveGame();
     }
 }
