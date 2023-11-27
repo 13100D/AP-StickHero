@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.MainScreenController">
    <children>
       <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true">
          <image>
@@ -17,23 +17,23 @@
             <GaussianBlur radius="12.6" />
          </effect>
       </ImageView>
-      <Button fx:id="volumeButton" layoutX="1200.0" layoutY="80.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: transparent;" />
-      <Button fx:id="helpButton" layoutX="1199.0" layoutY="2.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: transparent;" />
       <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="1162.0" layoutY="-35.0" pickOnBounds="true" preserveRatio="true" scaleX="0.5" scaleY="0.5">
          <image>
             <Image url="@helpicon.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="1162.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true" scaleX="0.5" scaleY="0.5">
+      <ImageView fx:id="volumeicon" fitHeight="150.0" fitWidth="150.0" layoutX="1162.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true" scaleX="0.5" scaleY="0.5">
          <image>
             <Image url="@soundyesicon.png" />
          </image>
       </ImageView>
-      <Button fx:id="switchButton" layoutX="540.0" layoutY="265.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: transparent;" />
       <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="540.0" layoutY="265.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@start.png" />
          </image>
       </ImageView>
+      <Button fx:id="volumeButton" layoutX="1200.0" layoutY="80.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: transparent;" />
+      <Button fx:id="helpButton" layoutX="1199.0" layoutY="2.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: transparent;" />
+      <Button fx:id="switchButton" layoutX="540.0" layoutY="265.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: transparent;" />
    </children>
 </AnchorPane>

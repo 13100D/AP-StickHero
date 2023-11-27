@@ -9,14 +9,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 
 public class MainScreenController extends ControllerBase {
-
+    @FXML
+    public ImageView volumeicon;
     @FXML
     private Button switchButton;
 
     @FXML
     private Button volumeButton;
-
-    private Button restartButton;
 
     @FXML
     private Button helpButton;
@@ -51,16 +50,15 @@ public class MainScreenController extends ControllerBase {
 
     private void updateVolumeButtonImage() {
         String imageName = isMuted ? "/soundmutedicon.png" : "/soundyesicon.png";
-        setButtonImage(volumeButton, imageName);
+        setImage(volumeicon, imageName);
     }
 
     private Image getImage(String imageName) {
         return new Image(getClass().getResourceAsStream(imageName));
     }
 
-    private void setButtonImage(Button button, String imageName) {
-        ImageView imageView = new ImageView(getImage(imageName));
-        button.setGraphic(imageView);
+    private void setImage(ImageView image, String imageName) {
+        image.setImage(getImage(imageName));
     }
 
     private void reloadGame()
