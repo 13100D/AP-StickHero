@@ -1,5 +1,8 @@
 package com.example.controller;
 
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+
 import java.io.*;
 
 public class Player implements Serializable {
@@ -51,9 +54,15 @@ public class Player implements Serializable {
         }
     }
 
-    public static void loadGame() {
+    public static void loadGame(MainScreenController mainScreenController) {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("savedGame.ser"))) {
             player = (Player) ois.readObject();
+            Parent root = mainScreenController.loadFXML("/GameScreen.fxml");
+            Scene scene = new Scene(root, 1280, 720);
+            System.out.println("switched screens supposedly???");
+            mainScreenController.stage.setScene(scene);
+            mainScreenController.stage.getScene().setOnKeyPressed(GameScreenController::handleKeyPress);
+            mainScreenController.stage.getScene().setOnKeyReleased(GameScreenController::handleKeyRelease);
             System.out.println("Game loaded successfully.");
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

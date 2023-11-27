@@ -68,7 +68,7 @@ public class MainScreenController extends ControllerBase {
 
     private void reloadGame()
     {
-        Player.loadGame();
+        Player.loadGame(this);
     }
 
     private void buySprites()
