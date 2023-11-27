@@ -30,6 +30,7 @@ public class GameOverScreen extends ControllerBase {
         menuButton.setOnAction(e -> switchToMainScreen());
         setButtonImage(menuButton, "/redoicon.png");
         setButtonImage(reviveButton, "/playicon.png");
+        saveCherries();
     }
 
     private void switchToGame() {
