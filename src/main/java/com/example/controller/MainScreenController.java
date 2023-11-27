@@ -28,9 +28,6 @@ public class MainScreenController extends ControllerBase {
         switchButton.setOnAction(e -> switchToGameScreen());
         helpButton.setOnAction(e -> System.out.println("Help button pressed"));
         volumeButton.setOnAction(e -> toggleVolume());
-        setButtonImage(volumeButton, "/soundyesicon.png");
-        setButtonImage(helpButton, "/helpicon.png");
-        setButtonImage(switchButton, "/start.png");
     }
 
     private void switchToGameScreen() {

@@ -4,6 +4,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.GameScreenController">
    <children>
@@ -13,7 +14,7 @@
          </image>
       </ImageView>
       <Button fx:id="pauseButton" mnemonicParsing="false" onAction="#switchToPauseScreen" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: transparent;" />
-      <Button fx:id="helpButton" layoutX="1205.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: transparent;" />
+      <Button fx:id="helpButton" layoutX="1205.0" mnemonicParsing="false" onAction="#helpButton" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: transparent;" />
       <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="1168.0" layoutY="-37.0" pickOnBounds="true" preserveRatio="true" scaleX="0.5" scaleY="0.5">
          <image>
             <Image url="@helpicon.png" />
@@ -24,5 +25,6 @@
             <Image url="@pauseicon.png" />
          </image>
       </ImageView>
+<!--      <Rectangle fx:id="stick" arcHeight="5.0" arcWidth="5.0" height="200.0" layoutX="498.0" layoutY="432.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />-->
    </children>
 </AnchorPane>

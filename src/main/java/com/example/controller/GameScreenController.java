@@ -38,12 +38,12 @@ public class GameScreenController extends ControllerBase {
 
     @FXML
     private void initialize() {
-        helpButton.setOnAction(e -> System.out.println("Help button pressed"));
-        stick.setWidth(7.0);
-        stick.setHeight(10.0);
-        stick.setTranslateX(-525.0);
+        stick.setWidth(70.0);
+        stick.setHeight(100.0);
+        stick.setLayoutX(125.0);
         stick.setTranslateY(72.0);
         stick.setRotate(0);
+
     }
 
     @FXML
@@ -54,14 +54,9 @@ public class GameScreenController extends ControllerBase {
         Scene scene = new Scene(root, 1920, 1080);
         stage.setScene(scene);
     }
-
-    private Image getImage(String imageName) {
-        return new Image(Objects.requireNonNull(getClass().getResourceAsStream(imageName)));
-    }
-
-    private void setButtonImage(Button button, String imageName) {
-        ImageView imageView = new ImageView(getImage(imageName));
-        button.setGraphic(imageView);
+    @FXML
+    private void helpButton(){
+        System.out.println("Help button pressed");
     }
 
     static void handleKeyPress(KeyEvent event) {
