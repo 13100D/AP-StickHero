@@ -25,8 +25,9 @@ public class GameScreenController extends ControllerBase {
     private static Rectangle stick = new Rectangle();
 
     public static Rectangle player; // add as a attribute to player class??? maybe also include the stick probably hm also make out proper methods there itself instead of the thread here ( proper formatting )
+
     @FXML
-    private Button switchButton;
+    private Button pauseButton;
     @FXML
     private Button helpButton;
 
@@ -37,10 +38,7 @@ public class GameScreenController extends ControllerBase {
 
     @FXML
     private void initialize() {
-        switchButton.setOnAction(e -> switchToPauseScreen());
         helpButton.setOnAction(e -> System.out.println("Help button pressed"));
-        setButtonImage(helpButton, "/helpicon.png");
-        setButtonImage(switchButton, "/pauseicon.png");
         stick.setWidth(7.0);
         stick.setHeight(10.0);
         stick.setTranslateX(-525.0);
@@ -48,6 +46,7 @@ public class GameScreenController extends ControllerBase {
         stick.setRotate(0);
     }
 
+    @FXML
     private void switchToPauseScreen() {
         // Add logic specific to Screen 2
         System.out.println("Switching to Pause Screen ");

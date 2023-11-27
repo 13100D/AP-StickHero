@@ -36,7 +36,7 @@ public class MainScreenController extends ControllerBase {
     private void switchToGameScreen() {
         System.out.println("Starting Game");
         Parent root = loadFXML("/GameScreen.fxml");
-        Scene scene = new Scene(root, 1920, 1080);
+        Scene scene = new Scene(root, 1280, 720);
         System.out.println("switched screens supposedly???");
         stage.setScene(scene);
         stage.getScene().setOnKeyPressed(GameScreenController::handleKeyPress);
@@ -68,7 +68,7 @@ public class MainScreenController extends ControllerBase {
 
     private void reloadGame()
     {
-        Player.loadGame();
+        Player.loadGame(this);
     }
 
     private void buySprites()
