@@ -31,7 +31,7 @@ public class GameScreenController extends ControllerBase {
     private static Rectangle platform_next_target;
 
     private static Rectangle perfecttarget;
-    private static int length;
+    private static int length=0;
     @FXML
     private static Rectangle stick;
     private static Rotate rotate = new Rotate();
@@ -83,7 +83,7 @@ public class GameScreenController extends ControllerBase {
         // Add logic specific to Screen 2
         System.out.println("Switching to Pause Screen ");
         Parent root = loadFXML("/PauseScreen.fxml");
-        Scene scene = new Scene(root, 1920, 1080);
+        Scene scene = new Scene(root, 1280, 720);
         stage.setScene(scene);
     }
     @FXML
@@ -158,6 +158,8 @@ public class GameScreenController extends ControllerBase {
                     )
             );
             timeline.play();
+
+
 //            Thread running = new Thread(()->{
 //                while(System.currentTimeMillis()-keyReleasedTime<3*duration){
 //                    // send ninja to the shadow dimension then decide what to do with this cunt depending on how far he stuck his cock out
