@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -17,6 +18,8 @@ import javafx.stage.Stage;
 import java.util.Objects;
 
 public class GameScreenController extends ControllerBase {
+    @FXML
+    public AnchorPane maxpane;
     private boolean truly_init=false;
     private static Parent NewSceneRoot;
     private static Scene scene;
@@ -86,11 +89,12 @@ public class GameScreenController extends ControllerBase {
     @FXML
     private void handleKeyPress(KeyEvent event) {
         if(!truly_init) {
-            ((Pane) NewSceneRoot).getChildren().add(group);
-            group.getChildren().add(platform_current_standing);
-            group.getChildren().add(platform_next_target);
-            group.getChildren().add(player);
-            group.getChildren().add(stick);
+//            maxpane.getChildren().add(platform_current_standing);
+            maxpane.getChildren().add(stick);
+//            group.getChildren().add(platform_next_target);
+//            group.getChildren().add(player);
+//            group.getChildren().add(stick);
+//            maxpane.getChildren().add(group);
             truly_init=true;
         }
         if (event.getCode() == KeyCode.A) {
