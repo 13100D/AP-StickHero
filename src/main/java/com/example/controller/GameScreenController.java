@@ -1,28 +1,34 @@
 package com.example.controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import javafx.stage.Stage;
 
 import java.util.Objects;
 
 public class GameScreenController extends ControllerBase {
+    private boolean truly_init=false;
+    private static Parent NewSceneRoot;
+    private static Scene scene;
+    private static Group group;
 
-    public static Rectangle platform_current_standing;
-    public static Rectangle platform_next_target;
+    private static Rectangle platform_current_standing;
+    private static Rectangle platform_next_target;
 
-    public static Rectangle perfecttarget;
+    private static Rectangle perfecttarget;
+
     @FXML
-    private static Rectangle stick = new Rectangle();
+    private static Rectangle stick;
 
     public static Rectangle player; // add as a attribute to player class??? maybe also include the stick probably hm also make out proper methods there itself instead of the thread here ( proper formatting )
 
@@ -36,13 +42,29 @@ public class GameScreenController extends ControllerBase {
 
     private static double sticklength = 0;
 
+    public static Scene getScene() {
+        return scene;
+    }
+
+    public static void setScene(Scene scene) {
+        GameScreenController.scene = scene;
+    }
+
+    public static void setNewSceneRoot(Parent newSceneRoot) {
+        NewSceneRoot = newSceneRoot;
+    }
+
+    public static void setGroup(Group group) {
+        GameScreenController.group = group;
+    }
+
+
     @FXML
     private void initialize() {
-        stick.setWidth(70.0);
-        stick.setHeight(100.0);
-        stick.setLayoutX(125.0);
-        stick.setTranslateY(72.0);
-        stick.setRotate(0);
+       stick = new Rectangle(600,300, Color.rgb(0,0,0));
+       stick.setWidth(3);
+       stick.setHeight(1);
+//        // FOUND THE FUCKING ERROR add things to parent and shit wasnt done
 
     }
 
@@ -59,7 +81,18 @@ public class GameScreenController extends ControllerBase {
         System.out.println("Help button pressed");
     }
 
-    static void handleKeyPress(KeyEvent event) {
+
+
+    @FXML
+    private void handleKeyPress(KeyEvent event) {
+        if(!truly_init) {
+            ((Pane) NewSceneRoot).getChildren().add(group);
+            group.getChildren().add(platform_current_standing);
+            group.getChildren().add(platform_next_target);
+            group.getChildren().add(player);
+            group.getChildren().add(stick);
+            truly_init=true;
+        }
         if (event.getCode() == KeyCode.A) {
             // Record the time when the space key is pressed
             if(!keydown) {
@@ -69,7 +102,8 @@ public class GameScreenController extends ControllerBase {
             }
             else{
                 Thread stickplay = new Thread(()->{
-//                    stick.setX(500);
+                    stick.setLayoutX(450);
+                    stick.setLayoutY(220);
                     System.out.println(stick.getTranslateX());
                     stick.setHeight(stick.getHeight()+5);
                     //run 2 frames worth of stick animation till it reaches peak length climax and cums
@@ -86,7 +120,8 @@ public class GameScreenController extends ControllerBase {
         }
     }
 
-    static void handleKeyRelease(KeyEvent event) {
+    @FXML
+    private void handleKeyRelease(KeyEvent event) {
         if (event.getCode() == KeyCode.A) {
             // Calculate the duration of the key press
             long keyReleasedTime = System.currentTimeMillis();

@@ -61,8 +61,8 @@ public class Player implements Serializable {
             Scene scene = new Scene(root, 1280, 720);
             System.out.println("switched screens supposedly???");
             mainScreenController.stage.setScene(scene);
-            mainScreenController.stage.getScene().setOnKeyPressed(GameScreenController::handleKeyPress);
-            mainScreenController.stage.getScene().setOnKeyReleased(GameScreenController::handleKeyRelease);
+//            mainScreenController.stage.getScene().setOnKeyPressed(GameScreenController::handleKeyPress);
+//            mainScreenController.stage.getScene().setOnKeyReleased(GameScreenController::handleKeyRelease);
             System.out.println("Game loaded successfully.");
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 
 public class MainScreenController extends ControllerBase {
+
     @FXML
     public ImageView volumeicon;
     @FXML
@@ -22,6 +23,7 @@ public class MainScreenController extends ControllerBase {
 
     private boolean isMuted = false;
 
+
     @FXML
     private void initialize() {
         switchButton.setOnAction(e -> switchToGameScreen());
@@ -33,14 +35,12 @@ public class MainScreenController extends ControllerBase {
         System.out.println("Starting Game");
         Parent root = loadFXML("/GameScreen.fxml");
         Scene scene = new Scene(root, 1280, 720);
-        System.out.println("switched screens supposedly???");
         stage.setScene(scene);
-        stage.getScene().setOnKeyPressed(GameScreenController::handleKeyPress);
-        stage.getScene().setOnKeyReleased(GameScreenController::handleKeyRelease);
+//        stage.getScene().setOnKeyPressed(GameScreenController::handleKeyPress);
+//        stage.getScene().setOnKeyReleased(GameScreenController::handleKeyRelease);
     }
 
     private void toggleVolume() {
-        switchButton.setLayoutX(switchButton.getLayoutX()+50);
         isMuted = !isMuted;
         updateVolumeButtonImage();
         // Add logic to control audio volume based on the 'isMuted' state
@@ -66,8 +66,5 @@ public class MainScreenController extends ControllerBase {
         Player.loadGame(this);
     }
 
-    private void buySprites()
-    {
-
-    }
+    private void buySprites(){}
 }
