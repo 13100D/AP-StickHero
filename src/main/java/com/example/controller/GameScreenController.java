@@ -19,6 +19,7 @@ import javafx.util.Duration;
 import java.util.Objects;
 
 public class GameScreenController extends ControllerBase {
+    boolean goup = true;
     @FXML
     public AnchorPane maxpane;
     private boolean truly_init=false;
@@ -66,8 +67,8 @@ public class GameScreenController extends ControllerBase {
     @FXML
     private void initialize() {
         stick = new Rectangle(600,300, Color.rgb(0,0,0));
-        stick.setLayoutX(450);
-        stick.setLayoutY(220);
+        stick.setLayoutX(250);
+        stick.setLayoutY(620);
         stick.setWidth(3);
         stick.setHeight(1);
 
@@ -113,14 +114,22 @@ public class GameScreenController extends ControllerBase {
             }
             else{
                 Thread stickplay = new Thread(()->{
-                    if(length<5000) {
-                        stick.setHeight(stick.getHeight() + 5);
-                        length += 5;
-                        stick.setTranslateY(stick.getTranslateY() - 5);
-                    } else if (length>500) {
+                    if(length>500 || !goup) { // if length has exceeded 500 or currently going down { set going down to true if not already and start reducing stick length)
+                        if(goup){
+                            goup=!goup;
+                        }
                         stick.setHeight(stick.getHeight() - 5);
                         length -= 5;
                         stick.setTranslateY(stick.getTranslateY() + 5);
+
+                    }
+                    if (length<50 || goup) {// if length is less than 50 or going upwards already ( set going up wards to true if not already ) and start increasing stick length
+                        if(!goup){
+                            goup=!goup;
+                        }
+                        stick.setHeight(stick.getHeight() + 5);
+                        length += 5;
+                        stick.setTranslateY(stick.getTranslateY() - 5);
                     }
                     //run 2 frames worth of stick animation till it reaches peak length climax and cums
                 });
@@ -139,8 +148,11 @@ public class GameScreenController extends ControllerBase {
             long duration = keyReleasedTime - keyPressedTime;
             System.out.println("Key pressed duration: " + duration + " milliseconds");
             keyPressedTime = 0;
+            stick.setLayoutX(250);
+            stick.setLayoutY(620);
             rotate.setPivotX(stick.getWidth() / 2 + stick.getLayoutX());
-            rotate.setPivotY(stick.getHeight() + stick.getTranslateY() + 220);Rotate rotate = new Rotate();
+            rotate.setPivotY(stick.getHeight() + stick.getLayoutY());
+            Rotate rotate = new Rotate();
             stick.getTransforms().add(rotate);
             double initialPivotX = stick.getWidth() / 2;
             double initialPivotY = stick.getHeight();
@@ -158,7 +170,8 @@ public class GameScreenController extends ControllerBase {
                     )
             );
             timeline.play();
-
+            stick.setLayoutX(250);
+            stick.setLayoutY(620);
 
 //            Thread running = new Thread(()->{
 //                while(System.currentTimeMillis()-keyReleasedTime<3*duration){

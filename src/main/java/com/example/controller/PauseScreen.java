@@ -23,24 +23,22 @@ public class PauseScreen extends ControllerBase {
     @FXML
     private void initialize() {}
 
-    private void switchToMainScreen(ActionEvent actionEvent) { // back to main menu
-        System.out.println("Switching to mainScreen");
-        Parent root = loadFXML("/MainScreen.fxml");
-        Scene scene = new Scene(root, 1920, 1080);
-        stage.setScene(scene);
-    }
-    private void switchToGameScreen(ActionEvent actionEvent) { //resume
-        System.out.println("Switching to gameScreen");
-        Parent root = loadFXML("/GameScreen.fxml");
-        Scene scene = new Scene(root, 1920, 1080);
-        stage.setScene(scene);
-    }
-
     private void saveGame()
     {
         Player.saveGame();
     }
-
+    @FXML
     public void switchtoMainScreen(ActionEvent actionEvent) {
+        System.out.println("Switching to mainScreen");
+        Parent root = loadFXML("/MainScreen.fxml");
+        Scene scene = new Scene(root, 1280, 720);
+        stage.setScene(scene);
+    }
+    @FXML
+    private void switchtoGameScreen(ActionEvent actionEvent) {
+        System.out.println("Starting Game");
+        Parent root = loadFXML("/GameScreen.fxml");
+        Scene scene = new Scene(root, 1280, 720);
+        stage.setScene(scene);
     }
 }
