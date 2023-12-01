@@ -36,8 +36,6 @@ public class MainScreenController extends ControllerBase {
         Parent root = loadFXML("/GameScreen.fxml");
         Scene scene = new Scene(root, 1280, 720);
         stage.setScene(scene);
-//        stage.getScene().setOnKeyPressed(GameScreenController::handleKeyPress);
-//        stage.getScene().setOnKeyReleased(GameScreenController::handleKeyRelease);
     }
 
     private void toggleVolume() {

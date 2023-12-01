@@ -1,82 +1,35 @@
 package com.example.controller;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.transform.Rotate;
-import javafx.util.Duration;
-
-import java.util.Objects;
 
 public class GameScreenController extends ControllerBase {
-    boolean goup = true;
     @FXML
     public AnchorPane maxpane;
     private boolean truly_init=false;
-    private static Parent NewSceneRoot;
-    private static Timeline timeline;
-    private static Scene scene;
-    private static Group group;
 
     private static Rectangle platform_current_standing;
     private static Rectangle platform_next_target;
-
     private static Rectangle perfecttarget;
-    private static int length=0;
-    @FXML
+
+
     private static Rectangle stick;
-    private static Rotate rotate = new Rotate();
-    public static Rectangle player; // add as a attribute to player class??? maybe also include the stick probably hm also make out proper methods there itself instead of the thread here ( proper formatting )
-
-    @FXML
-    private Button pauseButton;
-    @FXML
-    private Button helpButton;
-
+    public static Image player; // add as a attribute to player class??? maybe also include the stick probably hm also make out proper methods there itself instead of the thread here ( proper formatting )
     private static long keyPressedTime = 0; // Time when the key was pressed
     private static boolean keydown = false;
 
-
-    public static Scene getScene() {
-        return scene;
-    }
-
-    public static void setScene(Scene scene) {
-        GameScreenController.scene = scene;
-    }
-
-    public static void setNewSceneRoot(Parent newSceneRoot) {
-        NewSceneRoot = newSceneRoot;
-    }
-
-    public static void setGroup(Group group) {
-        GameScreenController.group = group;
-    }
-
-
     @FXML
     private void initialize() {
-        stick = new Rectangle(600,300, Color.rgb(0,0,0));
+        stick = new Rectangle(3,1, Color.rgb(0,0,0));
         stick.setLayoutX(250);
         stick.setLayoutY(620);
-        stick.setWidth(3);
-        stick.setHeight(1);
-
-
-
-        // Create a Timeline for animation
-
-
     }
 
     @FXML
@@ -91,8 +44,6 @@ public class GameScreenController extends ControllerBase {
     private void helpButton(){
         System.out.println("Help button pressed");
     }
-
-
 
     @FXML
     private void handleKeyPress(KeyEvent event) {
@@ -114,23 +65,8 @@ public class GameScreenController extends ControllerBase {
             }
             else{
                 Thread stickplay = new Thread(()->{
-                    if(length>500 || !goup) { // if length has exceeded 500 or currently going down { set going down to true if not already and start reducing stick length)
-                        if(goup){
-                            goup=!goup;
-                        }
-                        stick.setHeight(stick.getHeight() - 5);
-                        length -= 5;
-                        stick.setTranslateY(stick.getTranslateY() + 5);
-
-                    }
-                    if (length<50 || goup) {// if length is less than 50 or going upwards already ( set going up wards to true if not already ) and start increasing stick length
-                        if(!goup){
-                            goup=!goup;
-                        }
-                        stick.setHeight(stick.getHeight() + 5);
-                        length += 5;
-                        stick.setTranslateY(stick.getTranslateY() - 5);
-                    }
+                    Player StickHero = Player.getInstance(stick,player);
+                    StickHero.extendStick();
                     //run 2 frames worth of stick animation till it reaches peak length climax and cums
                 });
                 stickplay.start();
@@ -142,35 +78,14 @@ public class GameScreenController extends ControllerBase {
     private void handleKeyRelease(KeyEvent event) {
         if (event.getCode() == KeyCode.A) {
             // Calculate the duration of the key press
+            Player StickHero = Player.getInstance(stick,player);
             long keyReleasedTime = System.currentTimeMillis();
             System.out.println("released");
             keydown=false;
             long duration = keyReleasedTime - keyPressedTime;
             System.out.println("Key pressed duration: " + duration + " milliseconds");
             keyPressedTime = 0;
-
-
-
-
-            stick.setLayoutX(250);
-            stick.setLayoutY(620);
-            rotate.setPivotX(stick.getWidth() / 2 + stick.getLayoutX());
-            rotate.setPivotY(stick.getHeight() + stick.getLayoutY());
-            Rotate rotate = new Rotate();
-            stick.getTransforms().add(rotate);
-            // Create a Timeline for animation
-            Timeline timeline = new Timeline(
-                    new KeyFrame(Duration.ZERO,
-                            new KeyValue(rotate.angleProperty(), 0)
-                    ),
-                    new KeyFrame(Duration.seconds(1),
-                            new KeyValue(rotate.angleProperty(), 90)
-                    )
-            );
-            timeline.play();
-            stick.setLayoutX(250);
-            stick.setLayoutY(620);
-
+            StickHero.rotatestick();
 //            Thread running = new Thread(()->{
 //                while(System.currentTimeMillis()-keyReleasedTime<3*duration){
 //                    // send ninja to the shadow dimension then decide what to do with this cunt depending on how far he stuck his cock out
