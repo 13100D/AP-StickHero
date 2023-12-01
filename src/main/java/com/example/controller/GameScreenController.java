@@ -148,24 +148,22 @@ public class GameScreenController extends ControllerBase {
             long duration = keyReleasedTime - keyPressedTime;
             System.out.println("Key pressed duration: " + duration + " milliseconds");
             keyPressedTime = 0;
+
+
+
+
             stick.setLayoutX(250);
             stick.setLayoutY(620);
             rotate.setPivotX(stick.getWidth() / 2 + stick.getLayoutX());
             rotate.setPivotY(stick.getHeight() + stick.getLayoutY());
             Rotate rotate = new Rotate();
             stick.getTransforms().add(rotate);
-            double initialPivotX = stick.getWidth() / 2;
-            double initialPivotY = stick.getHeight();
-            stick.setTranslateX(initialPivotX);
-            stick.setTranslateY(initialPivotY);
             // Create a Timeline for animation
             Timeline timeline = new Timeline(
                     new KeyFrame(Duration.ZERO,
-                            new KeyValue(rotate.angleProperty(), 0),
-                            new KeyValue(stick.translateXProperty(), initialPivotX),
-                            new KeyValue(stick.translateYProperty(), initialPivotY)
+                            new KeyValue(rotate.angleProperty(), 0)
                     ),
-                    new KeyFrame(Duration.seconds(2),
+                    new KeyFrame(Duration.seconds(1),
                             new KeyValue(rotate.angleProperty(), 90)
                     )
             );

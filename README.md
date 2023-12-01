@@ -29,6 +29,21 @@ sprites and animations
 
 
 
+Add flags so that keypresses during animation runtime flip player
+Cherry...
+Pillars spawning
+Same collision logic for pillars...
+Pillars spawn 3
+2 visible one outside frame
+Move back
+Once movement animation done instantly teleport the leftmost pillar to outside the screen
+Move to left once stick animation and movement has succeeded ( if stick length ends up within margin of acceptable values
+Currently stick is spawned / initialised when key pressed
+Need to use better approach
+Can't leave pillars and player unspawned
+Possible solution spawn static entries from fxml
+Use fx: Id in code
+
 # to implement:
 - spawn in towers
 - spawn in cherries
