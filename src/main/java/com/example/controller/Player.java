@@ -37,8 +37,7 @@ public class Player implements Serializable {
         this.playersprite=playersprite;
 
     }
-
-    public void extendStick() {
+    Thread stickextend = new Thread(()->{
         if(length>500 || !goup) { // if length has exceeded 500 or currently going down { set going down to true if not already and start reducing stick length)
             if(goup){goup=!goup;}
             stick.setHeight(stick.getHeight() - 5);
@@ -51,7 +50,7 @@ public class Player implements Serializable {
             length += 5;
             stick.setTranslateY(stick.getTranslateY() - 5);
         }
-    }
+    });
     public void rotatestick() {//use pivot point and flip stick about bottom most point
         stick.getTransforms().clear();
         Rotate flip90deg = new Rotate(0, stick.getX(), stick.getY() + stick.getHeight());

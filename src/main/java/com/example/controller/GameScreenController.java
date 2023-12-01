@@ -64,12 +64,7 @@ public class GameScreenController extends ControllerBase {
                 keyPressedTime = System.currentTimeMillis();
             }
             else{
-                Thread stickplay = new Thread(()->{
-                    Player StickHero = Player.getInstance(stick,player);
-                    StickHero.extendStick();
-                    //run 2 frames worth of stick animation till it reaches peak length climax and cums
-                });
-                stickplay.start();
+                Player.getInstance(stick,player).stickextend.start();
             }
         }
     }
