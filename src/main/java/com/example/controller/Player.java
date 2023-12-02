@@ -13,10 +13,14 @@ import javafx.util.Duration;
 import java.io.*;
 
 public class Player implements Serializable {
+    private boolean animation;
 
-    private final Image playersprite;
+    public boolean isAnimation() {
+        return animation;
+    }
+
+    private Image playersprite;
     private int currentScore;
-    private static int length=0;
     boolean goup = true;
     private static Player StickHero = null;
     private Rectangle stick;
@@ -39,27 +43,61 @@ public class Player implements Serializable {
     }
 
     public void extendStick() {
-        if(length>500 || !goup) { // if length has exceeded 500 or currently going down { set going down to true if not already and start reducing stick length)
+        if(stick.getHeight()>500 || !goup) { // if length has exceeded 500 or currently going down { set going down to true if not already and start reducing stick length)
             if(goup){goup=!goup;}
             stick.setHeight(stick.getHeight() - 5);
-            length -= 5;
             stick.setTranslateY(stick.getTranslateY() + 5);
         }
-        if (length<50 || goup) {// if length is less than 50 or going upwards already ( set going up wards to true if not already ) and start increasing stick length
+        if (stick.getHeight()<50 || goup) {// if length is less than 50 or going upwards already ( set going up wards to true if not already ) and start increasing stick length
             if(!goup){goup=!goup;}
             stick.setHeight(stick.getHeight() + 5);
-            length += 5;
             stick.setTranslateY(stick.getTranslateY() - 5);
         }
     }
+
+    public void startanim() {
+        this.animation = true;
+    }
+
     public void rotatestick() {//use pivot point and flip stick about bottom most point
         stick.getTransforms().clear();
-        Rotate flip90deg = new Rotate(0, stick.getX(), stick.getY() + stick.getHeight());
+        Rotate flip90deg = new Rotate();
+        flip90deg.setPivotY(stick.getY() + stick.getHeight());
+        flip90deg.setPivotX(stick.getX());
         stick.getTransforms().add(flip90deg);
-        KeyValue key1 = new KeyValue(flip90deg.angleProperty(), 90);
-        KeyFrame key2 = new KeyFrame(Duration.millis(550), key1);
-        Timeline stickrotate = new Timeline(key2);
-        stickrotate.play();
+        KeyFrame key2 = new KeyFrame(Duration.millis(550), new KeyValue(flip90deg.angleProperty(), 90));
+        Timeline rotation = new Timeline(key2);
+        rotation.play();
+        rotation.setOnFinished(actionEvent -> {
+            animation = false;
+            traversestick();
+        });
+    }
+    public void flipback(){
+        Rotate flipback = new Rotate();
+        flipback.setPivotY(stick.getY() + stick.getHeight());
+        flipback.setPivotX(stick.getX());
+        flipback.setAngle(-90);
+        stick.setY(stick.getY()+stick.getHeight());
+        stick.setHeight(0);
+        stick.getTransforms().add(flipback);
+    }
+    public void traversestick(){//move the player across stick between one platform to other and repeatedly check for collision logic
+    //timeline that moves player in +ve x-axis by stick.getlength distance
+        KeyValue kv = new KeyValue(stick.translateXProperty(), stick.getHeight());
+        KeyFrame kf = new KeyFrame(Duration.millis(stick.getHeight()), kv);
+        Timeline timeline = new Timeline(kf);
+        timeline.play();
+        timeline.setOnFinished(actionEvent -> {
+            //check for collision logic
+            //if collision logic is true
+            //call gameover
+            //else
+            //call continuegame
+
+            flipback();
+        });
+
     }
     public void upsideDown() {
         // Implement upsideDown method logic

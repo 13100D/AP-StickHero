@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -9,6 +10,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.transform.Rotate;
 
 public class GameScreenController extends ControllerBase {
     @FXML
@@ -21,15 +23,16 @@ public class GameScreenController extends ControllerBase {
 
 
     private static Rectangle stick;
-    public static Image player; // add as a attribute to player class??? maybe also include the stick probably hm also make out proper methods there itself instead of the thread here ( proper formatting )
+    public static Image player; // add as an attribute to player class??? maybe also include the stick probably hm also make out proper methods there itself instead of the thread here ( proper formatting )
     private static long keyPressedTime = 0; // Time when the key was pressed
     private static boolean keydown = false;
 
     @FXML
     private void initialize() {
-        stick = new Rectangle(3,1, Color.rgb(0,0,0));
+        stick = new Rectangle(3,1, Color.rgb(15,15,15));
         stick.setLayoutX(250);
-        stick.setLayoutY(620);
+        stick.setLayoutY(500);
+        Player StickHero = Player.getInstance(stick,player);
     }
 
     @FXML
@@ -56,6 +59,7 @@ public class GameScreenController extends ControllerBase {
 //            maxpane.getChildren().add(group);
             truly_init=true;
         }
+        Player StickHero = Player.getInstance(stick, player);
         if (event.getCode() == KeyCode.A) {
             // Record the time when the space key is pressed
             if(!keydown) {
@@ -64,28 +68,29 @@ public class GameScreenController extends ControllerBase {
                 keyPressedTime = System.currentTimeMillis();
             }
             else{
-                Thread stickplay = new Thread(()->{
-                    Player StickHero = Player.getInstance(stick,player);
-                    StickHero.extendStick();
-                    //run 2 frames worth of stick animation till it reaches peak length climax and cums
-                });
-                stickplay.start();
+                if(!(StickHero.isAnimation())) {
+                    Thread stickplay = new Thread(StickHero::extendStick);
+                    stickplay.start();
+                }
             }
         }
     }
 
     @FXML
     private void handleKeyRelease(KeyEvent event) {
-        if (event.getCode() == KeyCode.A) {
+        Player StickHero = Player.getInstance(stick,player);
+        if (event.getCode() == KeyCode.A && !(StickHero.isAnimation())) {
             // Calculate the duration of the key press
-            Player StickHero = Player.getInstance(stick,player);
             long keyReleasedTime = System.currentTimeMillis();
             System.out.println("released");
+            StickHero.startanim(); // sets value for animation boolean to avoid keypresses mid animations
             keydown=false;
             long duration = keyReleasedTime - keyPressedTime;
             System.out.println("Key pressed duration: " + duration + " milliseconds");
             keyPressedTime = 0;
             StickHero.rotatestick();
+
+
 //            Thread running = new Thread(()->{
 //                while(System.currentTimeMillis()-keyReleasedTime<3*duration){
 //                    // send ninja to the shadow dimension then decide what to do with this cunt depending on how far he stuck his cock out
@@ -95,9 +100,6 @@ public class GameScreenController extends ControllerBase {
 //                        stick.getTransforms().add(rotate);
 //                    }
 //                }
-//
-//
-//
 //            });
 //            running.start();
 

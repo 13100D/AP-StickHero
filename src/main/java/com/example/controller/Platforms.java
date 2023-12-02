@@ -1,12 +1,12 @@
 package com.example.controller;
 import java.util.Random;
 
-public class Platform {
+public class Platforms {
     Random rand = new Random();
     private double distance;
     private double width;
 
-    public Platform() {
+    public Platforms() {
         this.distance = randomDistanceGenerator();
         this.width = randomWidthGenerator();
     }
