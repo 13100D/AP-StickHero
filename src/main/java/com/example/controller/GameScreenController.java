@@ -16,12 +16,6 @@ public class GameScreenController extends ControllerBase {
     @FXML
     public AnchorPane maxpane;
     private boolean truly_init=false;
-
-    private static Rectangle platform_current_standing;
-    private static Rectangle platform_next_target;
-    private static Rectangle perfecttarget;
-
-
     private static Rectangle stick;
     public static Image player; // add as an attribute to player class??? maybe also include the stick probably hm also make out proper methods there itself instead of the thread here ( proper formatting )
     private static long keyPressedTime = 0; // Time when the key was pressed
@@ -32,7 +26,7 @@ public class GameScreenController extends ControllerBase {
         stick = new Rectangle(3,1, Color.rgb(15,15,15));
         stick.setLayoutX(250);
         stick.setLayoutY(500);
-        Player StickHero = Player.getInstance(stick,player);
+
     }
 
     @FXML
