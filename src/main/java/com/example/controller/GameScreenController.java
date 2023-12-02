@@ -26,7 +26,8 @@ public class GameScreenController extends ControllerBase {
         stick = new Rectangle(3,1, Color.rgb(15,15,15));
         stick.setLayoutX(250);
         stick.setLayoutY(500);
-
+        Player StickHero = Player.getInstance(stick, player);
+        Platforms.makePlatforms(StickHero);
     }
 
     @FXML
@@ -49,6 +50,7 @@ public class GameScreenController extends ControllerBase {
             maxpane.getChildren().add(stick);
 //            group.getChildren().add(platform_next_target);
 //            group.getChildren().add(player);
+            Platforms.addToPane(maxpane);
 //            group.getChildren().add(stick);
 //            maxpane.getChildren().add(group);
             truly_init=true;

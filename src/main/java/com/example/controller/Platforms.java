@@ -1,6 +1,11 @@
 package com.example.controller;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -11,7 +16,14 @@ public class Platforms {
 
     private static Platforms instance = null;
 
-    public void makePlatforms()
+    public static void addToPane(AnchorPane maxpane) {
+
+        for (Rectangle rectangle : instance.rectangles) {
+            maxpane.getChildren().add(rectangle);
+        }
+    }
+
+    public static void makePlatforms(Player Stickhero)
     {
         if (instance == null)
         {
@@ -21,7 +33,26 @@ public class Platforms {
         else
         {
             // shuffle around existing platforms
+            movegroup(Stickhero);
         }
+    }
+
+    private static void movegroup(Player stickhero) {
+        //make a grouping of stick playersprite and platforms
+        //move the grouping
+//        KeyValue kv = new KeyValue(stick.translateXProperty(), stick.getHeight());
+//        KeyFrame kf = new KeyFrame(Duration.millis(stick.getHeight()), kv);
+//        Timeline timeline = new Timeline(kf);
+//        timeline.play();
+//        timeline.setOnFinished(actionEvent -> {
+//            //check for collision logic
+//            //if collision logic is true
+//            //call gameover
+//            //else
+//            //call continuegame
+//
+//            flipback();
+//        });
     }
 
     private Platforms() {
@@ -46,6 +77,6 @@ public class Platforms {
 
     private double randomWidthGenerator()
     {
-        return rand.nextInt(350);
+        return rand.nextInt(100);
     }
 }
