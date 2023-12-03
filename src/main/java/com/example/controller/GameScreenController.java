@@ -1,23 +1,23 @@
 package com.example.controller;
 
-import javafx.animation.Timeline;
+
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.transform.Rotate;
 
 public class GameScreenController extends ControllerBase {
     @FXML
     public AnchorPane maxpane;
     private boolean truly_init=false;
     private static Rectangle stick;
-    public static Image player; // add as an attribute to player class??? maybe also include the stick probably hm also make out proper methods there itself instead of the thread here ( proper formatting )
+    public static ImageView playersprite; // add as an attribute to player class??? maybe also include the stick probably hm also make out proper methods there itself instead of the thread here ( proper formatting )
     private static long keyPressedTime = 0; // Time when the key was pressed
     private static boolean keydown = false;
 
@@ -26,7 +26,12 @@ public class GameScreenController extends ControllerBase {
         stick = new Rectangle(3,1, Color.rgb(15,15,15));
         stick.setLayoutX(250);
         stick.setLayoutY(500);
-        Player StickHero = Player.getInstance(stick, player);
+        playersprite = new ImageView(new Image("file:src/main/resources/dinovanilla.png"));
+        playersprite.setFitHeight(50);
+        playersprite.setFitWidth(50);
+        playersprite.setLayoutY(450);
+        playersprite.setLayoutX(200);
+        Player StickHero = Player.getInstance(stick, playersprite);
         Platforms.makePlatforms(StickHero);
     }
 
@@ -46,16 +51,12 @@ public class GameScreenController extends ControllerBase {
     @FXML
     private void handleKeyPress(KeyEvent event) {
         if(!truly_init) {
-//            maxpane.getChildren().add(platform_current_standing);
             maxpane.getChildren().add(stick);
-//            group.getChildren().add(platform_next_target);
-//            group.getChildren().add(player);
+            maxpane.getChildren().add(playersprite);
             Platforms.addToPane(maxpane);
-//            group.getChildren().add(stick);
-//            maxpane.getChildren().add(group);
             truly_init=true;
         }
-        Player StickHero = Player.getInstance(stick, player);
+        Player StickHero = Player.getInstance(stick, playersprite);
         if (event.getCode() == KeyCode.A) {
             // Record the time when the space key is pressed
             if(!keydown) {
@@ -74,7 +75,7 @@ public class GameScreenController extends ControllerBase {
 
     @FXML
     private void handleKeyRelease(KeyEvent event) {
-        Player StickHero = Player.getInstance(stick,player);
+        Player StickHero = Player.getInstance(stick,playersprite);
         if (event.getCode() == KeyCode.A && !(StickHero.isAnimation())) {
             // Calculate the duration of the key press
             long keyReleasedTime = System.currentTimeMillis();

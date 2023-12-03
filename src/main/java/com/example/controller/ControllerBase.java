@@ -28,7 +28,6 @@ public abstract class ControllerBase {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("\n\n\n FUCKING ERRORS AAAAAAAAAAAAA \n\n\n");
         return null;
     }
 

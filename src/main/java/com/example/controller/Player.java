@@ -6,6 +6,7 @@ import javafx.animation.Timeline;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
@@ -19,14 +20,14 @@ public class Player implements Serializable {
         return animation;
     }
 
-    private Image playersprite;
+    private ImageView playersprite;
     private int currentScore;
     boolean goup = true;
     private static Player StickHero = null;
     private Rectangle stick;
 
     //singleton - Design Practice
-    public static Player getInstance(Rectangle stick, Image playersprite)
+    public static Player getInstance(Rectangle stick, ImageView playersprite)
     {
         if (StickHero == null) {
             StickHero = new Player(stick, playersprite);
@@ -35,7 +36,7 @@ public class Player implements Serializable {
         return StickHero;
     }
 
-    private Player(Rectangle stick, Image playersprite) {
+    private Player(Rectangle stick, ImageView playersprite) {
         this.currentScore = 0;
         this.stick=stick;
         this.playersprite=playersprite;
@@ -69,11 +70,11 @@ public class Player implements Serializable {
         Timeline rotation = new Timeline(key2);
         rotation.play();
         rotation.setOnFinished(actionEvent -> {
-            animation = false;
             traversestick();
         });
     }
     public void flipback(){
+        System.out.println("flipping back");
         Rotate flipback = new Rotate();
         flipback.setPivotY(stick.getY() + stick.getHeight());
         flipback.setPivotX(stick.getX());
@@ -81,11 +82,13 @@ public class Player implements Serializable {
         stick.setY(stick.getY()+stick.getHeight());
         stick.setHeight(0);
         stick.getTransforms().add(flipback);
+        animation = false;
     }
     public void traversestick(){//move the player across stick between one platform to other and repeatedly check for collision logic
     //timeline that moves player in +ve x-axis by stick.getlength distance
-        KeyValue kv = new KeyValue(stick.translateXProperty(), stick.getHeight());
-        KeyFrame kf = new KeyFrame(Duration.millis(stick.getHeight()), kv);
+        System.out.println("stick traversal work in progress");
+        KeyValue kv = new KeyValue(playersprite.translateXProperty(), stick.getHeight());
+        KeyFrame kf = new KeyFrame(Duration.millis(4*(stick.getHeight()+10)), kv);
         Timeline timeline = new Timeline(kf);
         timeline.play();
         timeline.setOnFinished(actionEvent -> {
