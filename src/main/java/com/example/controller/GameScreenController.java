@@ -26,7 +26,7 @@ public class GameScreenController extends ControllerBase {
         stick = new Rectangle(3,1, Color.rgb(15,15,15));
         stick.setLayoutX(250);
         stick.setLayoutY(500);
-        playersprite = new ImageView(new Image("file:src/main/resources/dinovanilla.png"));
+        playersprite = new ImageView(new Image("file:src/main/resources/dinonig.png"));
         playersprite.setFitHeight(50);
         playersprite.setFitWidth(50);
         playersprite.setLayoutY(450);
