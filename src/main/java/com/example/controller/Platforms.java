@@ -1,10 +1,13 @@
 package com.example.controller;
 
-import javafx.animation.*;
+import javafx.animation.TranslateTransition;
+import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.util.*;
+import javafx.util.Duration;
+
 import java.util.*;
 
 public class Platforms {
@@ -30,25 +33,34 @@ public class Platforms {
         else
         {
             // shuffle around existing platforms
-            movegroup(Stickhero);
+            moveGroup(Stickhero);
         }
     }
 
-    private static void movegroup(Player stickhero) {
+    private static void moveGroup(Player stickhero) {
         //make a grouping of stick playersprite and platforms
         //move the grouping
+
+        Pane group = new Pane();
+        ArrayList<Node> nodes = new ArrayList<>();
+        nodes.add(stickhero.getPlayerSprite());
+        nodes.addAll(instance.rectangles);
+        group.getChildren().addAll(nodes);
+
+        double originalX = 200;
+
+        TranslateTransition transition = new TranslateTransition(Duration.millis(1000), group);
+        transition.setToX(originalX);
+        transition.play();
+
+//        stickhero.getStickSprite().setLayoutY(stickhero.getStickSprite().getLayoutY() + stickhero.getStickSprite().getHeight());
+//        stickhero.getStickSprite().setLayoutX(stickhero.getStickSprite().getLayoutX() + stickhero.getStickSprite().getWidth());
+
 //        KeyValue kv = new KeyValue(stick.translateXProperty(), stick.getHeight());
 //        KeyFrame kf = new KeyFrame(Duration.millis(stick.getHeight()), kv);
 //        Timeline timeline = new Timeline(kf);
 //        timeline.play();
 //        timeline.setOnFinished(actionEvent -> {
-//            //check for collision logic
-//            //if collision logic is true
-//            //call gameover
-//            //else
-//            //call continuegame
-//
-//            flipback();
 //        });
     }
 
