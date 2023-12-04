@@ -8,6 +8,7 @@ import javafx.util.Duration;
 import java.util.*;
 
 public class Cherry {
+    private final Random rand = new Random();
     private static int numCherries;
     private static final int spawnRate = 43;
     private static Map<Integer, Cherry> instances = new HashMap<>();
@@ -24,7 +25,7 @@ public class Cherry {
         cherrySprite.setFitHeight(35);
         cherrySprite.setFitWidth(35);
         cherrySprite.setLayoutY(500);
-        cherrySprite.setLayoutX((distance)+200); //random upper bound as distance
+        cherrySprite.setLayoutX(rand.nextInt(distance)+200); //random upper bound as distance
     }
 
     public static Cherry getInstance(Integer distance) {
