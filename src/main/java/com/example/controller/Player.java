@@ -83,8 +83,9 @@ public class Player implements Serializable {
         stick.getTransforms().add(flipback);
         animation = false;
     }
-    public void traversestick(){//move the player across stick between one platform to other and repeatedly check for collision logic
-    //timeline that moves player in +ve x-axis by stick.getlength distance
+    public void traversestick() {
+        //move the player across stick between one platform to other and repeatedly check for collision logic
+        //timeline that moves player in +ve x-axis by stick.getlength distance
         System.out.println("stick traversal work in progress");
         KeyValue kv = new KeyValue(playersprite.translateXProperty(), stick.getHeight()+25); // need to reset stick and player relative positioning too probably
         KeyFrame kf = new KeyFrame(Duration.millis(4*(stick.getHeight()+10)), kv);
@@ -139,5 +140,9 @@ public class Player implements Serializable {
             e.printStackTrace();
             System.out.println("Error loading the game.");
         }
+    }
+
+    public ImageView getPlayerSprite() {
+        return playersprite;
     }
 }
