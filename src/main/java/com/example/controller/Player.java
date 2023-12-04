@@ -96,7 +96,7 @@ public class Player implements Serializable {
             //call gameover
             //else
             //call continuegame
-
+            Platforms.makePlatforms(this);
             flipback();
         });
 
