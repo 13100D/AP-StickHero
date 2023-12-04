@@ -9,6 +9,7 @@ public class Cherry {
     private static final int spawnRate = 43;
     private static Map<Integer, Cherry> instances = new HashMap<>();
     private static ImageView cherrySprite;
+    private int distance;
 
     private Cherry(int distance)
     {
@@ -29,11 +30,11 @@ public class Cherry {
 
     public static void incrCherries()
     {
-
+        numCherries += 1;
     }
 
     public static void reviveSubtractCherries()
     {
-
+        numCherries -= 20;
     }
 }
