@@ -1,14 +1,11 @@
 package com.example.controller;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
+
+import javafx.animation.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.util.Duration;
-
-import java.util.ArrayList;
-import java.util.Random;
+import javafx.util.*;
+import java.util.*;
 
 public class Platforms {
     private final Random rand = new Random();
