@@ -11,30 +11,34 @@ public class Cherry {
     private final Random rand = new Random();
     private static int numCherries;
     private static final int spawnRate = 43;
-    private static Map<Integer, Cherry> instances = new HashMap<>();
-    private static ImageView cherrySprite = new ImageView(new Image("com/example/assets/coin.png"));
-    private int distance;
+    private static Cherry cherry = null;
+    private static ImageView cherrySprite = new ImageView(new Image("com/example/assets/coin.png"));;
 
     public static ImageView getCherrySprite() {
         return cherrySprite;
     }
 
-    private Cherry(int distance)
+    private Cherry(int low, int high)
     {
-        this.distance = distance;
+        cherrySprite.setLayoutX(rand.nextInt(high - low) + low);
+        cherrySprite.setLayoutY(500);
         cherrySprite.setFitHeight(35);
         cherrySprite.setFitWidth(35);
-        cherrySprite.setLayoutY(500);
-        cherrySprite.setLayoutX(rand.nextInt(distance)+200); //random upper bound as distance
     }
 
-    public static Cherry getInstance(Integer distance) {
-        if (!instances.containsKey(distance))
+    public static void spawnCherry(int low, int high)
+    {
+        if (cherry == null)
         {
-            instances.put(distance, new Cherry(distance));
+            cherry = new Cherry(low, high);
+            fadeInAnimation();
         }
 
-        return instances.get(distance);
+        else
+        {
+            cherrySprite.setLayoutX(cherry.rand.nextInt(high - low) + low);
+            fadeInAnimation();
+        }
     }
 
     public static int getNumCherries() {
@@ -51,14 +55,14 @@ public class Cherry {
         numCherries -= 20;
     }
 
-    public void fadeInAnimation() {
+    public static void fadeInAnimation() {
         FadeTransition fadeIn = new FadeTransition(Duration.millis(1000), cherrySprite);
         fadeIn.setFromValue(0.0);
         fadeIn.setToValue(1.0);
         fadeIn.play();
     }
 
-    public void fadeOutAnimation() {
+    public static void fadeOutAnimation() {
         FadeTransition fadeOut = new FadeTransition(Duration.millis(1000), cherrySprite);
         fadeOut.setFromValue(1.0);
         fadeOut.setToValue(0.0);

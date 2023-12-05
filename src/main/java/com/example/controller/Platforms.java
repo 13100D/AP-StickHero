@@ -35,11 +35,7 @@ public class Platforms {
         }
         else
         {
-            // shuffle around existing platforms
-
-
             moveGroup(Stickhero);
-
         }
     }
 
@@ -59,14 +55,16 @@ public class Platforms {
         System.out.println("rect1 translate X: " + rectangles.get(0).getTranslateX());
         System.out.println("rect2 translate X: " + rectangles.get(1).getTranslateX());
         System.out.println("rect3 translate X: " + rectangles.get(2).getTranslateX());
+
         Pane originpain = ((Pane) stickhero.getPlayerSprite().getParent());
         Pane group = new Pane();
         ArrayList<Node> nodes = new ArrayList<>(rectangles);
         nodes.add(stickhero.getPlayerSprite());
         group.getChildren().addAll(nodes);
         originpain.getChildren().add(group);
-// Set initial position
-//        group.setTranslateX(200);
+
+        System.out.println("Initial translateX: " + group.getTranslateX());
+
         KeyValue kv = new KeyValue(group.translateXProperty(), group.getTranslateX() - stickhero.getlength());
         KeyFrame kf = new KeyFrame(Duration.millis(100), kv);
         Timeline timeline = new Timeline(kf);
@@ -75,13 +73,11 @@ public class Platforms {
         KeyFrame kf2 = new KeyFrame(Duration.millis(100), kv2);
         Timeline timeline2 = new Timeline(kf2);
 
-
         timeline.play();
 
         timeline.setOnFinished(event -> {
             timeline2.play();
             //probably check for which animation to play ( in case of collision / insufficient stick length )
-            int size = rectangles.size();
 
             Rectangle rect = rectangles.get(0);
             rectangles.remove(0);
@@ -91,22 +87,6 @@ public class Platforms {
             Rectangle rect3 = rectangles.get(2);
             rect3.setTranslateX(rect3.getTranslateX() + 700);
         });
-
-
-//        double originalX = group.getLayoutX();
-//
-//        TranslateTransition transition = new TranslateTransition(Duration.millis(100), group);
-//        transition.setToX(originalX);
-//        transition.play();
-
-//        stickhero.getStickSprite().setLayoutY(stickhero.getStickSprite().getLayoutY() + stickhero.getStickSprite().getHeight());
-//        stickhero.getStickSprite().setLayoutX(stickhero.getStickSprite().getLayoutX() + stickhero.getStickSprite().getWidth());
-
-//        KeyValue kv = new KeyValue(stick.translateXProperty(), stick.getHeight());
-//        KeyFrame kf = new KeyFrame(Duration.millis(stick.getHeight()), kv);
-//        Timeline timeline = new Timeline(kf);
-//        timeline.play();
-
     }
 
     private Platforms() {

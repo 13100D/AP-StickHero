@@ -89,7 +89,8 @@ public class Player implements Serializable {
     public void traversestick() {
         //move the player across stick between one platform to other and repeatedly check for collision logic
         //timeline that moves player in +ve x-axis by stick.getlength distance
-        idekwhyineedthisbutok+=stick.getHeight();
+        System.out.println("stick traversal work in progress");
+        idekwhyineedthisbutok += stick.getHeight();
         KeyValue kv = new KeyValue(playersprite.translateXProperty(), idekwhyineedthisbutok+25); // need to reset stick and player relative positioning too probably
         KeyFrame kf = new KeyFrame(Duration.millis(4*(stick.getHeight())+1), kv);
         Timeline timeline = new Timeline(kf);
