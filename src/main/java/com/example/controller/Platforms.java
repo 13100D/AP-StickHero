@@ -45,25 +45,16 @@ public class Platforms {
         System.out.println("player sprite x: " + stickhero.getPlayerSprite().getTranslateX());
         System.out.println("player X: " + stickhero.getPlayerSprite().getX());
         System.out.println("player layout X: " + stickhero.getPlayerSprite().getLayoutX());
-        System.out.println("sticklength: " + stickhero.getlength());
-        System.out.println("rect1 X: " + rectangles.get(0).getX()+"rect1 width: "+rectangles.get(0).getWidth());
+        System.out.println("\n\nsticklength: " + stickhero.getlength());
         System.out.println("rect2 X: " + rectangles.get(1).getX()+"rect2 width: "+rectangles.get(1).getWidth());
-        System.out.println("rect3 X: " + rectangles.get(2).getX()+"rect3 width: "+rectangles.get(2).getWidth());
-        System.out.println("rect1 layout X: " + rectangles.get(0).getLayoutX());
         System.out.println("rect2 layout X: " + rectangles.get(1).getLayoutX());
-        System.out.println("rect3 layout X: " + rectangles.get(2).getLayoutX());
-        System.out.println("rect1 translate X: " + rectangles.get(0).getTranslateX());
         System.out.println("rect2 translate X: " + rectangles.get(1).getTranslateX());
-        System.out.println("rect3 translate X: " + rectangles.get(2).getTranslateX());
-
         Pane originpain = ((Pane) stickhero.getPlayerSprite().getParent());
         Pane group = new Pane();
         ArrayList<Node> nodes = new ArrayList<>(rectangles);
         nodes.add(stickhero.getPlayerSprite());
         group.getChildren().addAll(nodes);
         originpain.getChildren().add(group);
-
-        System.out.println("Initial translateX: " + group.getTranslateX());
 
         KeyValue kv = new KeyValue(group.translateXProperty(), group.getTranslateX() - stickhero.getlength());
         KeyFrame kf = new KeyFrame(Duration.millis(100), kv);
