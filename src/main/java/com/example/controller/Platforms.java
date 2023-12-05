@@ -46,6 +46,19 @@ public class Platforms {
     private static void moveGroup(Player stickhero) {
         //make a grouping of stick playersprite and platforms
         //move the grouping
+        System.out.println("player sprite x: " + stickhero.getPlayerSprite().getTranslateX());
+        System.out.println("player X: " + stickhero.getPlayerSprite().getX());
+        System.out.println("player layout X: " + stickhero.getPlayerSprite().getLayoutX());
+        System.out.println("sticklength: " + stickhero.getlength());
+        System.out.println("rect1 X: " + rectangles.get(0).getX()+"rect1 width: "+rectangles.get(0).getWidth());
+        System.out.println("rect2 X: " + rectangles.get(1).getX()+"rect2 width: "+rectangles.get(1).getWidth());
+        System.out.println("rect3 X: " + rectangles.get(2).getX()+"rect3 width: "+rectangles.get(2).getWidth());
+        System.out.println("rect1 layout X: " + rectangles.get(0).getLayoutX());
+        System.out.println("rect2 layout X: " + rectangles.get(1).getLayoutX());
+        System.out.println("rect3 layout X: " + rectangles.get(2).getLayoutX());
+        System.out.println("rect1 translate X: " + rectangles.get(0).getTranslateX());
+        System.out.println("rect2 translate X: " + rectangles.get(1).getTranslateX());
+        System.out.println("rect3 translate X: " + rectangles.get(2).getTranslateX());
         Pane originpain = ((Pane) stickhero.getPlayerSprite().getParent());
         Pane group = new Pane();
         ArrayList<Node> nodes = new ArrayList<>(rectangles);
@@ -54,9 +67,6 @@ public class Platforms {
         originpain.getChildren().add(group);
 // Set initial position
 //        group.setTranslateX(200);
-
-        System.out.println("Initial translateX: " + group.getTranslateX());
-
         KeyValue kv = new KeyValue(group.translateXProperty(), group.getTranslateX() - stickhero.getlength());
         KeyFrame kf = new KeyFrame(Duration.millis(100), kv);
         Timeline timeline = new Timeline(kf);
@@ -69,14 +79,13 @@ public class Platforms {
         timeline.play();
 
         timeline.setOnFinished(event -> {
-            System.out.println("moving backwards and yeeting pillars");
             timeline2.play();
-            System.out.println("Updated translateX: " + group.getTranslateX());
             //probably check for which animation to play ( in case of collision / insufficient stick length )
             int size = rectangles.size();
 
             Rectangle rect = rectangles.get(0);
             rectangles.remove(0);
+            rect.setWidth(randomWidthGenerator()+20);
             rectangles.add(rect);
 
             Rectangle rect3 = rectangles.get(2);
@@ -120,7 +129,7 @@ public class Platforms {
         return rand.nextInt(400);
     }
 
-    private double randomWidthGenerator()
+    private static double randomWidthGenerator()
     {
         return rand.nextInt(100);
     }

@@ -77,7 +77,6 @@ public class Player implements Serializable {
         });
     }
     public void flipback(){
-        System.out.println("flipping back");
         Rotate flipback = new Rotate();
         flipback.setPivotY(stick.getY() + stick.getHeight());
         flipback.setPivotX(stick.getX());
@@ -90,7 +89,6 @@ public class Player implements Serializable {
     public void traversestick() {
         //move the player across stick between one platform to other and repeatedly check for collision logic
         //timeline that moves player in +ve x-axis by stick.getlength distance
-        System.out.println("stick traversal work in progress");
         idekwhyineedthisbutok+=stick.getHeight();
         KeyValue kv = new KeyValue(playersprite.translateXProperty(), idekwhyineedthisbutok+25); // need to reset stick and player relative positioning too probably
         KeyFrame kf = new KeyFrame(Duration.millis(4*(stick.getHeight())+1), kv);
@@ -108,7 +106,14 @@ public class Player implements Serializable {
 
     }
     public void upsideDown() {
-        // Implement upsideDown method logic
+        // Implement upsideDown animation logic
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO, event -> playersprite.setScaleY(playersprite.getScaleY() * -1)),
+                new KeyFrame(Duration.ZERO, event -> playersprite.setTranslateY(playersprite.getTranslateY()+100)),
+                new KeyFrame(Duration.seconds(2))
+        );
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
     }
 
     public void continueGame() {

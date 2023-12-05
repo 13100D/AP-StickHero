@@ -60,15 +60,16 @@ public class GameScreenController extends ControllerBase {
         if (event.getCode() == KeyCode.A) {
             // Record the time when the space key is pressed
             if(!keydown) {
-                System.out.println("pressed");
                 keydown = true;
                 keyPressedTime = System.currentTimeMillis();
             }
+
             else{
                 if(!(StickHero.isAnimation())) {
                     Thread stickplay = new Thread(StickHero::extendStick);
                     stickplay.start();
                 }
+
             }
         }
     }
@@ -76,31 +77,23 @@ public class GameScreenController extends ControllerBase {
     @FXML
     private void handleKeyRelease(KeyEvent event) {
         Player StickHero = Player.getInstance(stick,playersprite);
+        if(!keydown&&StickHero.isAnimation()){
+            System.out.println("flipping");
+            StickHero.upsideDown();
+        }
         if (event.getCode() == KeyCode.A && !(StickHero.isAnimation())) {
             // Calculate the duration of the key press
             long keyReleasedTime = System.currentTimeMillis();
-            System.out.println("released");
-            StickHero.startanim(); // sets value for animation boolean to avoid keypresses mid animations
             keydown=false;
+            StickHero.startanim(); // sets value for animation boolean to avoid keypresses mid animations
+
             long duration = keyReleasedTime - keyPressedTime;
-            System.out.println("Key pressed duration: " + duration + " milliseconds");
             keyPressedTime = 0;
             StickHero.rotatestick();
 
 
-//            Thread running = new Thread(()->{
-//                while(System.currentTimeMillis()-keyReleasedTime<3*duration){
-//                    // send ninja to the shadow dimension then decide what to do with this cunt depending on how far he stuck his cock out
-//                    if(System.currentTimeMillis()-keyReleasedTime<duration) {
-//
-//
-//                        stick.getTransforms().add(rotate);
-//                    }
-//                }
-//            });
-//            running.start();
-
         }
+
 
         //additional methods and event handlers for screen 2
     }
