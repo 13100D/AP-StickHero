@@ -17,8 +17,10 @@ import java.util.*;
 public class Platforms {
     private static final Random rand = new Random();
     private static ArrayList<Rectangle> rectangles = new ArrayList<>();
-
     private static Platforms instance = null;
+    private static double stickMinLength;
+    private static double stickMaxLength;
+    private static double stickOptimalLength;
 
     public static void addToPane(AnchorPane maxpane) {
 
@@ -75,6 +77,10 @@ public class Platforms {
             rect.setWidth(randomWidthGenerator()+20);
             rectangles.add(rect);
 
+            stickMinLength = rectangles.get(1).getLayoutX() - rectangles.get(0).getLayoutX();
+            stickMaxLength = rectangles.get(2).getLayoutX() + rectangles.get(2).getWidth();
+            stickOptimalLength = (stickMinLength + stickMaxLength) / 2;
+
             Rectangle rect3 = rectangles.get(2);
             rect3.setTranslateX(rect3.getTranslateX() + 700);
         });
@@ -103,5 +109,17 @@ public class Platforms {
     private static double randomWidthGenerator()
     {
         return rand.nextInt(100);
+    }
+
+    public static double getStickMinLength() {
+        return stickMinLength;
+    }
+
+    public static double getStickMaxLength() {
+        return stickMaxLength;
+    }
+
+    public static double getStickOptimalLength() {
+        return stickOptimalLength;
     }
 }

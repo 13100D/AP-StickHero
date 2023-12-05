@@ -38,7 +38,7 @@ public class Cherry {
         else
         {
             cherrySpawned = true;
-            
+
             if (cherry == null)
             {
                 cherry = new Cherry(low, high);
@@ -82,5 +82,9 @@ public class Cherry {
             // Additional logic to handle animation completion, if needed
         });
         fadeOut.play();
+    }
+
+    public static boolean isCherrySpawned() {
+        return cherrySpawned;
     }
 }
