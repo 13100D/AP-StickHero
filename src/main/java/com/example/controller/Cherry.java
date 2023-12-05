@@ -18,15 +18,15 @@ public class Cherry {
         return cherrySprite;
     }
 
-    private Cherry(int low, int high)
+    private Cherry(double low, double high)
     {
-        cherrySprite.setLayoutX(rand.nextInt(high - low) + low);
+        cherrySprite.setLayoutX(rand.nextInt((int) ( (high - low) + low)));
         cherrySprite.setLayoutY(500);
         cherrySprite.setFitHeight(35);
         cherrySprite.setFitWidth(35);
     }
 
-    public static void spawnCherry(int low, int high)
+    public static void spawnCherry(double low, double high)
     {
         if (cherry == null)
         {
@@ -36,7 +36,7 @@ public class Cherry {
 
         else
         {
-            cherrySprite.setLayoutX(cherry.rand.nextInt(high - low) + low);
+            cherrySprite.setLayoutX(cherry.rand.nextInt((int) (high - low)) + low);
             fadeInAnimation();
         }
     }
