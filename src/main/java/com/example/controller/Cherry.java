@@ -1,6 +1,5 @@
 package com.example.controller;
 
-import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.animation.FadeTransition;
 import javafx.scene.image.ImageView;
@@ -15,7 +14,7 @@ public class Cherry {
     private static int numCherries;
     private static final int spawnRate = 100;
     private static Cherry cherry = null;
-    private static ImageView cherrySprite = new ImageView(new Image("/coin.png"));;
+    private static ImageView cherrySprite = new ImageView(new Image("/coin.png"));
 
     public static ImageView getCherrySprite() {
         return cherrySprite;
@@ -23,7 +22,9 @@ public class Cherry {
 
     private Cherry(double low, double high)
     {
-        cherrySprite.setLayoutX(rand.nextInt((int) ( (high - low) + low)));
+        int spawnloc=rand.nextInt((int) ( (high - low) + low));
+        System.out.println("spawnloc: " + spawnloc);
+        cherrySprite.setLayoutX(spawnloc);
         cherrySprite.setLayoutY(500);
         cherrySprite.setFitHeight(35);
         cherrySprite.setFitWidth(35);

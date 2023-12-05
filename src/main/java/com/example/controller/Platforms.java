@@ -21,6 +21,7 @@ public class Platforms {
     private static double stickMinLength;
     private static double stickMaxLength;
     private static double stickOptimalLength;
+    private static boolean first = true;
 
     public static void addToPane(AnchorPane maxpane) {
 
@@ -72,19 +73,23 @@ public class Platforms {
         timeline.setOnFinished(event -> {
             timeline2.play();
             //probably check for which animation to play ( in case of collision / insufficient stick length )
+            if(first){
+                first = false;
+            }
+            else{
+                Rectangle rect = rectangles.get(0);
+                rectangles.remove(0);
+                rect.setWidth(randomWidthGenerator() + 20);
+                rectangles.add(rect);
 
-            Rectangle rect = rectangles.get(0);
-            rectangles.remove(0);
-            rect.setWidth(randomWidthGenerator()+20);
-            rectangles.add(rect);
+                stickMinLength = rectangles.get(1).getLayoutX() - rectangles.get(0).getLayoutX();
+                stickMaxLength = rectangles.get(2).getLayoutX() + rectangles.get(2).getWidth();
+                stickOptimalLength = (stickMinLength + stickMaxLength) / 2;
 
-            stickMinLength = rectangles.get(1).getLayoutX() - rectangles.get(0).getLayoutX();
-            stickMaxLength = rectangles.get(2).getLayoutX() + rectangles.get(2).getWidth();
-            stickOptimalLength = (stickMinLength + stickMaxLength) / 2;
-
-            Rectangle rect3 = rectangles.get(2);
-            rect3.setTranslateX(rect3.getTranslateX() + 700);
-            Cherry.spawnCherry(rectangles.get(0).getLayoutX() +  rectangles.get(0).getWidth() +35 ,rectangles.get(1).getLayoutX() - 35 , originpain);
+                Rectangle rect3 = rectangles.get(2);
+                rectangles.get(2).setTranslateX(rectangles.get(1).getTranslateX() + randomDistanceGenerator()+rectangles.get(1).getWidth());
+                Cherry.spawnCherry(rectangles.get(1).getLayoutX() + rectangles.get(1).getWidth(), rectangles.get(2).getLayoutX() - 35, originpain);
+            }
         });
     }
 
