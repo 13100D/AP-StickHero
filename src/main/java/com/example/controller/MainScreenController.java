@@ -6,7 +6,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
+import java.io.File;
+import java.util.Objects;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class MainScreenController extends ControllerBase {
 
@@ -14,15 +17,11 @@ public class MainScreenController extends ControllerBase {
     public ImageView volumeicon;
     @FXML
     private Button switchButton;
-
     @FXML
     private Button volumeButton;
-
     @FXML
     private Button helpButton;
-
-    private boolean isMuted = false;
-
+    private static boolean isMuted = false;
 
     @FXML
     private void initialize() {
@@ -41,8 +40,6 @@ public class MainScreenController extends ControllerBase {
     private void toggleVolume() {
         isMuted = !isMuted;
         updateVolumeButtonImage();
-        // Add logic to control audio volume based on the 'isMuted' state
-        // For simplicity, we'll just print a message here
         System.out.println("Volume is " + (isMuted ? "muted" : "unmuted"));
     }
 
@@ -52,7 +49,7 @@ public class MainScreenController extends ControllerBase {
     }
 
     private Image getImage(String imageName) {
-        return new Image(getClass().getResourceAsStream(imageName));
+        return new Image(Objects.requireNonNull(getClass().getResourceAsStream(imageName)));
     }
 
     private void setImage(ImageView image, String imageName) {
@@ -65,4 +62,8 @@ public class MainScreenController extends ControllerBase {
     }
 
     private void buySprites(){}
+
+    public static boolean getIsMuted() {
+        return isMuted;
+    }
 }
