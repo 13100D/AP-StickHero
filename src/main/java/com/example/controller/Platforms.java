@@ -42,15 +42,19 @@ public class Platforms {
     private static void moveGroup(Player stickhero) {
         //make a grouping of stick playersprite and platforms
         //move the grouping
-
+        System.out.println("player sprite x: " + stickhero.getPlayerSprite().getTranslateX());
+        System.out.println("player X: " + stickhero.getPlayerSprite().getX());
+        System.out.println("player layout X: " + stickhero.getPlayerSprite().getLayoutX());
+        System.out.println("\n\nsticklength: " + stickhero.getlength());
+        System.out.println("rect2 X: " + rectangles.get(1).getX()+"rect2 width: "+rectangles.get(1).getWidth());
+        System.out.println("rect2 layout X: " + rectangles.get(1).getLayoutX());
+        System.out.println("rect2 translate X: " + rectangles.get(1).getTranslateX());
         Pane originpain = ((Pane) stickhero.getPlayerSprite().getParent());
         Pane group = new Pane();
         ArrayList<Node> nodes = new ArrayList<>(rectangles);
         nodes.add(stickhero.getPlayerSprite());
         group.getChildren().addAll(nodes);
         originpain.getChildren().add(group);
-
-        System.out.println("Initial translateX: " + group.getTranslateX());
 
         KeyValue kv = new KeyValue(group.translateXProperty(), group.getTranslateX() - stickhero.getlength());
         KeyFrame kf = new KeyFrame(Duration.millis(100), kv);
@@ -63,13 +67,12 @@ public class Platforms {
         timeline.play();
 
         timeline.setOnFinished(event -> {
-            System.out.println("moving backwards and yeeting pillars");
             timeline2.play();
-            System.out.println("Updated translateX: " + group.getTranslateX());
             //probably check for which animation to play ( in case of collision / insufficient stick length )
 
             Rectangle rect = rectangles.get(0);
             rectangles.remove(0);
+            rect.setWidth(randomWidthGenerator()+20);
             rectangles.add(rect);
 
             Rectangle rect3 = rectangles.get(2);
@@ -97,7 +100,7 @@ public class Platforms {
         return rand.nextInt(400);
     }
 
-    private double randomWidthGenerator()
+    private static double randomWidthGenerator()
     {
         return rand.nextInt(100);
     }

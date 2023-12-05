@@ -77,7 +77,6 @@ public class Player implements Serializable {
         });
     }
     public void flipback(){
-        System.out.println("flipping back");
         Rotate flipback = new Rotate();
         flipback.setPivotY(stick.getY() + stick.getHeight());
         flipback.setPivotX(stick.getX());
@@ -108,7 +107,14 @@ public class Player implements Serializable {
 
     }
     public void upsideDown() {
-        // Implement upsideDown method logic
+        // Implement upsideDown animation logic
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO, event -> playersprite.setScaleY(playersprite.getScaleY() * -1)),
+                new KeyFrame(Duration.ZERO, event -> playersprite.setTranslateY(playersprite.getTranslateY()+100)),
+                new KeyFrame(Duration.seconds(2))
+        );
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
     }
 
     public void continueGame() {
