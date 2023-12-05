@@ -77,10 +77,6 @@ public class GameScreenController extends ControllerBase {
     @FXML
     private void handleKeyRelease(KeyEvent event) {
         Player StickHero = Player.getInstance(stick,playersprite);
-        if(StickHero.isAnimation()){
-            System.out.println("flipping");
-            StickHero.upsideDown();
-        }
         if (event.getCode() == KeyCode.A && !(StickHero.isAnimation())) {
             // Calculate the duration of the key press
             long keyReleasedTime = System.currentTimeMillis();

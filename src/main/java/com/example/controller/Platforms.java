@@ -38,7 +38,7 @@ public class Platforms {
         else
         {
             moveGroup(Stickhero);
-            Cherry.spawnCherry(250, rectangles.get(1).getLayoutX() +  rectangles.get(1).getWidth());
+
         }
     }
 
@@ -84,6 +84,7 @@ public class Platforms {
 
             Rectangle rect3 = rectangles.get(2);
             rect3.setTranslateX(rect3.getTranslateX() + 700);
+            Cherry.spawnCherry(rectangles.get(0).getLayoutX() +  rectangles.get(0).getWidth() +35 ,rectangles.get(1).getLayoutX() - 35 , originpain);
         });
     }
 

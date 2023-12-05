@@ -1,8 +1,10 @@
 package com.example.controller;
 
+import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.animation.FadeTransition;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 import java.util.*;
@@ -11,7 +13,7 @@ public class Cherry {
     private static final Random rand = new Random();
     private static boolean cherrySpawned = false;
     private static int numCherries;
-    private static final int spawnRate = 43;
+    private static final int spawnRate = 100;
     private static Cherry cherry = null;
     private static ImageView cherrySprite = new ImageView(new Image("/coin.png"));;
 
@@ -27,32 +29,25 @@ public class Cherry {
         cherrySprite.setFitWidth(35);
     }
 
-    public static void spawnCherry(double low, double high)
-    {
-        if (rand.nextInt(100) > spawnRate)
-        {
+    public static void spawnCherry(double low, double high, Pane parent) {
+        System.out.println("provided cherry spawn range: " + low + " " + high);
+        if (cherry == null) {
+            cherry = new Cherry(low, high);
+            cherrySprite.setOpacity(0.0);
+            parent.getChildren().add(cherrySprite);
+        }
+        if (rand.nextInt(100) > spawnRate) {
             cherrySpawned = false;
             fadeOutAnimation();
-        }
-
-        else {
+        } else {
             cherrySpawned = true;
-
-<<<<<<< HEAD
-            if (cherry == null)
-            {
-=======
-            if (cherry == null) {
->>>>>>> a4be49bfdbc123d11c30f822d731b5ab643fece7
-                cherry = new Cherry(low, high);
-                fadeInAnimation();
-            } else {
-                cherrySprite.setLayoutX(rand.nextInt((int) (high - low)) + low);
-                fadeInAnimation();
-            }
-
+            cherrySprite.setLayoutX(rand.nextInt((int) (high - low)) + low);
+            fadeInAnimation();
         }
+
     }
+
+
 
     public static int getNumCherries() {
         return numCherries;
@@ -69,14 +64,14 @@ public class Cherry {
     }
 
     public static void fadeInAnimation() {
-        FadeTransition fadeIn = new FadeTransition(Duration.millis(1000), cherrySprite);
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(10), cherrySprite);
         fadeIn.setFromValue(0.0);
         fadeIn.setToValue(1.0);
         fadeIn.play();
     }
 
     public static void fadeOutAnimation() {
-        FadeTransition fadeOut = new FadeTransition(Duration.millis(1000), cherrySprite);
+        FadeTransition fadeOut = new FadeTransition(Duration.millis(10), cherrySprite);
         fadeOut.setFromValue(1.0);
         fadeOut.setToValue(0.0);
         fadeOut.setOnFinished(event -> {

@@ -24,6 +24,7 @@ public class Player implements Serializable {
     boolean goup = true;
     private static Player StickHero = null;
     private Rectangle stick;
+    private boolean upsideDown = false;
 
     public double getlength() {
         return (double) stick.getHeight();
@@ -101,6 +102,7 @@ public class Player implements Serializable {
             //call gameover
             //else
             //call continuegame
+            Cherry.getCherrySprite().setOpacity(0.0);
             Platforms.makePlatforms(this);
             flipback();
         });
@@ -111,10 +113,22 @@ public class Player implements Serializable {
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, event -> playersprite.setScaleY(playersprite.getScaleY() * -1)),
                 new KeyFrame(Duration.ZERO, event -> playersprite.setTranslateY(playersprite.getTranslateY()+100)),
-                new KeyFrame(Duration.seconds(2))
+                new KeyFrame(Duration.seconds(0.1))
+        );
+        Timeline timeline2 = new Timeline(
+                new KeyFrame(Duration.ZERO, event -> playersprite.setScaleY(playersprite.getScaleY() * -1)),
+                new KeyFrame(Duration.ZERO, event -> playersprite.setTranslateY(playersprite.getTranslateY()-200)),
+                new KeyFrame(Duration.seconds(0.1))
         );
         timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
+        timeline2.setCycleCount(Timeline.INDEFINITE);
+        if (upsideDown) {
+            upsideDown = false;
+            timeline2.play();
+        } else {
+            upsideDown = true;
+            timeline.play();
+        }
     }
 
     public void continueGame() {
