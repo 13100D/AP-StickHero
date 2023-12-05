@@ -13,21 +13,21 @@ public class Cherry {
     private static int numCherries;
     private static final int spawnRate = 43;
     private static Cherry cherry = null;
-    private static ImageView cherrySprite = new ImageView(new Image("com/example/assets/coin.png"));;
+    private static ImageView cherrySprite = new ImageView(new Image("/coin.png"));;
 
     public static ImageView getCherrySprite() {
         return cherrySprite;
     }
 
-    private Cherry(int low, int high)
+    private Cherry(double low, double high)
     {
-        cherrySprite.setLayoutX(rand.nextInt(high - low) + low);
+        cherrySprite.setLayoutX(rand.nextInt((int) ( (high - low) + low)));
         cherrySprite.setLayoutY(500);
         cherrySprite.setFitHeight(35);
         cherrySprite.setFitWidth(35);
     }
 
-    public static void spawnCherry(int low, int high)
+    public static void spawnCherry(double low, double high)
     {
         if (rand.nextInt(100) > spawnRate)
         {
@@ -35,21 +35,22 @@ public class Cherry {
             fadeOutAnimation();
         }
 
-        else
-        {
+        else {
             cherrySpawned = true;
 
+<<<<<<< HEAD
             if (cherry == null)
             {
+=======
+            if (cherry == null) {
+>>>>>>> a4be49bfdbc123d11c30f822d731b5ab643fece7
                 cherry = new Cherry(low, high);
+                fadeInAnimation();
+            } else {
+                cherrySprite.setLayoutX(rand.nextInt((int) (high - low)) + low);
                 fadeInAnimation();
             }
 
-            else
-            {
-                cherrySprite.setLayoutX(rand.nextInt(high - low) + low);
-                fadeInAnimation();
-            }
         }
     }
 
@@ -88,3 +89,5 @@ public class Cherry {
         return cherrySpawned;
     }
 }
+
+

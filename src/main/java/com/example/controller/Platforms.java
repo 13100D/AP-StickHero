@@ -38,6 +38,7 @@ public class Platforms {
         else
         {
             moveGroup(Stickhero);
+            Cherry.spawnCherry(250, rectangles.get(1).getLayoutX() +  rectangles.get(1).getWidth());
         }
     }
 
