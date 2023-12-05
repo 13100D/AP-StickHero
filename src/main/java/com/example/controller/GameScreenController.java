@@ -77,7 +77,7 @@ public class GameScreenController extends ControllerBase {
     @FXML
     private void handleKeyRelease(KeyEvent event) {
         Player StickHero = Player.getInstance(stick,playersprite);
-        if(!keydown&&StickHero.isAnimation()){
+        if(StickHero.isAnimation()){
             System.out.println("flipping");
             StickHero.upsideDown();
         }
