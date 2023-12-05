@@ -8,7 +8,8 @@ import javafx.util.Duration;
 import java.util.*;
 
 public class Cherry {
-    private final Random rand = new Random();
+    private static final Random rand = new Random();
+    private static boolean cherrySpawned = false;
     private static int numCherries;
     private static final int spawnRate = 43;
     private static Cherry cherry = null;
@@ -28,16 +29,27 @@ public class Cherry {
 
     public static void spawnCherry(int low, int high)
     {
-        if (cherry == null)
+        if (rand.nextInt(100) > spawnRate)
         {
-            cherry = new Cherry(low, high);
-            fadeInAnimation();
+            cherrySpawned = false;
+            fadeOutAnimation();
         }
 
         else
         {
-            cherrySprite.setLayoutX(cherry.rand.nextInt(high - low) + low);
-            fadeInAnimation();
+            cherrySpawned = true;
+            
+            if (cherry == null)
+            {
+                cherry = new Cherry(low, high);
+                fadeInAnimation();
+            }
+
+            else
+            {
+                cherrySprite.setLayoutX(rand.nextInt(high - low) + low);
+                fadeInAnimation();
+            }
         }
     }
 

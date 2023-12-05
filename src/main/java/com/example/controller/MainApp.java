@@ -12,7 +12,7 @@ import java.io.File;
 public class MainApp extends Application {
 
     private Stage primaryStage;
-    String bgMusicPath = "bgmusic.mp3";
+    //String bgMusicPath = "bgmusic.mp3";
     //Media bgMusic = new Media(new File(bgMusicPath).toURI().toString());
     //MediaPlayer mediaPlayer = new MediaPlayer(bgMusic);
 
