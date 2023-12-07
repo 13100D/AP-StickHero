@@ -54,15 +54,4 @@ public class MainScreenController extends ControllerBase {
     private void setImage(ImageView image, String imageName) {
         image.setImage(getImage(imageName));
     }
-
-    private void reloadGame()
-    {
-        Player.loadGame(this);
-    }
-
-    private void buySprites(){}
-
-    public static boolean getIsMuted() {
-        return isMuted;
-    }
 }

@@ -8,8 +8,9 @@ import javafx.util.Duration;
 
 import java.util.*;
 
-public class Cherry {
+public class Cherry{
     private static final Random rand = new Random();
+    private static CollisionCheckerThread cherryCollision = new CollisionCheckerThread();
     private static boolean cherrySpawned = false;
     private static int numCherries;
     private static final int spawnRate = 100;
@@ -30,33 +31,54 @@ public class Cherry {
         cherrySprite.setFitWidth(35);
     }
 
-    public static void spawnCherry(double low, double high, Pane parent) {
+    public static void spawnCherry(double low, double high, Pane parent)
+    {
         System.out.println("provided cherry spawn range: " + low + " " + high);
-        if (cherry == null) {
-            cherry = new Cherry(low, high);
-            cherrySprite.setOpacity(0.0);
-            parent.getChildren().add(cherrySprite);
-        }
-        if (rand.nextInt(100) > spawnRate) {
-            cherrySpawned = false;
-            fadeOutAnimation();
-        } else {
+
+        if (rand.nextInt(100) < spawnRate) {
+
+            if (cherry == null)
+            {
+                cherry = new Cherry(low, high);
+                cherrySprite.setOpacity(0.0);
+                parent.getChildren().add(cherrySprite);
+            }
+
             cherrySpawned = true;
             cherrySprite.setLayoutX(rand.nextInt((int) (high - low)) + low);
             fadeInAnimation();
         }
 
+        if (cherrySpawned)
+        {
+            cherryCollision.setNode1(cherrySprite);
+            cherryCollision.setNode2(Player.getPlayerSprite());
+            cherryCollision.start();
+
+            while (!cherryCollision.isCollision()) {
+                try
+                {
+                    if (!cherrySpawned)
+                    {
+                        fadeOutAnimation();
+                    }
+
+                    Thread.sleep(50);
+                }
+
+                catch (InterruptedException e)
+                {
+                    numCherries += 1;
+                    fadeOutAnimation();
+                    cherrySpawned = false;
+                }
+            }
+        }
     }
 
-
-
-    public static int getNumCherries() {
-        return numCherries;
-    }
-
-    public static void incrCherries()
+    public static int getNumCherries()
     {
-        numCherries += 1;
+        return numCherries;
     }
 
     public static void reviveSubtractCherries()
@@ -64,14 +86,16 @@ public class Cherry {
         numCherries -= 20;
     }
 
-    public static void fadeInAnimation() {
+    public static void fadeInAnimation()
+    {
         FadeTransition fadeIn = new FadeTransition(Duration.millis(10), cherrySprite);
         fadeIn.setFromValue(0.0);
         fadeIn.setToValue(1.0);
         fadeIn.play();
     }
 
-    public static void fadeOutAnimation() {
+    public static void fadeOutAnimation()
+    {
         FadeTransition fadeOut = new FadeTransition(Duration.millis(10), cherrySprite);
         fadeOut.setFromValue(1.0);
         fadeOut.setToValue(0.0);
@@ -81,8 +105,13 @@ public class Cherry {
         fadeOut.play();
     }
 
-    public static boolean isCherrySpawned() {
+    public static boolean isCherrySpawned()
+    {
         return cherrySpawned;
+    }
+
+    public static void setCherrySpawned(boolean cherrySpawned) {
+        Cherry.cherrySpawned = cherrySpawned;
     }
 }
 

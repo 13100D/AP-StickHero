@@ -19,7 +19,7 @@ public class Player implements Serializable {
         return animation;
     }
     private double idekwhyineedthisbutok =0;
-    private ImageView playersprite;
+    private static ImageView playersprite;
     private int currentScore;
     boolean goup = true;
     private static Player StickHero = null;
@@ -31,19 +31,19 @@ public class Player implements Serializable {
     }
 
     //singleton - Design Practice
-    public static Player getInstance(Rectangle stick, ImageView playersprite)
+    public static Player getInstance(Rectangle stick, ImageView playerSprite)
     {
         if (StickHero == null) {
-            StickHero = new Player(stick, playersprite);
+            StickHero = new Player(stick, playerSprite);
         }
 
         return StickHero;
     }
 
-    private Player(Rectangle stick, ImageView playersprite) {
+    private Player(Rectangle stick, ImageView playerSprite) {
         this.currentScore = 0;
         this.stick=stick;
-        this.playersprite=playersprite;
+        this.playersprite=playerSprite;
 
     }
 
@@ -131,43 +131,7 @@ public class Player implements Serializable {
         }
     }
 
-    public void continueGame() {
-        // Implement continueGame method logic
-    }
-
-    public void gameOver() {
-        // Implement gameOver method logic
-    }
-
-    public void revive() {
-        // Implement revive method logic
-    }
-
-    public static void saveGame() {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("savedGame.ser"))) {
-            oos.writeObject(StickHero);
-            System.out.println("Game saved successfully.");
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Error saving the game.");
-        }
-    }
-
-    public static void loadGame(MainScreenController mainScreenController) {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("savedGame.ser"))) {
-            StickHero = (Player) ois.readObject();
-            Parent root = mainScreenController.loadFXML("/GameScreen.fxml");
-            Scene scene = new Scene(root, 1280, 720);
-            System.out.println("switched screens supposedly???");
-            mainScreenController.stage.setScene(scene);
-            System.out.println("Game loaded successfully.");
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-            System.out.println("Error loading the game.");
-        }
-    }
-
-    public ImageView getPlayerSprite() {
+    public static ImageView getPlayerSprite() {
         return playersprite;
     }
 }

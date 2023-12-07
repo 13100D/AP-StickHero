@@ -14,7 +14,7 @@ import javafx.util.Duration;
 
 import java.util.*;
 
-public class Platforms {
+public class Platforms{
     private static final Random rand = new Random();
     private static ArrayList<Rectangle> rectangles = new ArrayList<>();
     private static Platforms instance = null;
@@ -39,7 +39,6 @@ public class Platforms {
         else
         {
             moveGroup(Stickhero);
-
         }
     }
 
@@ -71,6 +70,7 @@ public class Platforms {
         timeline.play();
 
         timeline.setOnFinished(event -> {
+            Cherry.setCherrySpawned(false);
             timeline2.play();
             //probably check for which animation to play ( in case of collision / insufficient stick length )
             if(first){
