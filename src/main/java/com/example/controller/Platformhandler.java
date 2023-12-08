@@ -47,13 +47,32 @@ public class Platformhandler {
             platforms.add(this);
         }
     }
+    private static double prevperfectpoint = 0;
+    private static double prevprevperfectpoint = 0;
     private static AnchorPane maxpane;
     private static final Random rand = new Random();
     private static final ArrayList<Platform> platforms = new ArrayList<>();
     private static boolean initialized = false;
 
+    public static double getsomething(){
+        return platforms.get(platforms.size()-2).pillar.getLayoutX();
+    }
+    public static double getsomethingfat(){
+        return platforms.get(platforms.size()-2).pillar.getWidth();
+    }
+
     public static double getideallength(){
-        return platforms.get(1).idealstickdistance;
+        prevprevperfectpoint = prevperfectpoint;
+        prevperfectpoint = (platforms.get(platforms.size()-1).pillar.getLayoutX()+platforms.get(platforms.size()-1).width/2)-prevperfectpoint-250;
+        return prevperfectpoint;
+    }
+    public static void setstickoffset(double length){
+        System.out.println("prevprevperfectpoint = "+prevprevperfectpoint);
+        System.out.println("prev stick length = " + length);
+        prevperfectpoint = prevperfectpoint+prevprevperfectpoint-length;
+    }
+    public static double getwidth(){
+        return platforms.get(platforms.size()-1).width;
     }
     public static void makePlatforms(Player Stickhero)
     {
@@ -74,13 +93,13 @@ public class Platformhandler {
     private static void Platformhandlerinit() {
         new Platform(200);
         new Platform();
-        FadeTransition fadeIn = new FadeTransition(Duration.millis(1000), platforms.get(platforms.size()-1).pillar);
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(100), platforms.get(platforms.size()-1).pillar);
         fadeIn.setFromValue(0.0);
         fadeIn.setToValue(1.0);
         fadeIn.play();
-        FadeTransition fadeIn2 = new FadeTransition(Duration.millis(1000), platforms.get(platforms.size()-1).perfectionredblob);
-        fadeIn.setFromValue(0.0);
-        fadeIn.setToValue(1.0);
+        FadeTransition fadeIn2 = new FadeTransition(Duration.millis(100), platforms.get(platforms.size()-1).perfectionredblob);
+        fadeIn2.setFromValue(0.0);
+        fadeIn2.setToValue(1.0);
         fadeIn2.play();
     }
 
@@ -91,13 +110,13 @@ public class Platformhandler {
         //make a grouping of stick playersprite and platforms
         //move the grouping
         new Platform();
-        FadeTransition fadeIn = new FadeTransition(Duration.millis(1000), platforms.get(platforms.size()-1).pillar);
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(100), platforms.get(platforms.size()-1).pillar);
         fadeIn.setFromValue(0.0);
         fadeIn.setToValue(1.0);
         fadeIn.play();
-        FadeTransition fadeIn2 = new FadeTransition(Duration.millis(1000), platforms.get(platforms.size()-1).perfectionredblob);
-        fadeIn.setFromValue(0.0);
-        fadeIn.setToValue(1.0);
+        FadeTransition fadeIn2 = new FadeTransition(Duration.millis(100), platforms.get(platforms.size()-1).perfectionredblob);
+        fadeIn2.setFromValue(0.0);
+        fadeIn2.setToValue(1.0);
         fadeIn2.play();
         Pane originpain = ((Pane) Player.getPlayerSprite().getParent());
         Pane group = new Pane();
@@ -113,17 +132,16 @@ public class Platformhandler {
         originpain.getChildren().add(group);
 
         KeyValue kv = new KeyValue(group.translateXProperty(), -stickhero.getlength());
-        KeyFrame kf = new KeyFrame(Duration.millis(5000), kv);
+        KeyFrame kf = new KeyFrame(Duration.millis(100), kv);
         Timeline timeline = new Timeline(kf);
 
         KeyValue kv2 = new KeyValue(Player.getPlayerSprite().translateXProperty(), Player.getPlayerSprite().getTranslateX()-25);
-        KeyFrame kf2 = new KeyFrame(Duration.millis(500), kv2);
+        KeyFrame kf2 = new KeyFrame(Duration.millis(20), kv2);
         Timeline timeline2 = new Timeline(kf2);
 
         timeline.play();
 
         timeline.setOnFinished(event -> {
-            System.out.println("spawning new platform");
             pillar_eliminator(stickhero);
             timeline2.play();
             stickhero.noneanimationplaying();
@@ -133,24 +151,9 @@ public class Platformhandler {
 
 
     public static void pillar_eliminator(Player stickhero){
-        for (Platform platform : platforms) {
-            System.out.println("\n");
-            System.out.println(platform.pillar.getLayoutX() + "       " + platform.pillar.getTranslateX() + "       " + platform.pillar.getWidth());
-            System.out.println("\n");
-        }
         ((Pane) Player.getPlayerSprite().getParent()).getChildren().remove(platforms.get(0).pillar);
         ((Pane) Player.getPlayerSprite().getParent()).getChildren().remove(platforms.get(0).perfectionredblob);
         platforms.remove(0);
-        System.out.println(platforms);
-        //for iterator that prints layout X translateX and width of all pillars of platforms in the arraylist
-        //print similiar stats for player.getsprite
-        System.out.println(stickhero.getlength());
-        System.out.println("player position? "+(Player.getPlayerSprite().getLayoutX()+Player.getPlayerSprite().getTranslateX()));
-        for (Platform platform : platforms) {
-            System.out.println("\n");
-            System.out.println(platform.pillar.getLayoutX() + "       " + platform.pillar.getTranslateX() + "       " + platform.pillar.getWidth());
-            System.out.println("\n");
-        }
     }
 
 

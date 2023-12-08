@@ -10,6 +10,8 @@ import javafx.util.Duration;
 
 import java.io.*;
 
+import static java.lang.Math.abs;
+
 
 public class Player implements Serializable {
     private boolean anyanimation = false;
@@ -109,14 +111,22 @@ public class Player implements Serializable {
         timeline.play();
         timeline.setOnFinished(actionEvent -> {
             StickHero.stoptraversalanim();
-            //check for collision logic
-//            Cherry.getCherrySprite().setOpacity(0.0);
-//            System.out.println("stick length: "+stick.getHeight());
-//            System.out.println("player x: "+playersprite.getTranslateX());
-//            System.out.println("rect0 x "+ Platformhandler.getRectangles().get(0).getTranslateX() + " rect0 width: "+ Platformhandler.getRectangles().get(0).getWidth());
-//            System.out.println("rect1 x "+ Platformhandler.getRectangles().get(1).getTranslateX() + " rect1 width: "+ Platformhandler.getRectangles().get(1).getWidth());
-//            double sticklengthlower=-(Platformhandler.getRectangles().get(0).getTranslateX()+ Platformhandler.getRectangles().get(0).getWidth()- Platformhandler.getRectangles().get(1).getTranslateX());
-//            System.out.println("expected stick length="+ sticklengthlower + " and width margin from platform ?  " + (Platformhandler.getRectangles().get(1).getWidth()));
+            System.out.println("coordinates of latest perfect point are " + Platformhandler.getideallength());
+            double cooking =(Platformhandler.getideallength() - Platformhandler.getsomething() - Platformhandler.getsomethingfat());
+            System.out.println(stick.getHeight());
+            System.out.println("margin of life is" + Platformhandler.getwidth()/2);
+            System.out.println("you're off by " + abs(stick.getHeight() - cooking));
+            if (abs(stick.getHeight() - cooking) < 10) {
+                System.out.println("\n\nperfect\n\n");
+            }
+            if (abs(stick.getHeight() - cooking) < Platformhandler.getwidth()/2) {
+                System.out.println("alive by margin of " + abs(stick.getHeight() - cooking));
+                System.out.println("\n\nstill alive\n\n");
+            }
+            else {
+                System.out.println("\n\nyou died\n\n");
+            }
+            Platformhandler.setstickoffset(stick.getHeight());
             currentScore++;
             GameScreenController.updateScore(this);
             Platformhandler.makePlatforms(this);
