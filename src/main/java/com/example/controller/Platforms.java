@@ -15,7 +15,6 @@ import javafx.util.Duration;
 import java.util.*;
 
 public class Platforms{
-    private static AnchorPane maxpane;
     private static final Random rand = new Random();
     private static ArrayList<Rectangle> rectangles = new ArrayList<>();
     private static Platforms instance = null;
@@ -35,7 +34,7 @@ public class Platforms{
     {
         if (instance == null)
         {
-            maxpane = ((AnchorPane) Player.getPlayerSprite().getParent());
+            AnchorPane maxpane = ((AnchorPane) Player.getPlayerSprite().getParent());
             instance = new Platforms();
         }
         else
@@ -103,7 +102,9 @@ public class Platforms{
                 rectnew.setLayoutX(rectangles.get(1).getLayoutX()+rectangles.get(1).getWidth()+distance);
                 rectangles.add(rectnew);
                 originpain.getChildren().add(rectnew);
+
             }
+            stickhero.noneanimationplaying();
         });
     }
 

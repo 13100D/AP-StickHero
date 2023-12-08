@@ -66,7 +66,7 @@ public class GameScreenController extends ControllerBase {
                 keydown = true;
             }
             else{
-                if(!(StickHero.isAnimation())) {
+                if(!(StickHero.isanyAnimation())) {
                     Thread stickplay = new Thread(StickHero::extendStick);
                     stickplay.start();
                 }
@@ -79,7 +79,7 @@ public class GameScreenController extends ControllerBase {
     private void handleKeyRelease(KeyEvent event) {
         System.out.println("key "+ event.getCode() +" released");
         Player StickHero = Player.getInstance(stick,playersprite);
-        if (event.getCode() == KeyCode.SPACE && !(StickHero.isAnimation())) {
+        if (event.getCode() == KeyCode.SPACE && !(StickHero.isanyAnimation())) {
             // Calculate the duration of the key press
             keydown=false;
             StickHero.rotatestick();
@@ -87,7 +87,7 @@ public class GameScreenController extends ControllerBase {
         if(event.getCode() == KeyCode.ESCAPE){
             switchToPauseScreen();
         }
-        if(event.getCode() == KeyCode.SPACE&&StickHero.isAnimation()){
+        if(event.getCode() == KeyCode.SPACE&&StickHero.istraversalAnimation()){
             System.out.println("flip key released");
             StickHero.upsideDown();
         }

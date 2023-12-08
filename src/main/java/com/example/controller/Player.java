@@ -12,10 +12,22 @@ import java.io.*;
 
 
 public class Player implements Serializable {
-    private boolean animation;
+    private boolean anyanimation = false;
 
-    public boolean isAnimation() {
-        return animation;
+    public void noneanimationplaying() {
+        this.anyanimation = false;
+    }
+    public void someanimationplaying() {
+        this.anyanimation = true;
+    }
+    public boolean isanyAnimation() {
+        return anyanimation;
+    }
+
+    private boolean traversalanimation = false;
+
+    public boolean istraversalAnimation() {
+        return traversalanimation;
     }
     private double idekwhyineedthisbutok =0;
     private static ImageView playersprite;
@@ -59,10 +71,11 @@ public class Player implements Serializable {
         }
     }
 
-    public void startanim() {this.animation = true;}
-    public void stopanim() {this.animation = false;}
+    public void starttraversalanim() {this.traversalanimation = true;}
+    public void stoptraversalanim() {this.traversalanimation = false;}
 
     public void rotatestick() {//use pivot point and flip stick about bottom most point
+        someanimationplaying();
         stick.getTransforms().clear();
         Rotate flip90deg = new Rotate();
         flip90deg.setPivotY(stick.getY() + stick.getHeight());
@@ -72,11 +85,12 @@ public class Player implements Serializable {
         Timeline rotation = new Timeline(key2);
         rotation.play();
         rotation.setOnFinished(actionEvent -> {
-            StickHero.startanim();
+            StickHero.starttraversalanim();
             traversestick();
         });
     }
     public void flipback(){
+        stoptraversalanim();
         Rotate flipback = new Rotate();
         flipback.setPivotY(stick.getY() + stick.getHeight());
         flipback.setPivotX(stick.getX());
@@ -84,7 +98,6 @@ public class Player implements Serializable {
         stick.setY(stick.getY()+stick.getHeight());
         stick.setHeight(0);
         stick.getTransforms().add(flipback);
-        animation = false;
     }
     public void traversestick() {
         //move the player across stick between one platform to other and repeatedly check for collision logic
@@ -95,7 +108,7 @@ public class Player implements Serializable {
         Timeline timeline = new Timeline(kf);
         timeline.play();
         timeline.setOnFinished(actionEvent -> {
-            StickHero.stopanim();
+            StickHero.stoptraversalanim();
             //check for collision logic
 //            Cherry.getCherrySprite().setOpacity(0.0);
             System.out.println("stick length: "+stick.getHeight());
@@ -112,7 +125,6 @@ public class Player implements Serializable {
 
     }
     public void upsideDown() {
-        // Implement upsideDown animation logic
         int alternative = upsideDown ? 1 : -1;
         upsideDown = !upsideDown;
         Timeline timeline = new Timeline(
@@ -130,4 +142,6 @@ public class Player implements Serializable {
     public int getCurrentScore() {
         return currentScore;
     }
+
+
 }
