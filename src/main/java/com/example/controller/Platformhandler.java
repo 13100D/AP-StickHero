@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -26,9 +27,12 @@ public class Platformhandler {
             this.pillar = new Rectangle(width, 250, Color.rgb(1, 1, 1));
             this.perfectionredblob = new Rectangle(15, 5, Color.rgb(255, 0, 0));
             this.pillar.setLayoutY(500);
-            this.pillar.setLayoutX(250+idealstickdistance-width/2);
-            this.perfectionredblob.setLayoutX(250+idealstickdistance-perfectionredblob.getWidth()/2);
+            double prevpoint = platforms.get(platforms.size()-1).pillar.getLayoutX()+platforms.get(platforms.size()-1).pillar.getWidth()/2;
+            this.pillar.setLayoutX(prevpoint+idealstickdistance-width/2);
+            this.perfectionredblob.setLayoutX(prevpoint+idealstickdistance-perfectionredblob.getWidth()/2);
             this.perfectionredblob.setLayoutY(500);
+            this.perfectionredblob.setOpacity(0);
+            this.pillar.setOpacity(0);
             maxpane.getChildren().add(pillar);
             maxpane.getChildren().add(perfectionredblob);
             platforms.add(this);
@@ -48,8 +52,8 @@ public class Platformhandler {
     private static final ArrayList<Platform> platforms = new ArrayList<>();
     private static boolean initialized = false;
 
-    public static int getideallength(){
-        return (int) platforms.get(1).idealstickdistance;
+    public static double getideallength(){
+        return platforms.get(1).idealstickdistance;
     }
     public static void makePlatforms(Player Stickhero)
     {
@@ -70,6 +74,14 @@ public class Platformhandler {
     private static void Platformhandlerinit() {
         new Platform(200);
         new Platform();
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(1000), platforms.get(platforms.size()-1).pillar);
+        fadeIn.setFromValue(0.0);
+        fadeIn.setToValue(1.0);
+        fadeIn.play();
+        FadeTransition fadeIn2 = new FadeTransition(Duration.millis(1000), platforms.get(platforms.size()-1).perfectionredblob);
+        fadeIn.setFromValue(0.0);
+        fadeIn.setToValue(1.0);
+        fadeIn2.play();
     }
 
 
@@ -78,11 +90,19 @@ public class Platformhandler {
     private static void moveGroup(Player stickhero) {
         //make a grouping of stick playersprite and platforms
         //move the grouping
+        new Platform();
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(1000), platforms.get(platforms.size()-1).pillar);
+        fadeIn.setFromValue(0.0);
+        fadeIn.setToValue(1.0);
+        fadeIn.play();
+        FadeTransition fadeIn2 = new FadeTransition(Duration.millis(1000), platforms.get(platforms.size()-1).perfectionredblob);
+        fadeIn.setFromValue(0.0);
+        fadeIn.setToValue(1.0);
+        fadeIn2.play();
         Pane originpain = ((Pane) Player.getPlayerSprite().getParent());
         Pane group = new Pane();
         ArrayList<Node> nodes = new ArrayList<>();
         for (Platform platform : platforms) {
-            System.out.println(platform.pillar.getTranslateX());
             nodes.add(platform.pillar);
             if(platform.perfectionredblob!=null){
                 nodes.add(platform.perfectionredblob);
@@ -92,28 +112,32 @@ public class Platformhandler {
         group.getChildren().addAll(nodes);
         originpain.getChildren().add(group);
 
-        KeyValue kv = new KeyValue(group.translateXProperty(), group.getTranslateX()-stickhero.getlength());
-        KeyFrame kf = new KeyFrame(Duration.millis(100), kv);
+        KeyValue kv = new KeyValue(group.translateXProperty(), -stickhero.getlength());
+        KeyFrame kf = new KeyFrame(Duration.millis(5000), kv);
         Timeline timeline = new Timeline(kf);
 
         KeyValue kv2 = new KeyValue(Player.getPlayerSprite().translateXProperty(), Player.getPlayerSprite().getTranslateX()-25);
-        KeyFrame kf2 = new KeyFrame(Duration.millis(10), kv2);
+        KeyFrame kf2 = new KeyFrame(Duration.millis(500), kv2);
         Timeline timeline2 = new Timeline(kf2);
 
         timeline.play();
 
         timeline.setOnFinished(event -> {
             System.out.println("spawning new platform");
-            new Platform();
+            pillar_eliminator(stickhero);
             timeline2.play();
-            pillareliminator(stickhero);
             stickhero.noneanimationplaying();
         });
     }
 
 
 
-    public static void pillareliminator(Player stickhero){
+    public static void pillar_eliminator(Player stickhero){
+        for (Platform platform : platforms) {
+            System.out.println("\n");
+            System.out.println(platform.pillar.getLayoutX() + "       " + platform.pillar.getTranslateX() + "       " + platform.pillar.getWidth());
+            System.out.println("\n");
+        }
         ((Pane) Player.getPlayerSprite().getParent()).getChildren().remove(platforms.get(0).pillar);
         ((Pane) Player.getPlayerSprite().getParent()).getChildren().remove(platforms.get(0).perfectionredblob);
         platforms.remove(0);
