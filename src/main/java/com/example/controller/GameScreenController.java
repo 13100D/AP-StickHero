@@ -1,6 +1,7 @@
 package com.example.controller;
 
 
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -11,12 +12,15 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 
 public class GameScreenController extends ControllerBase {
     @FXML
     public AnchorPane maxpane;
 
     public static AnchorPane maxpane_stat;
+    public Text bestbox;
+    public Text scorebox;
     private boolean truly_init=false;
     private static Rectangle stick;
     public static ImageView playersprite; // add as an attribute to player class??? maybe also include the stick probably hm also make out proper methods there itself instead of the thread here ( proper formatting )
@@ -27,7 +31,7 @@ public class GameScreenController extends ControllerBase {
         maxpane_stat.getChildren().add(stick);
         maxpane_stat.getChildren().add(playersprite);
         Platforms.addToPane(maxpane_stat);
-
+        maxpane_stat.requestFocus();
     }
 
     @FXML
@@ -53,15 +57,11 @@ public class GameScreenController extends ControllerBase {
         Scene scene = new Scene(root, 1280, 720);
         stage.setScene(scene);
     }
-    @FXML
-    private void helpButton(){
-        System.out.println("Help button pressed");
-    }
 
     @FXML
     private void handleKeyPress(KeyEvent event) {
         Player StickHero = Player.getInstance(stick, playersprite);
-        if (event.getCode() == KeyCode.A) {
+        if (event.getCode() == KeyCode.SPACE) {
             // Record the time when the space key is pressed
             if(!keydown) {
                 keydown = true;
@@ -78,8 +78,9 @@ public class GameScreenController extends ControllerBase {
 
     @FXML
     private void handleKeyRelease(KeyEvent event) {
+        System.out.println("key "+ event.getCode() +" released");
         Player StickHero = Player.getInstance(stick,playersprite);
-        if (event.getCode() == KeyCode.A && !(StickHero.isAnimation())) {
+        if (event.getCode() == KeyCode.SPACE && !(StickHero.isAnimation())) {
             // Calculate the duration of the key press
             keydown=false;
             StickHero.rotatestick();
@@ -87,7 +88,7 @@ public class GameScreenController extends ControllerBase {
         if(event.getCode() == KeyCode.ESCAPE){
             switchToPauseScreen();
         }
-        if(event.getCode() == KeyCode.A&&StickHero.isAnimation()){
+        if(event.getCode() == KeyCode.SPACE&&StickHero.isAnimation()){
             System.out.println("flip key released");
             StickHero.upsideDown();
         }

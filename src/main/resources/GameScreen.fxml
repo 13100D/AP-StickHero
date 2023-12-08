@@ -1,29 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="maxpane" maxHeight="-720" maxWidth="-1280" minHeight="-720" minWidth="-1280" onKeyPressed="#handleKeyPress" onKeyReleased="#handleKeyRelease" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.GameScreenController">
+<AnchorPane fx:id="maxpane" maxHeight="-720" maxWidth="-1280" minHeight="-720" minWidth="-1280" onKeyPressed="#handleKeyPress" onKeyReleased="#handleKeyRelease" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.GameScreenController">
    <children>
       <ImageView fitHeight="724.0" fitWidth="1280.0" pickOnBounds="true">
          <image>
             <Image url="@bg_main.jpg" />
          </image>
       </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="1168.0" layoutY="-37.0" pickOnBounds="true" preserveRatio="true" scaleX="0.5" scaleY="0.5">
-         <image>
-            <Image url="@helpicon.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="-37.0" layoutY="-37.0" pickOnBounds="true" preserveRatio="true" scaleX="0.5" scaleY="0.5">
-         <image>
-            <Image url="@pauseicon.png" />
-         </image>
-      </ImageView>
-      <Button fx:id="pauseButton" mnemonicParsing="false" onAction="#switchToPauseScreen" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: transparent;" />
-      <Button fx:id="helpButton" layoutX="1205.0" mnemonicParsing="false" onAction="#helpButton" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: transparent;" />
+      <Text fx:id="bestbox" layoutX="500.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Best: ">
+         <font>
+            <Font name="JetBrains Mono Medium" size="24.0" />
+         </font>
+      </Text>
+        <Text fx:id="scorebox" layoutX="500.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score: ">
+             <font>
+                <Font name="JetBrains Mono Medium" size="24.0" />
+             </font>
+        </Text>
 <!--      <Rectangle fx:id="stick" arcHeight="5.0" arcWidth="5.0" height="200.0" layoutX="498.0" layoutY="432.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />-->
    </children>
 </AnchorPane>
