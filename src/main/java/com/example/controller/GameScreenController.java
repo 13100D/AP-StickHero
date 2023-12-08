@@ -26,14 +26,6 @@ public class GameScreenController extends ControllerBase {
     private static boolean keydown = false;
 
     public static void postInit() {
-        maxpane_stat.getChildren().add(stick);
-        maxpane_stat.getChildren().add(playersprite);
-        Platforms.addToPane(maxpane_stat);
-        maxpane_stat.requestFocus();
-    }
-
-    @FXML
-    private void initialize() {
         stick = new Rectangle(3,1, Color.rgb(15,15,15));
         stick.setLayoutX(250);
         stick.setLayoutY(500);
@@ -43,7 +35,14 @@ public class GameScreenController extends ControllerBase {
         playersprite.setLayoutY(450);
         playersprite.setLayoutX(200);
         Player StickHero = Player.getInstance(stick, playersprite);
-        Platforms.makePlatforms(StickHero);
+        maxpane_stat.getChildren().add(stick);
+        maxpane_stat.getChildren().add(playersprite);
+        Platformhandler.makePlatforms(StickHero);
+        maxpane_stat.requestFocus();
+    }
+
+    @FXML
+    private void initialize() {
         maxpane_stat = maxpane;
         scorebox_stat = scorebox;
     }

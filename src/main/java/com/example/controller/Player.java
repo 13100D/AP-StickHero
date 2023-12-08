@@ -111,15 +111,15 @@ public class Player implements Serializable {
             StickHero.stoptraversalanim();
             //check for collision logic
 //            Cherry.getCherrySprite().setOpacity(0.0);
-            System.out.println("stick length: "+stick.getHeight());
-            System.out.println("player x: "+playersprite.getTranslateX());
-            System.out.println("rect0 x "+Platforms.getRectangles().get(0).getTranslateX() + " rect0 width: "+Platforms.getRectangles().get(0).getWidth());
-            System.out.println("rect1 x "+Platforms.getRectangles().get(1).getTranslateX() + " rect1 width: "+Platforms.getRectangles().get(1).getWidth());
-            double sticklengthlower=-(Platforms.getRectangles().get(0).getTranslateX()+Platforms.getRectangles().get(0).getWidth()-Platforms.getRectangles().get(1).getTranslateX());
-            System.out.println("expected stick length="+ sticklengthlower + " and width margin from platform ?  " + (Platforms.getRectangles().get(1).getWidth()));
+//            System.out.println("stick length: "+stick.getHeight());
+//            System.out.println("player x: "+playersprite.getTranslateX());
+//            System.out.println("rect0 x "+ Platformhandler.getRectangles().get(0).getTranslateX() + " rect0 width: "+ Platformhandler.getRectangles().get(0).getWidth());
+//            System.out.println("rect1 x "+ Platformhandler.getRectangles().get(1).getTranslateX() + " rect1 width: "+ Platformhandler.getRectangles().get(1).getWidth());
+//            double sticklengthlower=-(Platformhandler.getRectangles().get(0).getTranslateX()+ Platformhandler.getRectangles().get(0).getWidth()- Platformhandler.getRectangles().get(1).getTranslateX());
+//            System.out.println("expected stick length="+ sticklengthlower + " and width margin from platform ?  " + (Platformhandler.getRectangles().get(1).getWidth()));
             currentScore++;
             GameScreenController.updateScore(this);
-            Platforms.makePlatforms(this);
+            Platformhandler.makePlatforms(this);
             flipback();
         });
 
