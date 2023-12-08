@@ -45,18 +45,12 @@ public class Platformhandler {
     }
     private static AnchorPane maxpane;
     private static final Random rand = new Random();
-//    private static ArrayList<Rectangle> rectangles = new ArrayList<>();
     private static final ArrayList<Platform> platforms = new ArrayList<>();
     private static boolean initialized = false;
-    private static boolean first = true;
 
-//    public static void addToPane(AnchorPane maxpane) {
-//
-//        for (Rectangle rectangle : rectangles) {
-////            maxpane.getChildren().add(rectangle);
-//        }
-//    }
-
+    public static int getideallength(){
+        return (int) platforms.get(1).idealstickdistance;
+    }
     public static void makePlatforms(Player Stickhero)
     {
         if (!initialized)
@@ -74,20 +68,8 @@ public class Platformhandler {
 
 
     private static void Platformhandlerinit() {
-        Platform base_starting_platform = new Platform(200);
-        Platform first_random_platform = new Platform();
-//        Rectangle rect1 = new Rectangle(250,250, Color.rgb(1,1,1));
-//        Rectangle rect2 = new Rectangle(randomWidthGenerator()+30,250, Color.rgb(1,1,1));
-//        Rectangle rect3 = new Rectangle(randomWidthGenerator()+30,250, Color.rgb(1,1,1));
-//        rect1.setLayoutY(500);
-//        rect2.setLayoutY(500);
-//        rect3.setLayoutY(500);
-//        rect1.setLayoutX(250-rect1.getWidth());
-//        rect2.setLayoutX(250+rect2.getWidth()+randomDistanceGenerator());
-//        rect3.setLayoutX(250+500+randomDistanceGenerator()); // ensure the third platform is always out of reach of stick length
-//        rectangles.add(rect1);
-//        rectangles.add(rect2);
-//        rectangles.add(rect3);
+        new Platform(200);
+        new Platform();
     }
 
 
@@ -100,50 +82,51 @@ public class Platformhandler {
         Pane group = new Pane();
         ArrayList<Node> nodes = new ArrayList<>();
         for (Platform platform : platforms) {
-            System.out.println("platform: " + platform);
+            System.out.println(platform.pillar.getTranslateX());
             nodes.add(platform.pillar);
-            nodes.add(platform.perfectionredblob);
+            if(platform.perfectionredblob!=null){
+                nodes.add(platform.perfectionredblob);
+            }
         }
         nodes.add(Player.getPlayerSprite());
         group.getChildren().addAll(nodes);
         originpain.getChildren().add(group);
 
-        KeyValue kv = new KeyValue(group.translateXProperty(), group.getTranslateX() - stickhero.getlength());
+        KeyValue kv = new KeyValue(group.translateXProperty(), group.getTranslateX()-stickhero.getlength());
         KeyFrame kf = new KeyFrame(Duration.millis(100), kv);
         Timeline timeline = new Timeline(kf);
 
         KeyValue kv2 = new KeyValue(Player.getPlayerSprite().translateXProperty(), Player.getPlayerSprite().getTranslateX()-25);
-        KeyFrame kf2 = new KeyFrame(Duration.millis(100), kv2);
+        KeyFrame kf2 = new KeyFrame(Duration.millis(10), kv2);
         Timeline timeline2 = new Timeline(kf2);
 
         timeline.play();
 
         timeline.setOnFinished(event -> {
-            Cherry.setCherrySpawned(false);
+            System.out.println("spawning new platform");
+            new Platform();
             timeline2.play();
-            //probably check for which animation to play ( in case of collision / insufficient stick length )
-            if(first){
-                System.out.println("first stick done");
-                first = false;
-            }
-            else{
-                rectanglesshuffle((AnchorPane) originpain, stickhero);
-
-            }
+            pillareliminator(stickhero);
             stickhero.noneanimationplaying();
         });
     }
 
 
-    //
-    public static void rectanglesshuffle(AnchorPane originpain, Player stickhero){
-        originpain.getChildren().remove(platforms.get(0).pillar);
-        originpain.getChildren().remove(platforms.get(0).perfectionredblob);
+
+    public static void pillareliminator(Player stickhero){
+        ((Pane) Player.getPlayerSprite().getParent()).getChildren().remove(platforms.get(0).pillar);
+        ((Pane) Player.getPlayerSprite().getParent()).getChildren().remove(platforms.get(0).perfectionredblob);
         platforms.remove(0);
-        Platform newplat = new Platform();
-        System.out.println("\ndistance: " + newplat.idealstickdistance+ "sticklength "+stickhero.getlength()+"\n");
-        originpain.getChildren().add(newplat.perfectionredblob);
-        originpain.getChildren().add(newplat.pillar);
+        System.out.println(platforms);
+        //for iterator that prints layout X translateX and width of all pillars of platforms in the arraylist
+        //print similiar stats for player.getsprite
+        System.out.println(stickhero.getlength());
+        System.out.println("player position? "+(Player.getPlayerSprite().getLayoutX()+Player.getPlayerSprite().getTranslateX()));
+        for (Platform platform : platforms) {
+            System.out.println("\n");
+            System.out.println(platform.pillar.getLayoutX() + "       " + platform.pillar.getTranslateX() + "       " + platform.pillar.getWidth());
+            System.out.println("\n");
+        }
     }
 
 
@@ -155,17 +138,6 @@ public class Platformhandler {
 
 
 
-    private static double randomDistanceGenerator()
-    {
-        return 150+rand.nextInt(350);
-    }
-
-    private static double randomWidthGenerator()
-    {
-        return 40+rand.nextInt(80);
-    }
-
-//    public static ArrayList<Rectangle> getRectangles() {
-//        return rectangles;
-//    }
+    private static double randomDistanceGenerator(){return 150+rand.nextInt(350);}
+    private static double randomWidthGenerator(){return 40+rand.nextInt(80);}
 }
