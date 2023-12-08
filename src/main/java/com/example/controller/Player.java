@@ -3,8 +3,6 @@ package com.example.controller;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
@@ -12,7 +10,6 @@ import javafx.util.Duration;
 
 import java.io.*;
 
-import static java.lang.Math.abs;
 
 public class Player implements Serializable {
     private boolean animation;
@@ -25,11 +22,11 @@ public class Player implements Serializable {
     private int currentScore;
     boolean goup = true;
     private static Player StickHero = null;
-    private Rectangle stick;
+    private final Rectangle stick;
     private boolean upsideDown = false;
 
     public double getlength() {
-        return (double) stick.getHeight();
+        return stick.getHeight();
     }
 
     //singleton - Design Practice
@@ -45,18 +42,18 @@ public class Player implements Serializable {
     private Player(Rectangle stick, ImageView playerSprite) {
         this.currentScore = 0;
         this.stick=stick;
-        this.playersprite=playerSprite;
+        playersprite=playerSprite;
 
     }
 
     public void extendStick() {
         if(stick.getHeight()>500 || !goup) { // if length has exceeded 500 or currently going down { set going down to true if not already and start reducing stick length}
-            if(goup){goup=!goup;}
+            if(goup){goup=false;}
             stick.setHeight(stick.getHeight() - 5);
             stick.setTranslateY(stick.getTranslateY() + 5);
         }
         if (stick.getHeight()<50 || goup) {// if length is less than 50 or going upwards already ( set going upwards to true if not already ) and start increasing stick length
-            if(!goup){goup=!goup;}
+            if(!goup){goup=true;}
             stick.setHeight(stick.getHeight() + 5);
             stick.setTranslateY(stick.getTranslateY() - 5);
         }
@@ -107,6 +104,8 @@ public class Player implements Serializable {
             System.out.println("rect1 x "+Platforms.getRectangles().get(1).getTranslateX() + " rect1 width: "+Platforms.getRectangles().get(1).getWidth());
             double sticklengthlower=-(Platforms.getRectangles().get(0).getTranslateX()+Platforms.getRectangles().get(0).getWidth()-Platforms.getRectangles().get(1).getTranslateX());
             System.out.println("expected stick length="+ sticklengthlower + " and width margin from platform ?  " + (Platforms.getRectangles().get(1).getWidth()));
+            currentScore++;
+            GameScreenController.updateScore(this);
             Platforms.makePlatforms(this);
             flipback();
         });
@@ -126,5 +125,9 @@ public class Player implements Serializable {
 
     public static ImageView getPlayerSprite() {
         return playersprite;
+    }
+
+    public int getCurrentScore() {
+        return currentScore;
     }
 }

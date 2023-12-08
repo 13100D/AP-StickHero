@@ -1,7 +1,6 @@
 package com.example.controller;
 
 
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,10 +20,9 @@ public class GameScreenController extends ControllerBase {
     public static AnchorPane maxpane_stat;
     public Text bestbox;
     public Text scorebox;
-    private boolean truly_init=false;
+    public static Text scorebox_stat;
     private static Rectangle stick;
     public static ImageView playersprite; // add as an attribute to player class??? maybe also include the stick probably hm also make out proper methods there itself instead of the thread here ( proper formatting )
-    private static long keyPressedTime = 0; // Time when the key was pressed
     private static boolean keydown = false;
 
     public static void postInit() {
@@ -47,6 +45,7 @@ public class GameScreenController extends ControllerBase {
         Player StickHero = Player.getInstance(stick, playersprite);
         Platforms.makePlatforms(StickHero);
         maxpane_stat = maxpane;
+        scorebox_stat = scorebox;
     }
 
     @FXML
@@ -95,6 +94,12 @@ public class GameScreenController extends ControllerBase {
 
 
         //additional methods and event handlers for screen 2
+    }
+
+    public static void updateScore(Player stickhero) {
+        scorebox_stat.setText("Score: "+ stickhero.getCurrentScore());
+        // Update the score on the screen
+        // This method will be called from the Player class
     }
 
 }
