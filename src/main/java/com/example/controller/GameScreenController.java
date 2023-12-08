@@ -60,20 +60,12 @@ public class GameScreenController extends ControllerBase {
 
     @FXML
     private void handleKeyPress(KeyEvent event) {
-//        if(!truly_init) {
-//            maxpane.getChildren().add(stick);
-//            maxpane.getChildren().add(playersprite);
-//            Platforms.addToPane(maxpane);
-//            truly_init=true;
-//        }
         Player StickHero = Player.getInstance(stick, playersprite);
         if (event.getCode() == KeyCode.A) {
             // Record the time when the space key is pressed
             if(!keydown) {
                 keydown = true;
-                keyPressedTime = System.currentTimeMillis();
             }
-
             else{
                 if(!(StickHero.isAnimation())) {
                     Thread stickplay = new Thread(StickHero::extendStick);
@@ -89,15 +81,15 @@ public class GameScreenController extends ControllerBase {
         Player StickHero = Player.getInstance(stick,playersprite);
         if (event.getCode() == KeyCode.A && !(StickHero.isAnimation())) {
             // Calculate the duration of the key press
-            long keyReleasedTime = System.currentTimeMillis();
             keydown=false;
-            StickHero.startanim(); // sets value for animation boolean to avoid keypresses mid animations
-
-            long duration = keyReleasedTime - keyPressedTime;
-            keyPressedTime = 0;
             StickHero.rotatestick();
-
-
+        }
+        if(event.getCode() == KeyCode.ESCAPE){
+            switchToPauseScreen();
+        }
+        if(event.getCode() == KeyCode.A&&StickHero.isAnimation()){
+            System.out.println("flip key released");
+            StickHero.upsideDown();
         }
 
 

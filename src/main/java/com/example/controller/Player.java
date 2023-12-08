@@ -12,6 +12,8 @@ import javafx.util.Duration;
 
 import java.io.*;
 
+import static java.lang.Math.abs;
+
 public class Player implements Serializable {
     private boolean animation;
 
@@ -60,9 +62,8 @@ public class Player implements Serializable {
         }
     }
 
-    public void startanim() {
-        this.animation = true;
-    }
+    public void startanim() {this.animation = true;}
+    public void stopanim() {this.animation = false;}
 
     public void rotatestick() {//use pivot point and flip stick about bottom most point
         stick.getTransforms().clear();
@@ -74,6 +75,7 @@ public class Player implements Serializable {
         Timeline rotation = new Timeline(key2);
         rotation.play();
         rotation.setOnFinished(actionEvent -> {
+            StickHero.startanim();
             traversestick();
         });
     }
@@ -90,19 +92,21 @@ public class Player implements Serializable {
     public void traversestick() {
         //move the player across stick between one platform to other and repeatedly check for collision logic
         //timeline that moves player in +ve x-axis by stick.getlength distance
-        System.out.println("stick traversal work in progress");
         idekwhyineedthisbutok += stick.getHeight();
         KeyValue kv = new KeyValue(playersprite.translateXProperty(), idekwhyineedthisbutok+25); // need to reset stick and player relative positioning too probably
         KeyFrame kf = new KeyFrame(Duration.millis(4*(stick.getHeight())+1), kv);
         Timeline timeline = new Timeline(kf);
         timeline.play();
         timeline.setOnFinished(actionEvent -> {
+            StickHero.stopanim();
             //check for collision logic
-            //if collision logic is true
-            //call gameover
-            //else
-            //call continuegame
-            Cherry.getCherrySprite().setOpacity(0.0);
+//            Cherry.getCherrySprite().setOpacity(0.0);
+            System.out.println("stick length: "+stick.getHeight());
+            System.out.println("player x: "+playersprite.getTranslateX());
+            System.out.println("rect0 x "+Platforms.getRectangles().get(0).getTranslateX() + " rect0 width: "+Platforms.getRectangles().get(0).getWidth());
+            System.out.println("rect1 x "+Platforms.getRectangles().get(1).getTranslateX() + " rect1 width: "+Platforms.getRectangles().get(1).getWidth());
+            double sticklengthlower=-(Platforms.getRectangles().get(0).getTranslateX()+Platforms.getRectangles().get(0).getWidth()-Platforms.getRectangles().get(1).getTranslateX());
+            System.out.println("expected stick length="+ sticklengthlower + " and width margin from platform ?  " + (Platforms.getRectangles().get(1).getWidth()));
             Platforms.makePlatforms(this);
             flipback();
         });
@@ -110,25 +114,14 @@ public class Player implements Serializable {
     }
     public void upsideDown() {
         // Implement upsideDown animation logic
+        int alternative = upsideDown ? 1 : -1;
+        upsideDown = !upsideDown;
         Timeline timeline = new Timeline(
-                new KeyFrame(Duration.ZERO, event -> playersprite.setScaleY(playersprite.getScaleY() * -1)),
-                new KeyFrame(Duration.ZERO, event -> playersprite.setTranslateY(playersprite.getTranslateY()+100)),
-                new KeyFrame(Duration.seconds(0.1))
+                new KeyFrame(Duration.seconds(0.01), event -> playersprite.setScaleY(playersprite.getScaleY() * -1)),
+                new KeyFrame(Duration.seconds(0.01), event -> playersprite.setTranslateY(playersprite.getTranslateY()-(alternative*playersprite.getFitHeight())))
         );
-        Timeline timeline2 = new Timeline(
-                new KeyFrame(Duration.ZERO, event -> playersprite.setScaleY(playersprite.getScaleY() * -1)),
-                new KeyFrame(Duration.ZERO, event -> playersprite.setTranslateY(playersprite.getTranslateY()-200)),
-                new KeyFrame(Duration.seconds(0.1))
-        );
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline2.setCycleCount(Timeline.INDEFINITE);
-        if (upsideDown) {
-            upsideDown = false;
-            timeline2.play();
-        } else {
-            upsideDown = true;
-            timeline.play();
-        }
+        timeline.setCycleCount(1);
+        timeline.play();
     }
 
     public static ImageView getPlayerSprite() {

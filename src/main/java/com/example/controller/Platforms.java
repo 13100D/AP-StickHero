@@ -40,6 +40,7 @@ public class Platforms{
         }
         else
         {
+
             moveGroup(Stickhero);
         }
     }
@@ -55,7 +56,7 @@ public class Platforms{
         rect3.setLayoutY(500);
         rect1.setLayoutX(250-rect1.getWidth());
         rect2.setLayoutX(250+rect2.getWidth()+randomDistanceGenerator());
-        rect3.setLayoutX(250+rect3.getWidth()+randomDistanceGenerator());
+        rect3.setLayoutX(250+500+randomDistanceGenerator()); // ensure the third platform is always out of reach of stick length
         rectangles.add(rect1);
         rectangles.add(rect2);
         rectangles.add(rect3);
@@ -67,13 +68,6 @@ public class Platforms{
     private static void moveGroup(Player stickhero) {
         //make a grouping of stick playersprite and platforms
         //move the grouping
-        System.out.println("player sprite x: " + Player.getPlayerSprite().getTranslateX());
-        System.out.println("player X: " + Player.getPlayerSprite().getX());
-        System.out.println("player layout X: " + Player.getPlayerSprite().getLayoutX());
-        System.out.println("\n\nsticklength: " + stickhero.getlength());
-        System.out.println("rect2 X: " + rectangles.get(1).getX()+"rect2 width: "+rectangles.get(1).getWidth());
-        System.out.println("rect2 layout X: " + rectangles.get(1).getLayoutX());
-        System.out.println("rect2 translate X: " + rectangles.get(1).getTranslateX());
         Pane originpain = ((Pane) Player.getPlayerSprite().getParent());
         Pane group = new Pane();
         ArrayList<Node> nodes = new ArrayList<>(rectangles);
@@ -162,5 +156,9 @@ public class Platforms{
 
     public static double getStickOptimalLength() {
         return stickOptimalLength;
+    }
+
+    public static ArrayList<Rectangle> getRectangles() {
+        return rectangles;
     }
 }
