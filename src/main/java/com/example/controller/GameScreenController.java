@@ -15,11 +15,20 @@ import javafx.scene.shape.Rectangle;
 public class GameScreenController extends ControllerBase {
     @FXML
     public AnchorPane maxpane;
+
+    public static AnchorPane maxpane_stat;
     private boolean truly_init=false;
     private static Rectangle stick;
     public static ImageView playersprite; // add as an attribute to player class??? maybe also include the stick probably hm also make out proper methods there itself instead of the thread here ( proper formatting )
     private static long keyPressedTime = 0; // Time when the key was pressed
     private static boolean keydown = false;
+
+    public static void postInit() {
+        maxpane_stat.getChildren().add(stick);
+        maxpane_stat.getChildren().add(playersprite);
+        Platforms.addToPane(maxpane_stat);
+
+    }
 
     @FXML
     private void initialize() {
@@ -33,6 +42,7 @@ public class GameScreenController extends ControllerBase {
         playersprite.setLayoutX(200);
         Player StickHero = Player.getInstance(stick, playersprite);
         Platforms.makePlatforms(StickHero);
+        maxpane_stat = maxpane;
     }
 
     @FXML
@@ -50,12 +60,12 @@ public class GameScreenController extends ControllerBase {
 
     @FXML
     private void handleKeyPress(KeyEvent event) {
-        if(!truly_init) {
-            maxpane.getChildren().add(stick);
-            maxpane.getChildren().add(playersprite);
-            Platforms.addToPane(maxpane);
-            truly_init=true;
-        }
+//        if(!truly_init) {
+//            maxpane.getChildren().add(stick);
+//            maxpane.getChildren().add(playersprite);
+//            Platforms.addToPane(maxpane);
+//            truly_init=true;
+//        }
         Player StickHero = Player.getInstance(stick, playersprite);
         if (event.getCode() == KeyCode.A) {
             // Record the time when the space key is pressed

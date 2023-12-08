@@ -6,6 +6,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+
 import java.util.Objects;
 //import javafx.scene.media.Media;
 //import javafx.scene.media.MediaPlayer;
@@ -34,6 +36,7 @@ public class MainScreenController extends ControllerBase {
         Parent root = loadFXML("/GameScreen.fxml");
         Scene scene = new Scene(root, 1280, 720);
         stage.setScene(scene);
+        GameScreenController.postInit();
     }
 
     private void toggleVolume() {
