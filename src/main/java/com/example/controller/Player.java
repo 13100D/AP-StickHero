@@ -242,7 +242,7 @@ public class Player implements Serializable {
 
     }
 
-    private static void writeNumCherriesToFile() {
+    static void writeNumCherriesToFile() {
         try (PrintWriter writer = new PrintWriter(new FileWriter("cherries.txt"))) {
             writer.write(String.valueOf(Cherry.getNumCherries()));
             System.out.println("NumCherries written to cherries.txt");

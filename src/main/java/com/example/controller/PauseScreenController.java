@@ -36,7 +36,7 @@ public class PauseScreenController extends ControllerBase{
                 ControllerBase.stage.setScene(abc);
 //            GameScreenController.postInit();
                 Player.fixposition();
-
+                Player.writeNumCherriesToFile();
             }
 
             else if (Player.isAlive()) {
@@ -58,7 +58,6 @@ public class PauseScreenController extends ControllerBase{
         pausetext_stat = pausetext;
         deadtax_stat = deadtax;
         deadonly_stat = deadonly;
-
     }
     public static void postinit() {
         if(!Player.isAlive())
@@ -84,6 +83,7 @@ public class PauseScreenController extends ControllerBase{
             Cherry.setNumCherries(Cherry.getNumCherries() - 20);
             System.out.println("bought sprite 4");
             Player.setPlayerSprite("file:src/main/resources/dinonig3.png");
+            Player.writeNumCherriesToFile();
         }
 
         catch (InsufficientCherriesException e) {
@@ -100,6 +100,7 @@ public class PauseScreenController extends ControllerBase{
             Cherry.setNumCherries(Cherry.getNumCherries() - 20);
             System.out.println("bought sprite 3");
             Player.setPlayerSprite("file:src/main/resources/dinonig2.png");
+            Player.writeNumCherriesToFile();
         }
 
         catch (InsufficientCherriesException e) {
@@ -116,6 +117,7 @@ public class PauseScreenController extends ControllerBase{
             Cherry.setNumCherries(Cherry.getNumCherries() - 20);
             System.out.println("bought sprite 2");
             Player.setPlayerSprite("file:src/main/resources/dinonig.png");
+            Player.writeNumCherriesToFile();
         }
 
         catch (InsufficientCherriesException e) {
@@ -133,6 +135,7 @@ public class PauseScreenController extends ControllerBase{
             Cherry.setNumCherries(Cherry.getNumCherries() - 20);
             System.out.println("bought sprite 1");
             Player.setPlayerSprite("file:src/main/resources/dinovanilla.png");
+            Player.writeNumCherriesToFile();
         }
 
         catch (InsufficientCherriesException e) {
