@@ -29,6 +29,7 @@ public class PlatformHandler {
                     System.out.println("platform player Collision detected !!!");
                     collisiondetected=true;
                     System.out.println("player is kil");
+                    Player.death();
                 }
             }
         };

@@ -27,10 +27,8 @@ public class PauseScreenController extends ControllerBase{
     public void switchToGameScreen() {
         System.out.println("Starting Game");
         if(!Player.isAlive()&&Cherry.getNumCherries()>=20){
-            int score = Player.getScore();
             ControllerBase.stage.setScene(MainApp.getscenes().get(1));
-            GameScreenController.postInit();
-            Player.getInstance().setScore(score);
+            Player.fixposition();
         }
         else if (Player.isAlive()) {
             ControllerBase.stage.setScene(MainApp.getscenes().get(1));
@@ -45,6 +43,7 @@ public class PauseScreenController extends ControllerBase{
     }
     public static void postinit() {
         if(!Player.isAlive()){
+            System.out.println("dead");
             pausetext_stat.setText("You Died!");
             //show dead screen
 

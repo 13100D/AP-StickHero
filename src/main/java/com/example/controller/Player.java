@@ -42,12 +42,12 @@ public class Player implements Serializable {
         return anyanimation;
     }
 
-    private boolean traversalanimation = false;
+    private static boolean traversalanimation = false;
 
     public boolean istraversalAnimation() {
         return traversalanimation;
     }
-    private double idekwhyineedthisbutok =0;
+    private static double idekwhyineedthisbutok =0;
     private static ImageView playersprite;
     static Text floatingText = new Text("PERFECT!");
     private static int currentScore;
@@ -105,8 +105,8 @@ public class Player implements Serializable {
         playersprite = newplayersprite;
     }
 
-    public void starttraversalanim() {this.traversalanimation = true;}
-    public void stoptraversalanim() {this.traversalanimation = false;}
+    public void starttraversalanim() {traversalanimation = true;}
+    public static void stoptraversalanim() {traversalanimation = false;}
 
     public void rotatestick() {//use pivot point and flip stick about bottom most point
         someanimationplaying();
@@ -123,15 +123,15 @@ public class Player implements Serializable {
             traversestick();
         });
     }
-    public void flipback(){
+    public static void flipback(){
         stoptraversalanim();
         Rotate flipback = new Rotate();
-        flipback.setPivotY(stick.getY() + stick.getHeight());
-        flipback.setPivotX(stick.getX());
+        flipback.setPivotY(Player.getInstance().stick.getY() + Player.getInstance().stick.getHeight());
+        flipback.setPivotX(Player.getInstance().stick.getX());
         flipback.setAngle(-90);
-        stick.setY(stick.getY()+stick.getHeight());
-        stick.setHeight(0);
-        stick.getTransforms().add(flipback);
+        Player.getInstance().stick.setY(Player.getInstance().stick.getY()+Player.getInstance().stick.getHeight());
+        Player.getInstance().stick.setHeight(0);
+        Player.getInstance().stick.getTransforms().add(flipback);
     }
     public void traversestick() {
         //move the player across stick between one platform to other and repeatedly check for collision logic
@@ -143,11 +143,11 @@ public class Player implements Serializable {
         timeline.play();
         PlatformHandler.checkCollision();
         Cherry.checkCollision();
+        PlatformHandler.setstickoffset(stick.getHeight());
+        System.out.println("coordinates of latest perfect point and player traversal are " + PlatformHandler.getideallength() + " " + PlatformHandler.getPlayernetdistance());
+        double cooking = abs(PlatformHandler.getideallength() - PlatformHandler.getPlayernetdistance());
         timeline.setOnFinished(actionEvent -> {
             StickHero.stoptraversalanim();
-            PlatformHandler.setstickoffset(stick.getHeight());
-            System.out.println("coordinates of latest perfect point and player traversal are " + PlatformHandler.getideallength() + " " + PlatformHandler.getPlayernetdistance());
-            double cooking = abs(PlatformHandler.getideallength() - PlatformHandler.getPlayernetdistance());
             if(cooking< PlatformHandler.getwidth()/2) {
                 if(cooking<7.5) {
                     System.out.println("HKJADSHKJDSAHKJDSAJHK");
@@ -166,6 +166,17 @@ public class Player implements Serializable {
             }
         });
 
+    }
+    public static void fixposition(){
+        idekwhyineedthisbutok += PlatformHandler.getideallength()-Player.getInstance().stick.getHeight();
+        KeyValue kv = new KeyValue(playersprite.translateXProperty(), idekwhyineedthisbutok+25); // need to reset stick and player relative positioning too probably
+        KeyFrame kf = new KeyFrame(Duration.millis(0.01), kv);
+        Timeline timeline = new Timeline(kf);
+        timeline.play();
+        timeline.setOnFinished(actionEvent -> {
+            PlatformHandler.makePlatforms(StickHero);
+            flipback();
+        });
     }
     public void upsideDown() {
         int alternative = upsideDown ? 1 : -1;
@@ -214,6 +225,7 @@ public class Player implements Serializable {
         System.out.println("Player died");
         deathAnimation();
         switchtoPauseScreen();
+        PauseScreenController.postinit();
     }
 
     private static void switchtoPauseScreen() {
