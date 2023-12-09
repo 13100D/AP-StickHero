@@ -16,6 +16,8 @@ import static java.lang.Math.abs;
 public class Player implements Serializable {
     private boolean anyanimation = false;
 
+    private static boolean alive = true;
+
     public void noneanimationplaying() {
         this.anyanimation = false;
     }
@@ -173,4 +175,25 @@ public class Player implements Serializable {
         parallelTransition.play();
     }
 
+    public static void death()
+    {
+        alive = false;
+        writeNumCherriesToFile();
+        System.out.println("Player died");
+        deathAnimation();
+    }
+
+    public static void deathAnimation()
+    {
+
+    }
+
+    private static void writeNumCherriesToFile() {
+        try (PrintWriter writer = new PrintWriter(new FileWriter("cherries.txt"))) {
+            writer.write(String.valueOf(Cherry.getNumCherries()));
+            System.out.println("NumCherries written to cherries.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

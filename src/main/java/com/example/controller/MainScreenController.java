@@ -9,6 +9,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Objects;
 
 public class MainScreenController extends ControllerBase {
@@ -31,6 +34,7 @@ public class MainScreenController extends ControllerBase {
 
     @FXML
     private void initialize() {
+        readCherriesFromFile();
         switchButton.setOnAction(e -> switchToGameScreen());
         helpButton.setOnAction(e -> System.out.println("Help button pressed"));
         volumeButton.setOnAction(e -> toggleVolume());
@@ -63,4 +67,19 @@ public class MainScreenController extends ControllerBase {
     private void setImage(ImageView image, String imageName) {
         image.setImage(getImage(imageName));
     }
+
+    private void readCherriesFromFile() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("cherries.txt"))) {
+            String line = reader.readLine();
+            if (line != null && !line.isEmpty()) {
+                int cherries = Integer.parseInt(line.trim());
+                Cherry.setNumCherries(cherries);
+            }
+        }
+        catch (IOException | NumberFormatException e) {
+            Cherry.setNumCherries(0);
+            e.printStackTrace();
+        }
+    }
+
 }
