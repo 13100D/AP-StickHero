@@ -13,6 +13,18 @@ All graphics are copyrights of their creators, we are just borrowing them.
 
 
 
+RIYA
+So I have to do:
+- buy sprites
+- junit tests
+- save/reload
+
+ARV
+pause screen 
+cherry spawning
+collision logic(pillar / cherry)
+stick length check
+audio
 
 
 
