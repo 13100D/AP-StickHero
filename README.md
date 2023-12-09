@@ -12,6 +12,7 @@
 - Perfect landing gets you one bonus point
 - Press ESC key to pause the game
 - If the game seems stuck, check console to know what has happened
+- If you're trying to revive/buy sprites and the game seems stuck, you have insufficient cherries and that will be printed on the console
 
 # Design Practices
 - Singleton: Player
