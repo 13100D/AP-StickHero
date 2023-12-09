@@ -7,7 +7,7 @@
 - Long press space bar to extend stick
 - Press space bar during stick traversal to flip upside down
 - Collect coins
-- Coins can be exchanged for revival after crash
+- Coins can be exchanged for revival after crash or for buying sprites
 - If the player collides with a platform while upside down it counts as a crash
 - Perfect landing gets you one bonus point
 - Press ESC key to pause the game
@@ -23,6 +23,10 @@
 - PlayerTest.java
 - CherryTest.java
 - PlatformTest.java
+
+# Bonus
+- Buy Sprites with coins
+- Background music
 
 # Contibutors
 - [Riya Sachdeva - 2022411](https://github.com/riyasach189)
