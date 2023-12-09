@@ -18,15 +18,15 @@ import java.io.IOException;
 public class GameScreenController extends ControllerBase {
     @FXML
     public AnchorPane maxpane;
-    public static AnchorPane maxpane_stat;
+    private static AnchorPane maxpane_stat;
     public Text bestbox;
     public Text scorebox;
-    public static Text scorebox_stat;
+    private static Text scorebox_stat;
     private static Rectangle stick;
-    public static ImageView playersprite; // add as an attribute to player class??? maybe also include the stick probably hm also make out proper methods there itself instead of the thread here ( proper formatting )
+    private static ImageView playersprite; // add as an attribute to player class??? maybe also include the stick probably hm also make out proper methods there itself instead of the thread here ( proper formatting )
     private static boolean keydown = false;
     public Text cherrycount;
-    public static Text cherrycount_stat;
+    private static Text cherrycount_stat;
 
     public static void postInit() {
         stick = new Rectangle(3,1, Color.rgb(15,15,15));
@@ -44,6 +44,8 @@ public class GameScreenController extends ControllerBase {
         maxpane_stat.requestFocus();
     }
 
+
+
     @FXML
     private void initialize() {
         readHighScoreFromFile();
@@ -57,6 +59,7 @@ public class GameScreenController extends ControllerBase {
         // Add logic specific to Screen 2
         System.out.println("Switching to Pause Screen ");
         stage.setScene(MainApp.getscenes().get(2));
+        PauseScreenController.postinit();
     }
 
     @FXML

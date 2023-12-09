@@ -1,7 +1,9 @@
 package com.example.controller;
 
 import javafx.animation.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -16,7 +18,19 @@ import static java.lang.Math.abs;
 public class Player implements Serializable {
     private boolean anyanimation = false;
 
+    public static boolean isAlive() {
+        return alive;
+    }
+
     private static boolean alive = true;
+
+    public static int getScore() {
+        return currentScore;
+    }
+
+    public static int getHighScore() {
+        return highScore;
+    }
 
     public void noneanimationplaying() {
         this.anyanimation = false;
@@ -56,6 +70,9 @@ public class Player implements Serializable {
 
         return StickHero;
     }
+    public static Player getInstance() {
+        return StickHero;
+    }
 
     private Player(Rectangle stick, ImageView playerSprite) {
         this.currentScore = 0;
@@ -75,6 +92,17 @@ public class Player implements Serializable {
             stick.setHeight(stick.getHeight() + 5);
             stick.setTranslateY(stick.getTranslateY() - 5);
         }
+    }
+    public static void setPlayerSprite(String filepath) {
+        ImageView newplayersprite = new ImageView(new Image(filepath));
+        newplayersprite.setLayoutX(playersprite.getLayoutX());
+        newplayersprite.setLayoutY(playersprite.getLayoutY());
+        newplayersprite.setTranslateX(playersprite.getTranslateX());
+        newplayersprite.setFitHeight(playersprite.getFitHeight());
+        newplayersprite.setFitWidth(playersprite.getFitWidth());
+        ((Pane) playersprite.getParent()).getChildren().add(newplayersprite);
+        ((Pane) playersprite.getParent()).getChildren().remove(playersprite);
+        playersprite = newplayersprite;
     }
 
     public void starttraversalanim() {this.traversalanimation = true;}
@@ -182,6 +210,11 @@ public class Player implements Serializable {
         writeHighScoreToFile();
         System.out.println("Player died");
         deathAnimation();
+        switchtoPauseScreen();
+    }
+
+    private static void switchtoPauseScreen() {
+        ControllerBase.stage.setScene(MainApp.getscenes().get(2));
     }
 
     public static void deathAnimation()
@@ -198,7 +231,7 @@ public class Player implements Serializable {
         }
     }
 
-    private static void writeHighScoreToFile() {
+    static void writeHighScoreToFile() {
         if (currentScore > highScore)
         {
             try (PrintWriter writer = new PrintWriter(new FileWriter("highScore.txt"))) {
@@ -212,5 +245,9 @@ public class Player implements Serializable {
 
     public static void setHighScore(int highScore) {
         Player.highScore = highScore;
+    }
+
+    public void setScore(int score) {
+        currentScore= score;
     }
 }
