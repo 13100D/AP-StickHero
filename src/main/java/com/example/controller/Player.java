@@ -162,9 +162,12 @@ public class Player implements Serializable {
 
     }
     public static void fixposition(){
-        idekwhyineedthisbutok += PlatformHandler.getideallength()-Player.getInstance().stick.getHeight();
+        if(StickHero.upsideDown){
+            StickHero.upsideDown();
+        }
+        idekwhyineedthisbutok = PlatformHandler.getideallength();
         KeyValue kv = new KeyValue(playersprite.translateXProperty(), idekwhyineedthisbutok+25); // need to reset stick and player relative positioning too probably
-        KeyFrame kf = new KeyFrame(Duration.millis(1), kv);
+        KeyFrame kf = new KeyFrame(Duration.millis(4000), kv);
         Timeline timeline = new Timeline(kf);
         timeline.play();
         Player.getInstance().stick.setHeight(PlatformHandler.getideallength());
