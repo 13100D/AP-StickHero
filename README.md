@@ -6,8 +6,8 @@
 # Gameplay
 - Long press space bar to extend stick
 - Press space bar during stick traversal to flip upside down
-- Collect cherries
-- Cherries can be exchanged for new skins and revival after crash
+- Collect coins
+- Coins can be exchanged for new skins and revival after crash
 - If the player collides with a platform while upside down it counts as a crash
 - Perfect landing gets you one bonus point
 - To save the current game, go to 'Pause' menu
