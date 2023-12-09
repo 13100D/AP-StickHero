@@ -28,13 +28,10 @@ public class Cherry{
     }
 
     public static void checkCollision() {
-        // Use a Timeline or AnimationTimer to continuously check for collisions
-        // For simplicity, a basic AnimationTimer is used in this example
         collisiondetected=false;
         javafx.animation.AnimationTimer timer = new javafx.animation.AnimationTimer() {
             @Override
             public void handle(long now) {
-                // Check if bounding boxes intersect
                 if (cherrySpawned&&!collisiondetected&&Player.getPlayerSprite().getBoundsInParent().intersects(cherrySprite.getBoundsInParent())) {
                     System.out.println("cherry Collision detected !!!");
                     numCherries += 1;
@@ -43,8 +40,8 @@ public class Cherry{
                 }
             }
         };
-        timer.start();
 
+        timer.start();
     }
 
     public static void spawnCherry(double low, double high, Pane parent)
@@ -71,9 +68,16 @@ public class Cherry{
         return numCherries;
     }
 
-    public static void reviveSubtractCherries()
-    {
-        numCherries -= 20;
+    public static void reviveSubtractCherries() throws InsufficientCherriesException {
+        if (numCherries >= 20)
+        {
+            numCherries -= 20;
+        }
+
+        else
+        {
+            throw new InsufficientCherriesException("Not enough cherries to revive");
+        }
     }
 
     public static void fadeInAnimation()
@@ -101,7 +105,13 @@ public class Cherry{
         Cherry.cherrySpawned = cherrySpawned;
     }
 
+    public static ImageView getCherrySprite() {
+        return cherrySprite;
+    }
 
+    public static void setNumCherries(int numCherries) {
+        Cherry.numCherries = numCherries;
+    }
 }
 
 

@@ -16,6 +16,8 @@ import static java.lang.Math.abs;
 public class Player implements Serializable {
     private boolean anyanimation = false;
 
+    private static boolean alive = true;
+
     public void noneanimationplaying() {
         this.anyanimation = false;
     }
@@ -112,21 +114,21 @@ public class Player implements Serializable {
         KeyFrame kf = new KeyFrame(Duration.millis(4*(stick.getHeight())+1), kv);
         Timeline timeline = new Timeline(kf);
         timeline.play();
-        Platformhandler.checkCollision();
+        PlatformHandler.checkCollision();
         Cherry.checkCollision();
         timeline.setOnFinished(actionEvent -> {
             StickHero.stoptraversalanim();
-            Platformhandler.setstickoffset(stick.getHeight());
-            System.out.println("coordinates of latest perfect point and player traversal are " + Platformhandler.getideallength() + " " + Platformhandler.getPlayernetdistance());
-            double cooking = abs(Platformhandler.getideallength() - Platformhandler.getPlayernetdistance());
-            if(cooking<Platformhandler.getwidth()/2) {
+            PlatformHandler.setstickoffset(stick.getHeight());
+            System.out.println("coordinates of latest perfect point and player traversal are " + PlatformHandler.getideallength() + " " + PlatformHandler.getPlayernetdistance());
+            double cooking = abs(PlatformHandler.getideallength() - PlatformHandler.getPlayernetdistance());
+            if(cooking< PlatformHandler.getwidth()/2) {
                 if(cooking<7.5) {
                     System.out.println("HKJADSHKJDSAHKJDSAJHK");
                     perfection();
                 }
                 currentScore++;
                 GameScreenController.updateScore(this);
-                Platformhandler.makePlatforms(this);
+                PlatformHandler.makePlatforms(this);
                 flipback();
             }
             else{
@@ -173,4 +175,25 @@ public class Player implements Serializable {
         parallelTransition.play();
     }
 
+    public static void death()
+    {
+        alive = false;
+        writeNumCherriesToFile();
+        System.out.println("Player died");
+        deathAnimation();
+    }
+
+    public static void deathAnimation()
+    {
+
+    }
+
+    private static void writeNumCherriesToFile() {
+        try (PrintWriter writer = new PrintWriter(new FileWriter("cherries.txt"))) {
+            writer.write(String.valueOf(Cherry.getNumCherries()));
+            System.out.println("NumCherries written to cherries.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
