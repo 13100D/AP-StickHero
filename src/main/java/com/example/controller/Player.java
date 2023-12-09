@@ -127,6 +127,8 @@ public class Player implements Serializable {
         Player.getInstance().stick.setHeight(0);
         Player.getInstance().stick.getTransforms().add(flipback);
     }
+
+    //Strategy - Design Practice
     public void traversestick() {
         //move the player across stick between one platform to other and repeatedly check for collision logic
         //timeline that moves player in +ve x-axis by stick.getlength distance
