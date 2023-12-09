@@ -51,9 +51,7 @@ public class GameScreenController extends ControllerBase {
     private void switchToPauseScreen() {
         // Add logic specific to Screen 2
         System.out.println("Switching to Pause Screen ");
-        Parent root = loadFXML("/PauseScreen.fxml");
-        Scene scene = new Scene(root, 1280, 720);
-        stage.setScene(scene);
+        stage.setScene(MainApp.getscenes().get(2));
     }
 
     @FXML

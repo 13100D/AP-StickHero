@@ -9,18 +9,17 @@ import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class MainScreenController extends ControllerBase {
-
     @FXML
     public ImageView volumeicon;
     @FXML
     private Button switchButton;
     @FXML
     private Button volumeButton;
-    @FXML
-    private Button helpButton;
     private static boolean isMuted = false;
     private static MediaPlayer bgaudio;
     public static void postInit() {
@@ -32,15 +31,12 @@ public class MainScreenController extends ControllerBase {
     @FXML
     private void initialize() {
         switchButton.setOnAction(e -> switchToGameScreen());
-        helpButton.setOnAction(e -> System.out.println("Help button pressed"));
         volumeButton.setOnAction(e -> toggleVolume());
     }
 
     private void switchToGameScreen() {
         System.out.println("Starting Game");
-        Parent root = loadFXML("/GameScreen.fxml");
-        Scene scene = new Scene(root, 1280, 720);
-        stage.setScene(scene);
+        ControllerBase.stage.setScene(MainApp.getscenes().get(1));
         GameScreenController.postInit();
     }
 

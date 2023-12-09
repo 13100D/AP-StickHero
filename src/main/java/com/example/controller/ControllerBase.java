@@ -9,15 +9,15 @@ import java.io.IOException;
 
 public abstract class ControllerBase {
 
-    protected Stage stage;
+    protected static Stage stage;
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
+    public static void setStage(Stage stage) {
+        stage = stage;
     }
 
-    protected Parent loadFXML(String fxmlFile) {
+    protected static Parent loadFXML(String fxmlFile) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+            FXMLLoader loader = new FXMLLoader(ControllerBase.class.getResource(fxmlFile));
             Parent root = loader.load();
 
             // Set the controller's stage reference
