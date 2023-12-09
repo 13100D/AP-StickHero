@@ -36,9 +36,8 @@ public class Player implements Serializable {
     private double idekwhyineedthisbutok =0;
     private static ImageView playersprite;
     static Text floatingText = new Text("PERFECT!");
-
-
-    private int currentScore;
+    private static int currentScore;
+    private static int highScore;
     boolean goup = true;
     private static Player StickHero = null;
     private final Rectangle stick;
@@ -133,7 +132,8 @@ public class Player implements Serializable {
             }
             else{
                 System.out.println("\n\n\nstick insufficient SUFFER\n\n\n");
-//                GameScreenController.gameOver();
+//              GameScreenController.gameOver();
+                death();
             }
         });
 
@@ -179,6 +179,7 @@ public class Player implements Serializable {
     {
         alive = false;
         writeNumCherriesToFile();
+        writeHighScoreToFile();
         System.out.println("Player died");
         deathAnimation();
     }
@@ -195,5 +196,21 @@ public class Player implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static void writeHighScoreToFile() {
+        if (currentScore > highScore)
+        {
+            try (PrintWriter writer = new PrintWriter(new FileWriter("highScore.txt"))) {
+                writer.write(String.valueOf(currentScore));
+                System.out.println("High Score written to highScore.txt");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void setHighScore(int highScore) {
+        Player.highScore = highScore;
     }
 }

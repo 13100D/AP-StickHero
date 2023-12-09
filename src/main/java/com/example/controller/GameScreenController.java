@@ -27,7 +27,7 @@ public class GameScreenController extends ControllerBase {
     private static Rectangle stick;
     public static ImageView playersprite; // add as an attribute to player class??? maybe also include the stick probably hm also make out proper methods there itself instead of the thread here ( proper formatting )
     private static boolean keydown = false;
-    public Text cherrycount;
+    public static Text cherrycount;
 
     public static void postInit() {
         stick = new Rectangle(3,1, Color.rgb(15,15,15));
@@ -106,13 +106,20 @@ public class GameScreenController extends ControllerBase {
         // This method will be called from the Player class
     }
 
+    public static void updateCherries() {
+        cherrycount.setText("Coins: "+ Cherry.getNumCherries());
+        // Update the score on the screen
+        // This method will be called from the Player class
+    }
+
     private void readHighScoreFromFile() {
         try (BufferedReader reader = new BufferedReader(new FileReader("highScore.txt"))) {
             String line = reader.readLine();
             if (line != null && !line.isEmpty()) {
                 int highScore = Integer.parseInt(line.trim());
+                Player.setHighScore(highScore);
                 bestbox.setText("High Score: " + highScore);
-                cherrycount.setText("Cherries: " + Cherry.getNumCherries());
+                cherrycount.setText("Coins: " + Cherry.getNumCherries());
                 System.out.println("High Score: " + highScore);
                 System.out.println("Cherries: " + Cherry.getNumCherries());
             }

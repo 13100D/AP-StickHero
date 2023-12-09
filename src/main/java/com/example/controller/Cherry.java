@@ -36,6 +36,7 @@ public class Cherry{
                     System.out.println("cherry Collision detected !!!");
                     numCherries += 1;
                     fadeOutAnimation();
+                    GameScreenController.updateCherries();
                     collisiondetected=true;
                 }
             }
