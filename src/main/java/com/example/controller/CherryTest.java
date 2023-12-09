@@ -11,11 +11,6 @@ public class CherryTest {
         new JFXPanel();
     }
 
-    @Before
-    public void setUp() {
-        // You can add any setup code here
-    }
-
     @Test
     public void getNumCherriesTest() {
         Cherry.setNumCherries(5);
