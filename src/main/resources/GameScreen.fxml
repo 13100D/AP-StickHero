@@ -22,6 +22,11 @@
                 <Font name="JetBrains Mono Medium" size="24.0" />
              </font>
         </Text>
+       <Text fx:id="cherrycount" layoutX="500.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cherries: ">
+           <font>
+               <Font name="JetBrains Mono Medium" size="24.0" />
+           </font>
+       </Text>
 <!--      <Rectangle fx:id="stick" arcHeight="5.0" arcWidth="5.0" height="200.0" layoutX="498.0" layoutY="432.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />-->
    </children>
 </AnchorPane>

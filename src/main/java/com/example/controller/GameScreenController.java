@@ -23,6 +23,7 @@ public class GameScreenController extends ControllerBase {
     private static Rectangle stick;
     public static ImageView playersprite; // add as an attribute to player class??? maybe also include the stick probably hm also make out proper methods there itself instead of the thread here ( proper formatting )
     private static boolean keydown = false;
+    public Text cherrycount;
 
     public static void postInit() {
         stick = new Rectangle(3,1, Color.rgb(15,15,15));
