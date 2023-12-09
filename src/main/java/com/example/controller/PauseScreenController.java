@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,7 +28,11 @@ public class PauseScreenController extends ControllerBase{
     public void switchToGameScreen() {
         System.out.println("Starting Game");
         if(!Player.isAlive()&&Cherry.getNumCherries()>=20){
-            ControllerBase.stage.setScene(MainApp.getscenes().get(1));
+//            PlatformHandler.Handlerreset();
+            Scene abc = MainApp.getscenes().get(1);
+//            abc = (new Scene(loadFXML("/GameScreen.fxml"), 1280, 720));
+            ControllerBase.stage.setScene(abc);
+//            GameScreenController.postInit();
             Player.fixposition();
         }
         else if (Player.isAlive()) {

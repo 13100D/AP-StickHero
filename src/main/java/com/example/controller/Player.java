@@ -16,7 +16,7 @@ import static java.lang.Math.abs;
 
 
 public class Player implements Serializable {
-    private boolean anyanimation = false;
+    private static boolean anyanimation = false;
 
     public static boolean isAlive() {
         return alive;
@@ -24,11 +24,11 @@ public class Player implements Serializable {
 
     private static boolean alive = true;
 
-    public void noneanimationplaying() {
-        this.anyanimation = false;
+    public static void noneanimationplaying() {
+        anyanimation = false;
     }
     public void someanimationplaying() {
-        this.anyanimation = true;
+        anyanimation = true;
     }
     public boolean isanyAnimation() {
         return anyanimation;
@@ -67,9 +67,11 @@ public class Player implements Serializable {
     }
 
     private Player(Rectangle stick, ImageView playerSprite) {
+        idekwhyineedthisbutok = 0;
         currentScore = 0;
         this.stick=stick;
         playersprite =playerSprite;
+        boolean goup = true;
 
     }
 
@@ -162,13 +164,17 @@ public class Player implements Serializable {
     public static void fixposition(){
         idekwhyineedthisbutok += PlatformHandler.getideallength()-Player.getInstance().stick.getHeight();
         KeyValue kv = new KeyValue(playersprite.translateXProperty(), idekwhyineedthisbutok+25); // need to reset stick and player relative positioning too probably
-        KeyFrame kf = new KeyFrame(Duration.millis(0.01), kv);
+        KeyFrame kf = new KeyFrame(Duration.millis(1), kv);
         Timeline timeline = new Timeline(kf);
         timeline.play();
+        Player.getInstance().stick.setHeight(PlatformHandler.getideallength());
         System.out.println("fixposition called");
         timeline.setOnFinished(actionEvent -> {
+            System.out.println("fixposition called");
             PlatformHandler.makePlatforms(StickHero);
+            System.out.println("fixposition called");
             flipback();
+            System.out.println("fixposition called");
         });
     }
     public void upsideDown() {
@@ -212,6 +218,7 @@ public class Player implements Serializable {
 
     public static void death()
     {
+        stoptraversalanim();
         alive = false;
         writeNumCherriesToFile();
         writeHighScoreToFile();

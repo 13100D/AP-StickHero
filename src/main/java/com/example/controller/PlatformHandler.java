@@ -25,9 +25,16 @@ public class PlatformHandler {
             @Override
             public void handle(long now) {
                 // Check if bounding boxes intersect
-                if (!collisiondetected&&Player.getPlayerSprite().getBoundsInParent().intersects(platforms.get(1).pillar.getBoundsInParent())) {
-                    System.out.println("platform player Collision detected !!!");
-                    collisiondetected=true;
+                try {
+                    if (!collisiondetected && Player.getPlayerSprite().getBoundsInParent().intersects(platforms.get(1).pillar.getBoundsInParent())) {
+                        System.out.println("platform player Collision detected !!!");
+                        collisiondetected = true;
+                        System.out.println("player is kil");
+                        Player.death();
+                    }
+                }
+                catch (Exception e){
+                    e.printStackTrace();
                     System.out.println("player is kil");
                     Player.death();
                 }
@@ -104,14 +111,19 @@ public class PlatformHandler {
         return platforms.get(platforms.size()-1).width;
     }
 
-
+    public static void Handlerreset(){
+        platforms.clear();
+        initialized=false;
+        playernetdistance=250;
+    }
     public static void makePlatforms(Player Stickhero)
     {
         if (!initialized)
         {
             initialized=true;
-            maxpane = ((AnchorPane) Player.getPlayerSprite().getParent());
+            maxpane = GameScreenController.getmaxpane();
             Platformhandlerinit();
+            System.out.println("platforms initialized");
         }
         else
         {

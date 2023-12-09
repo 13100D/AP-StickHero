@@ -41,9 +41,13 @@ public class GameScreenController extends ControllerBase{
         maxpane_stat.getChildren().add(stick);
         maxpane_stat.getChildren().add(playersprite);
         PlatformHandler.makePlatforms(StickHero);
+        System.out.println("Game init done");
         maxpane_stat.requestFocus();
     }
 
+    public static AnchorPane getmaxpane() {
+        return maxpane_stat;
+    }
 
 
     @FXML
@@ -82,24 +86,22 @@ public class GameScreenController extends ControllerBase{
 
     @FXML
     private void handleKeyRelease(KeyEvent event) {
-        System.out.println("key "+ event.getCode() +" released");
-        Player StickHero = Player.getInstance(stick,playersprite);
+        System.out.println("key " + event.getCode() + " released");
+        Player StickHero = Player.getInstance(stick, playersprite);
         if (event.getCode() == KeyCode.SPACE && !(StickHero.isanyAnimation())) {
             // Calculate the duration of the key press
-            keydown=false;
+            keydown = false;
             StickHero.rotatestick();
-        }
-        if(event.getCode() == KeyCode.ESCAPE){
+            }
+        if (event.getCode() == KeyCode.ESCAPE) {
             switchToPauseScreen();
-        }
-        if(event.getCode() == KeyCode.SPACE&&StickHero.istraversalAnimation()){
+            }
+        if (event.getCode() == KeyCode.SPACE && StickHero.istraversalAnimation()) {
             System.out.println("flip key released");
             StickHero.upsideDown();
-        }
-
-
-        //additional methods and event handlers for screen 2
+            }
     }
+
 
     public static void updateScore(Player stickhero) {
         scorebox_stat.setText("Score: "+ stickhero.getCurrentScore());
