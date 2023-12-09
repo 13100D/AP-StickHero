@@ -13,7 +13,7 @@ import javafx.util.Duration;
 
 import java.util.*;
 
-public class Platformhandler {
+public class PlatformHandler {
 
     private static boolean collisiondetected = false;
 
@@ -118,8 +118,6 @@ public class Platformhandler {
         }
     }
 
-
-
     private static void Platformhandlerinit() {
         new Platform(200);
         new Platform();
@@ -132,9 +130,6 @@ public class Platformhandler {
         fadeIn2.setToValue(1.0);
         fadeIn2.play();
     }
-
-
-
 
     private static void moveGroup(Player stickhero) {
         //make a grouping of stick playersprite and platforms
@@ -180,22 +175,11 @@ public class Platformhandler {
         });
     }
 
-
-
     public static void pillar_eliminator(){
         ((Pane) Player.getPlayerSprite().getParent()).getChildren().remove(platforms.get(0).pillar);
         ((Pane) Player.getPlayerSprite().getParent()).getChildren().remove(platforms.get(0).perfectionredblob);
         platforms.remove(0);
     }
-
-
-
-
-
-
-
-
-
 
     private static double randomDistanceGenerator(){return 150+rand.nextInt(350);}
     private static double randomWidthGenerator(){return 40+rand.nextInt(80);}

@@ -36,7 +36,7 @@ public class GameScreenController extends ControllerBase {
         Player StickHero = Player.getInstance(stick, playersprite);
         maxpane_stat.getChildren().add(stick);
         maxpane_stat.getChildren().add(playersprite);
-        Platformhandler.makePlatforms(StickHero);
+        PlatformHandler.makePlatforms(StickHero);
         maxpane_stat.requestFocus();
     }
 
