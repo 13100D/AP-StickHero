@@ -16,7 +16,6 @@ import javafx.scene.text.Text;
 public class GameScreenController extends ControllerBase {
     @FXML
     public AnchorPane maxpane;
-
     public static AnchorPane maxpane_stat;
     public Text bestbox;
     public Text scorebox;
@@ -32,7 +31,7 @@ public class GameScreenController extends ControllerBase {
         playersprite = new ImageView(new Image("file:src/main/resources/dinonig.png"));
         playersprite.setFitHeight(50);
         playersprite.setFitWidth(50);
-        playersprite.setLayoutY(450);
+        playersprite.setLayoutY(449);
         playersprite.setLayoutX(200);
         Player StickHero = Player.getInstance(stick, playersprite);
         maxpane_stat.getChildren().add(stick);

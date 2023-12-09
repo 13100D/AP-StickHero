@@ -112,6 +112,8 @@ public class Player implements Serializable {
         KeyFrame kf = new KeyFrame(Duration.millis(4*(stick.getHeight())+1), kv);
         Timeline timeline = new Timeline(kf);
         timeline.play();
+        Platformhandler.checkCollision();
+        Cherry.checkCollision();
         timeline.setOnFinished(actionEvent -> {
             StickHero.stoptraversalanim();
             Platformhandler.setstickoffset(stick.getHeight());

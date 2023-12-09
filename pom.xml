@@ -65,7 +65,11 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.example.controller.MainApp</mainClass>
+                            <manifest>
+                                <addClasspath>true</addClasspath>
+                                <classpathPrefix>lib/</classpathPrefix>
+                                <mainClass>com.example.controller.MainApp</mainClass>
+                            </manifest>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

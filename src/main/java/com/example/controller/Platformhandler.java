@@ -15,11 +15,33 @@ import java.util.*;
 
 public class Platformhandler {
 
+    private static boolean collisiondetected = false;
+
+    public static void checkCollision() {
+        // Use a Timeline or AnimationTimer to continuously check for collisions
+        // For simplicity, a basic AnimationTimer is used in this example
+        collisiondetected=false;
+        javafx.animation.AnimationTimer timer = new javafx.animation.AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                // Check if bounding boxes intersect
+                if (!collisiondetected&&Player.getPlayerSprite().getBoundsInParent().intersects(platforms.get(1).pillar.getBoundsInParent())) {
+                    System.out.println("platform player Collision detected !!!");
+                    collisiondetected=true;
+                    System.out.println("player is kil");
+                }
+            }
+        };
+        timer.start();
+
+    }
+
     private static class Platform {
         private final Rectangle pillar;
         private final Rectangle perfectionredblob;
         private final double idealstickdistance;
         private final double width;
+
 
         public Platform() {
             this.idealstickdistance = randomDistanceGenerator();
@@ -63,17 +85,15 @@ public class Platformhandler {
     }
 
     public static double getideallength(){
-//        //iterate across all platforms and print layoutx and width of both pillars as well as perfectionredblob
-//        for(int i=0;i<platforms.size();i++){
-//            System.out.println("platform "+i+" layoutx = "+platforms.get(i).pillar.getLayoutX());
-//            System.out.println("platform "+i+" width = "+platforms.get(i).pillar.getWidth());
-//
-//            if(platforms.get(i).perfectionredblob!=null){
-//                System.out.println("platform "+i+" perfectionredblob layoutx = "+platforms.get(i).perfectionredblob.getLayoutX());
-//            }
-//        }
          return (platforms.get(1).perfectionredblob.getLayoutX());
     }
+    public static double getcherryspawnupperbound(){
+         return platforms.get(1).pillar.getLayoutX()-35;
+         }
+    public static double getcherryspawnlowerbound(){
+         return platforms.get(0).pillar.getLayoutX()+platforms.get(0).pillar.getWidth();
+    }
+
     public static void setstickoffset(double length){
 
         playernetdistance+=length;
@@ -153,6 +173,8 @@ public class Platformhandler {
 
         timeline.setOnFinished(event -> {
             pillar_eliminator();
+            System.out.println(getcherryspawnlowerbound()+"|"+getcherryspawnupperbound());
+            Cherry.spawnCherry(getcherryspawnlowerbound(),getcherryspawnupperbound(),(Pane) Player.getPlayerSprite().getParent());
             timeline2.play();
             stickhero.noneanimationplaying();
         });

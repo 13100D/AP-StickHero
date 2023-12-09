@@ -9,26 +9,42 @@ import javafx.util.Duration;
 import java.util.*;
 
 public class Cherry{
+    private static boolean collisiondetected = false;
     private static final Random rand = new Random();
-    private static CollisionCheckerThread cherryCollision = new CollisionCheckerThread();
     private static boolean cherrySpawned = false;
     private static int numCherries;
-    private static final int spawnRate = 100;
+    private static final int spawnRate = 35;
     private static Cherry cherry = null;
     private static ImageView cherrySprite = new ImageView(new Image("/coin.png"));
 
-    public static ImageView getCherrySprite() {
-        return cherrySprite;
-    }
-
     private Cherry(double low, double high)
     {
-        int spawnloc=rand.nextInt((int) ( (high - low) + low));
+        double spawnloc=rand.nextInt((int)(high - low))+ low ;
         System.out.println("spawnloc: " + spawnloc);
         cherrySprite.setLayoutX(spawnloc);
         cherrySprite.setLayoutY(500);
         cherrySprite.setFitHeight(35);
         cherrySprite.setFitWidth(35);
+    }
+
+    public static void checkCollision() {
+        // Use a Timeline or AnimationTimer to continuously check for collisions
+        // For simplicity, a basic AnimationTimer is used in this example
+        collisiondetected=false;
+        javafx.animation.AnimationTimer timer = new javafx.animation.AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                // Check if bounding boxes intersect
+                if (cherrySpawned&&!collisiondetected&&Player.getPlayerSprite().getBoundsInParent().intersects(cherrySprite.getBoundsInParent())) {
+                    System.out.println("cherry Collision detected !!!");
+                    numCherries += 1;
+                    fadeOutAnimation();
+                    collisiondetected=true;
+                }
+            }
+        };
+        timer.start();
+
     }
 
     public static void spawnCherry(double low, double high, Pane parent)
@@ -47,32 +63,6 @@ public class Cherry{
             cherrySpawned = true;
             cherrySprite.setLayoutX(rand.nextInt((int) (high - low)) + low);
             fadeInAnimation();
-        }
-
-        if (cherrySpawned)
-        {
-            cherryCollision.setNode1(cherrySprite);
-            cherryCollision.setNode2(Player.getPlayerSprite());
-            cherryCollision.start();
-
-            while (!cherryCollision.isCollision()) {
-                try
-                {
-                    if (!cherrySpawned)
-                    {
-                        fadeOutAnimation();
-                    }
-
-                    Thread.sleep(50);
-                }
-
-                catch (InterruptedException e)
-                {
-                    numCherries += 1;
-                    fadeOutAnimation();
-                    cherrySpawned = false;
-                }
-            }
         }
     }
 
@@ -99,9 +89,6 @@ public class Cherry{
         FadeTransition fadeOut = new FadeTransition(Duration.millis(10), cherrySprite);
         fadeOut.setFromValue(1.0);
         fadeOut.setToValue(0.0);
-        fadeOut.setOnFinished(event -> {
-            // Additional logic to handle animation completion, if needed
-        });
         fadeOut.play();
     }
 
@@ -113,6 +100,8 @@ public class Cherry{
     public static void setCherrySpawned(boolean cherrySpawned) {
         Cherry.cherrySpawned = cherrySpawned;
     }
+
+
 }
 
 
