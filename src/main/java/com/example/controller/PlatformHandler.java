@@ -1,5 +1,6 @@
 package com.example.controller;
 
+
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -16,33 +17,29 @@ import java.util.*;
 public class PlatformHandler {
 
     private static boolean collisiondetected = false;
+    private static javafx.animation.AnimationTimer timer = new javafx.animation.AnimationTimer() {
+        @Override
+        public void handle(long now) {
+            // Check if bounding boxes intersect
+            if (!collisiondetected && Player.getPlayerSprite().getBoundsInParent().intersects(platforms.get(1).pillar.getBoundsInParent())) {
+                System.out.println("platform player Collision detected !!!");
+                collisiondetected = true;
+                System.out.println("player is kil");
+                Player.death();
+            }
+        }
+    };
 
     public static void checkCollision() {
         // Use a Timeline or AnimationTimer to continuously check for collisions
         // For simplicity, a basic AnimationTimer is used in this example
         collisiondetected=false;
-        javafx.animation.AnimationTimer timer = new javafx.animation.AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                // Check if bounding boxes intersect
-                try {
-                    if (!collisiondetected && Player.getPlayerSprite().getBoundsInParent().intersects(platforms.get(1).pillar.getBoundsInParent())) {
-                        System.out.println("platform player Collision detected !!!");
-                        collisiondetected = true;
-                        System.out.println("player is kil");
-                        Player.death();
-                    }
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                    System.out.println("player is kil");
-                    Player.death();
-                }
-            }
-        };
         timer.start();
-
     }
+    public static void stopchecking() {
+        timer.stop();
+    }
+
 
     private static class Platform {
         private final Rectangle pillar;
@@ -101,7 +98,9 @@ public class PlatformHandler {
     public static double getcherryspawnlowerbound(){
          return platforms.get(0).pillar.getLayoutX()+platforms.get(0).pillar.getWidth();
     }
-
+    public static double gettppointlayout(){
+        return(platforms.get(0).pillar.getLayoutX());
+    }
     public static void setstickoffset(double length){
 
         playernetdistance+=length;
