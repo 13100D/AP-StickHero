@@ -14,7 +14,7 @@
 - If the game seems stuck, check console to know what has happened
 - If you're trying to revive/buy sprites and the game seems stuck, you have insufficient cherries and that will be printed on the console
 
-# Design Practices
+# Design Patterns
 - Singleton: Player
 - Modified Singleton: Cherry
 - Strategy: traversestick() method in Player decides at runtime whether game will continue or player dies
