@@ -2,8 +2,6 @@ package com.example.controller;
 
 
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -51,6 +49,7 @@ public class GameScreenController extends ControllerBase {
         readHighScoreFromFile();
         maxpane_stat = maxpane;
         scorebox_stat = scorebox;
+        cherrycount_stat = cherrycount;
     }
 
     @FXML
