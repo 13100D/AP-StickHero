@@ -13,6 +13,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class GameScreenController extends ControllerBase {
     @FXML
     public AnchorPane maxpane;
@@ -43,6 +47,7 @@ public class GameScreenController extends ControllerBase {
 
     @FXML
     private void initialize() {
+        readHighScoreFromFile();
         maxpane_stat = maxpane;
         scorebox_stat = scorebox;
     }
@@ -101,5 +106,21 @@ public class GameScreenController extends ControllerBase {
         // This method will be called from the Player class
     }
 
+    private void readHighScoreFromFile() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("highScore.txt"))) {
+            String line = reader.readLine();
+            if (line != null && !line.isEmpty()) {
+                int highScore = Integer.parseInt(line.trim());
+                bestbox.setText("High Score: " + highScore);
+                cherrycount.setText("Cherries: " + Cherry.getNumCherries());
+                System.out.println("High Score: " + highScore);
+                System.out.println("Cherries: " + Cherry.getNumCherries());
+            }
+        }
+        catch (IOException | NumberFormatException e) {
+            Cherry.setNumCherries(0);
+            e.printStackTrace();
+        }
+    }
 }
 
