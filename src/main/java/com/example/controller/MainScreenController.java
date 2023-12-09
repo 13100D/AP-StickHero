@@ -69,7 +69,7 @@ public class MainScreenController extends ControllerBase {
     }
 
     private void readCherriesFromFile() {
-        try (BufferedReader reader = new BufferedReader(new FileReader("com/example/controller/cherries.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("cherries.txt"))) {
             String line = reader.readLine();
             if (line != null && !line.isEmpty()) {
                 int cherries = Integer.parseInt(line.trim());

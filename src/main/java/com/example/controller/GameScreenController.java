@@ -112,7 +112,7 @@ public class GameScreenController extends ControllerBase{
     }
 
     private void readHighScoreFromFile() {
-        try (BufferedReader reader = new BufferedReader(new FileReader("com/example/controller/highScore.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("highScore.txt"))) {
             String line = reader.readLine();
             if (line != null && !line.isEmpty()) {
                 int highScore = Integer.parseInt(line.trim());
@@ -120,7 +120,7 @@ public class GameScreenController extends ControllerBase{
                 bestbox.setText("High Score: " + highScore);
                 cherrycount.setText("Coins: " + Cherry.getNumCherries());
                 System.out.println("High Score: " + highScore);
-                System.out.println("Cherries: " + Cherry.getNumCherries());
+                System.out.println("Coins: " + Cherry.getNumCherries());
             }
         }
         catch (IOException | NumberFormatException e) {

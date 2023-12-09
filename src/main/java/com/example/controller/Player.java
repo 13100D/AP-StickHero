@@ -136,8 +136,10 @@ public class Player implements Serializable {
         double cooking = abs(PlatformHandler.getideallength() - PlatformHandler.getPlayernetdistance());
         timeline.setOnFinished(actionEvent -> {
             stoptraversalanim();
-            if(cooking< PlatformHandler.getwidth()/2) {
-                if(cooking<7.5) {
+            if(cooking< PlatformHandler.getwidth()/2)
+            {
+                if(cooking<7.5)
+                {
                     System.out.println("HKJADSHKJDSAHKJDSAJHK");
                     perfection();
                 }
