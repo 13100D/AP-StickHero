@@ -15,7 +15,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class GameScreenController extends ControllerBase {
+public class GameScreenController extends ControllerBase{
     @FXML
     public AnchorPane maxpane;
     private static AnchorPane maxpane_stat;
@@ -103,14 +103,10 @@ public class GameScreenController extends ControllerBase {
 
     public static void updateScore(Player stickhero) {
         scorebox_stat.setText("Score: "+ stickhero.getCurrentScore());
-        // Update the score on the screen
-        // This method will be called from the Player class
     }
 
     public static void updateCherries() {
         cherrycount_stat.setText("Coins: "+ Cherry.getNumCherries());
-        // Update the score on the screen
-        // This method will be called from the Player class
     }
 
     private void readHighScoreFromFile() {

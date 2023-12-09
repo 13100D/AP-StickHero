@@ -38,11 +38,12 @@ public class MainApp extends Application {
     }
 
     public void showScreen(String fxmlFile) {
-        try {
-
+        try
+        {
             ControllerBase.setStage(primaryStage);
             primaryStage.setScene(scenes.get(screens.indexOf(fxmlFile)));
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
     }

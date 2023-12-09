@@ -7,13 +7,15 @@
 - Long press space bar to extend stick
 - Press space bar during stick traversal to flip upside down
 - Collect coins
-- Coins can be exchanged for new skins and revival after crash
+- Coins can be exchanged for revival after crash
 - If the player collides with a platform while upside down it counts as a crash
 - Perfect landing gets you one bonus point
-- To save the current game, go to 'Pause' menu
-- An old game can be reloaded from Main screen
-- Only one game can be stored at a time
 
+# Design Practices
+- Singleton: Player
+- Modified Singleton: Cherry
+- Strategy: traversestick() method in Player decides at runtime whether game will continue or player dies
+  
 # Contibutors
 - [Riya Sachdeva - 2022411](https://github.com/riyasach189)
 - [Aarav Mathur - 2022005](https://github.com/13100D)

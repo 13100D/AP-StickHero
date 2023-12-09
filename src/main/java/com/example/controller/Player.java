@@ -153,6 +153,7 @@ public class Player implements Serializable {
                     System.out.println("HKJADSHKJDSAHKJDSAJHK");
                     perfection();
                 }
+
                 currentScore++;
                 GameScreenController.updateScore(this);
                 PlatformHandler.makePlatforms(this);
@@ -185,7 +186,9 @@ public class Player implements Serializable {
         return currentScore;
     }
 
-    public void perfection(){
+    public void perfection()
+    {
+        currentScore++;
         floatingText.setFont(new Font(20));
         floatingText.setOpacity(1);
         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), floatingText);
