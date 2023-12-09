@@ -24,14 +24,6 @@ public class Player implements Serializable {
 
     private static boolean alive = true;
 
-    public static int getScore() {
-        return currentScore;
-    }
-
-    public static int getHighScore() {
-        return highScore;
-    }
-
     public void noneanimationplaying() {
         this.anyanimation = false;
     }
@@ -75,7 +67,7 @@ public class Player implements Serializable {
     }
 
     private Player(Rectangle stick, ImageView playerSprite) {
-        this.currentScore = 0;
+        currentScore = 0;
         this.stick=stick;
         playersprite =playerSprite;
 
@@ -147,7 +139,7 @@ public class Player implements Serializable {
         System.out.println("coordinates of latest perfect point and player traversal are " + PlatformHandler.getideallength() + " " + PlatformHandler.getPlayernetdistance());
         double cooking = abs(PlatformHandler.getideallength() - PlatformHandler.getPlayernetdistance());
         timeline.setOnFinished(actionEvent -> {
-            StickHero.stoptraversalanim();
+            stoptraversalanim();
             if(cooking< PlatformHandler.getwidth()/2) {
                 if(cooking<7.5) {
                     System.out.println("HKJADSHKJDSAHKJDSAJHK");
@@ -173,6 +165,7 @@ public class Player implements Serializable {
         KeyFrame kf = new KeyFrame(Duration.millis(0.01), kv);
         Timeline timeline = new Timeline(kf);
         timeline.play();
+        System.out.println("fixposition called");
         timeline.setOnFinished(actionEvent -> {
             PlatformHandler.makePlatforms(StickHero);
             flipback();
@@ -241,8 +234,7 @@ public class Player implements Serializable {
         try (PrintWriter writer = new PrintWriter(new FileWriter("cherries.txt"))) {
             writer.write(String.valueOf(Cherry.getNumCherries()));
             System.out.println("NumCherries written to cherries.txt");
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ignored) {
         }
     }
 
@@ -252,17 +244,12 @@ public class Player implements Serializable {
             try (PrintWriter writer = new PrintWriter(new FileWriter("highScore.txt"))) {
                 writer.write(String.valueOf(currentScore));
                 System.out.println("High Score written to highScore.txt");
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (IOException ignored) {
             }
         }
     }
 
     public static void setHighScore(int highScore) {
         Player.highScore = highScore;
-    }
-
-    public void setScore(int score) {
-        currentScore= score;
     }
 }
