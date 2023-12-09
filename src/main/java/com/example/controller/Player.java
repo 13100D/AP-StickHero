@@ -18,6 +18,11 @@ public class Player implements Serializable {
 
     private static boolean alive = true;
 
+    public static void setCurrentScore(int score)
+    {
+        currentScore = score;
+    }
+
     public void noneanimationplaying() {
         this.anyanimation = false;
     }
@@ -58,7 +63,7 @@ public class Player implements Serializable {
     }
 
     private Player(Rectangle stick, ImageView playerSprite) {
-        this.currentScore = 0;
+        currentScore = 0;
         this.stick=stick;
         playersprite =playerSprite;
 
@@ -77,10 +82,18 @@ public class Player implements Serializable {
         }
     }
 
-    public void starttraversalanim() {this.traversalanimation = true;}
-    public void stoptraversalanim() {this.traversalanimation = false;}
+    public void starttraversalanim()
+    {
+        this.traversalanimation = true;
+    }
+    public void stoptraversalanim()
+    {
+        this.traversalanimation = false;
+    }
 
-    public void rotatestick() {//use pivot point and flip stick about bottom most point
+    public void rotatestick()
+    {
+        //use pivot point and flip stick about bottom most point
         someanimationplaying();
         stick.getTransforms().clear();
         Rotate flip90deg = new Rotate();
@@ -95,7 +108,8 @@ public class Player implements Serializable {
             traversestick();
         });
     }
-    public void flipback(){
+    public void flipback()
+    {
         stoptraversalanim();
         Rotate flipback = new Rotate();
         flipback.setPivotY(stick.getY() + stick.getHeight());
@@ -105,6 +119,8 @@ public class Player implements Serializable {
         stick.setHeight(0);
         stick.getTransforms().add(flipback);
     }
+
+    //Strategy - Design Practice
     public void traversestick() {
         //move the player across stick between one platform to other and repeatedly check for collision logic
         //timeline that moves player in +ve x-axis by stick.getlength distance
@@ -120,8 +136,10 @@ public class Player implements Serializable {
             PlatformHandler.setstickoffset(stick.getHeight());
             System.out.println("coordinates of latest perfect point and player traversal are " + PlatformHandler.getideallength() + " " + PlatformHandler.getPlayernetdistance());
             double cooking = abs(PlatformHandler.getideallength() - PlatformHandler.getPlayernetdistance());
-            if(cooking< PlatformHandler.getwidth()/2) {
-                if(cooking<7.5) {
+            if(cooking< PlatformHandler.getwidth()/2)
+            {
+                if(cooking<7.5)
+                {
                     System.out.println("HKJADSHKJDSAHKJDSAJHK");
                     perfection();
                 }
@@ -131,7 +149,8 @@ public class Player implements Serializable {
                 PlatformHandler.makePlatforms(this);
                 flipback();
             }
-            else{
+            else
+            {
                 System.out.println("\n\n\nstick insufficient SUFFER\n\n\n");
 //              GameScreenController.gameOver();
                 death();
@@ -213,7 +232,14 @@ public class Player implements Serializable {
         }
     }
 
-    public static void setHighScore(int highScore) {
+    public static void setHighScore(int highScore)
+    {
         Player.highScore = highScore;
     }
+
+    public static boolean isAlive() {
+        return alive;
+    }
+
+
 }

@@ -5,6 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.junit.runner.*;
+import org.junit.runner.notification.*;
 
 import java.util.ArrayList;
 import java.util.List;

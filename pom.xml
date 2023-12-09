@@ -59,6 +59,17 @@
             <artifactId>junit-jupiter-api</artifactId>
             <version>5.10.0</version>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.10.1</version>
+        </dependency>
     </dependencies>
 
     <build>
