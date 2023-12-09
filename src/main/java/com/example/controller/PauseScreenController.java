@@ -143,12 +143,12 @@ public class PauseScreenController extends ControllerBase{
     public void volumetoggle(MouseEvent mouseEvent) {
         MainScreenController.mute_stat();
         updateVolumeButtonImage();
-        System.out.println("Volume is " + (isMuted ? "muted" : "unmuted"));
+        System.out.println("Volume is " + (MainScreenController.isMuted() ? "muted" : "unmuted"));
 
     }
 
     private void updateVolumeButtonImage() {
-        String imageName = isMuted ? "/soundmutedicon.png" : "/soundyesicon.png";
+        String imageName = MainScreenController.isMuted() ? "/soundmutedicon.png" : "/soundyesicon.png";
         setImage(volumeicon, imageName);
     }
 

@@ -118,6 +118,7 @@ public class Player implements Serializable {
         Player.getInstance().stick.setY(Player.getInstance().stick.getY()+Player.getInstance().stick.getHeight());
         Player.getInstance().stick.setHeight(0);
         Player.getInstance().stick.getTransforms().add(flipback);
+        System.out.println("Stick layout Y is " + Player.getInstance().stick.getTranslateY());
     }
 
     //Strategy - Design Practice
@@ -161,19 +162,19 @@ public class Player implements Serializable {
         if(StickHero.upsideDown){
             StickHero.upsideDown();
         }
-        idekwhyineedthisbutok = PlatformHandler.getideallength();
+        System.out.println(idekwhyineedthisbutok);
+        System.out.println(PlatformHandler.getideallength());
+        System.out.println(PlatformHandler.getPlayernetdistance());
+        System.out.println(Player.getInstance().stick.getHeight());
+        idekwhyineedthisbutok = PlatformHandler.getideallength()-250;
         KeyValue kv = new KeyValue(playersprite.translateXProperty(), idekwhyineedthisbutok+25); // need to reset stick and player relative positioning too probably
-        KeyFrame kf = new KeyFrame(Duration.millis(4000), kv);
+        KeyFrame kf = new KeyFrame(Duration.millis(400), kv);
         Timeline timeline = new Timeline(kf);
         timeline.play();
-        Player.getInstance().stick.setHeight(PlatformHandler.getideallength());
-        System.out.println("fixposition called");
+        Player.getInstance().stick.setHeight(Player.getInstance().stick.getHeight() + PlatformHandler.getideallength()-PlatformHandler.getPlayernetdistance()-250);
         timeline.setOnFinished(actionEvent -> {
-            System.out.println("fixposition called");
             PlatformHandler.makePlatforms(StickHero);
-            System.out.println("fixposition called");
             flipback();
-            System.out.println("fixposition called");
         });
     }
     public void upsideDown() {
