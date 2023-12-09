@@ -51,6 +51,7 @@ public class GameScreenController extends ControllerBase {
         readHighScoreFromFile();
         maxpane_stat = maxpane;
         scorebox_stat = scorebox;
+        cherrycount_stat = cherrycount;
     }
 
     @FXML
@@ -107,8 +108,6 @@ public class GameScreenController extends ControllerBase {
 
     public static void updateCherries() {
         cherrycount_stat.setText("Coins: "+ Cherry.getNumCherries());
-        // Update the score on the screen
-        // This method will be called from the Player class
     }
 
     private void readHighScoreFromFile() {
