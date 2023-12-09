@@ -137,6 +137,7 @@ public class Player implements Serializable {
         double cooking = abs(PlatformHandler.getideallength() - PlatformHandler.getPlayernetdistance());
         timeline.setOnFinished(actionEvent -> {
             stoptraversalanim();
+            PlatformHandler.stopchecking();
             if(cooking< PlatformHandler.getwidth()/2)
             {
                 if(cooking<7.5)
@@ -169,18 +170,19 @@ public class Player implements Serializable {
         System.out.println(Player.getInstance().stick.getHeight());
 
 
-        idekwhyineedthisbutok = PlatformHandler.getideallength()-250;
-        KeyValue kv = new KeyValue(playersprite.translateXProperty(), idekwhyineedthisbutok+25); // need to reset stick and player relative positioning too probably
-        KeyFrame kf = new KeyFrame(Duration.millis(80), kv);
-        Timeline timeline = new Timeline(kf);
-        timeline.play();
-        double old = Player.getInstance().stick.getHeight();
-        Player.getInstance().stick.setHeight(PlatformHandler.getideallength()-250);
-        Player.getInstance().stick.setTranslateX((Player.getInstance().stick.getTranslateX() - (Player.getInstance().stick.getHeight()-old))/2);
-        timeline.setOnFinished(actionEvent -> {
-            PlatformHandler.makePlatforms(StickHero);
-            flipback();
-        });
+//        idekwhyineedthisbutok = PlatformHandler.getideallength()-250;
+//        KeyValue kv = new KeyValue(playersprite.translateXProperty(), idekwhyineedthisbutok+25); // need to reset stick and player relative positioning too probably
+//        KeyFrame kf = new KeyFrame(Duration.millis(80), kv);
+//        Timeline timeline = new Timeline(kf);
+//        timeline.play();
+//        double old = Player.getInstance().stick.getHeight();
+//        Player.getInstance().stick.setHeight(PlatformHandler.getideallength()-250);
+//        Player.getInstance().stick.setTranslateX((Player.getInstance().stick.getTranslateX() - (Player.getInstance().stick.getHeight()-old))/2);
+//        timeline.setOnFinished(actionEvent -> {
+        Player.getPlayerSprite().setTranslateX(PlatformHandler.gettppointlayout()+PlatformHandler.getwidth()/2);
+        PlatformHandler.makePlatforms(StickHero);
+        flipback();
+//        });
     }
     public void upsideDown() {
         int alternative = upsideDown ? 1 : -1;
