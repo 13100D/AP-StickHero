@@ -1,16 +1,12 @@
 package com.example.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -73,7 +69,7 @@ public class MainScreenController extends ControllerBase {
     }
 
     private void readCherriesFromFile() {
-        try (BufferedReader reader = new BufferedReader(new FileReader("cherries.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("com/example/controller/cherries.txt"))) {
             String line = reader.readLine();
             if (line != null && !line.isEmpty()) {
                 int cherries = Integer.parseInt(line.trim());
