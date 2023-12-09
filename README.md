@@ -11,6 +11,7 @@
 - If the player collides with a platform while upside down it counts as a crash
 - Perfect landing gets you one bonus point
 - Press ESC key to pause the game
+- Sprites can be bought from pause menu
 - If the game seems stuck, check console to know what has happened
 - If you're trying to revive/buy sprites and the game seems stuck, you have insufficient cherries and that will be printed on the console
 

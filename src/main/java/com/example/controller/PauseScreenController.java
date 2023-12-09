@@ -82,7 +82,7 @@ public class PauseScreenController extends ControllerBase{
 
             Cherry.setNumCherries(Cherry.getNumCherries() - 20);
             System.out.println("bought sprite 4");
-            Player.setPlayerSprite("file:src/main/resources/dinonig3.png");
+            Player.setPlayerSprite("file:src/main/resources/dinonig.png");
             Player.writeNumCherriesToFile();
         }
 
@@ -99,7 +99,7 @@ public class PauseScreenController extends ControllerBase{
 
             Cherry.setNumCherries(Cherry.getNumCherries() - 20);
             System.out.println("bought sprite 3");
-            Player.setPlayerSprite("file:src/main/resources/dinonig2.png");
+            Player.setPlayerSprite("file:src/main/resources/dinonig3.png");
             Player.writeNumCherriesToFile();
         }
 
@@ -116,7 +116,7 @@ public class PauseScreenController extends ControllerBase{
 
             Cherry.setNumCherries(Cherry.getNumCherries() - 20);
             System.out.println("bought sprite 2");
-            Player.setPlayerSprite("file:src/main/resources/dinonig.png");
+            Player.setPlayerSprite("file:src/main/resources/dinonig2.png");
             Player.writeNumCherriesToFile();
         }
 
