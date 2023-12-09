@@ -32,6 +32,15 @@ public class MainScreenController extends ControllerBase {
         bgaudio.setCycleCount(MediaPlayer.INDEFINITE);
     }
 
+    public static boolean isMuted() {
+        return isMuted;
+    }
+
+    public static void mute_stat(){
+        isMuted = !isMuted;
+        bgaudio.setMute(isMuted);
+    }
+
     @FXML
     private void initialize() {
         readCherriesFromFile();
@@ -45,11 +54,9 @@ public class MainScreenController extends ControllerBase {
         GameScreenController.postInit();
     }
 
-    private void toggleVolume() {
-        isMuted = !isMuted;
-        bgaudio.setMute(isMuted);
+    public void toggleVolume() {
+        mute_stat();
         updateVolumeButtonImage();
-        System.out.println("Volume is " + (isMuted ? "muted" : "unmuted"));
     }
 
     private void updateVolumeButtonImage() {

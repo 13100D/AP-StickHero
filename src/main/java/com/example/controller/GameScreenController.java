@@ -18,15 +18,15 @@ import java.io.IOException;
 public class GameScreenController extends ControllerBase{
     @FXML
     public AnchorPane maxpane;
-    public static AnchorPane maxpane_stat;
+    private static AnchorPane maxpane_stat;
     public Text bestbox;
     public Text scorebox;
-    public static Text scorebox_stat;
+    private static Text scorebox_stat;
     private static Rectangle stick;
-    public static ImageView playersprite; // add as an attribute to player class??? maybe also include the stick probably hm also make out proper methods there itself instead of the thread here ( proper formatting )
+    private static ImageView playersprite; // add as an attribute to player class??? maybe also include the stick probably hm also make out proper methods there itself instead of the thread here ( proper formatting )
     private static boolean keydown = false;
     public Text cherrycount;
-    public static Text cherrycount_stat;
+    private static Text cherrycount_stat;
 
     public static void postInit() {
         stick = new Rectangle(3,1, Color.rgb(15,15,15));
@@ -41,8 +41,14 @@ public class GameScreenController extends ControllerBase{
         maxpane_stat.getChildren().add(stick);
         maxpane_stat.getChildren().add(playersprite);
         PlatformHandler.makePlatforms(StickHero);
+        System.out.println("Game init done");
         maxpane_stat.requestFocus();
     }
+
+    public static AnchorPane getmaxpane() {
+        return maxpane_stat;
+    }
+
 
     @FXML
     private void initialize() {
@@ -57,6 +63,7 @@ public class GameScreenController extends ControllerBase{
         // Add logic specific to Screen 2
         System.out.println("Switching to Pause Screen ");
         stage.setScene(MainApp.getscenes().get(2));
+        PauseScreenController.postinit();
     }
 
     @FXML
@@ -79,24 +86,22 @@ public class GameScreenController extends ControllerBase{
 
     @FXML
     private void handleKeyRelease(KeyEvent event) {
-        System.out.println("key "+ event.getCode() +" released");
-        Player StickHero = Player.getInstance(stick,playersprite);
+        System.out.println("key " + event.getCode() + " released");
+        Player StickHero = Player.getInstance(stick, playersprite);
         if (event.getCode() == KeyCode.SPACE && !(StickHero.isanyAnimation())) {
             // Calculate the duration of the key press
-            keydown=false;
+            keydown = false;
             StickHero.rotatestick();
-        }
-        if(event.getCode() == KeyCode.ESCAPE){
+            }
+        if (event.getCode() == KeyCode.ESCAPE) {
             switchToPauseScreen();
-        }
-        if(event.getCode() == KeyCode.SPACE&&StickHero.istraversalAnimation()){
+            }
+        if (event.getCode() == KeyCode.SPACE && StickHero.istraversalAnimation()) {
             System.out.println("flip key released");
             StickHero.upsideDown();
-        }
-
-
-        //additional methods and event handlers for screen 2
+            }
     }
+
 
     public static void updateScore(Player stickhero) {
         scorebox_stat.setText("Score: "+ stickhero.getCurrentScore());

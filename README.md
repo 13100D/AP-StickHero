@@ -14,6 +14,7 @@
 # Design Practices
 - Singleton: Player
 - Modified Singleton: Cherry
+- Strategy: traversestick() method in Player decides at runtime whether game will continue or player dies
   
 # Contibutors
 - [Riya Sachdeva - 2022411](https://github.com/riyasach189)

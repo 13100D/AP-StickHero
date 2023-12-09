@@ -1,7 +1,9 @@
 package com.example.controller;
 
 import javafx.animation.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -14,31 +16,30 @@ import static java.lang.Math.abs;
 
 
 public class Player implements Serializable {
-    private boolean anyanimation = false;
+    private static boolean anyanimation = false;
+
+    public static boolean isAlive() {
+        return alive;
+    }
 
     private static boolean alive = true;
 
-    public static void setCurrentScore(int score)
-    {
-        currentScore = score;
-    }
-
-    public void noneanimationplaying() {
-        this.anyanimation = false;
+    public static void noneanimationplaying() {
+        anyanimation = false;
     }
     public void someanimationplaying() {
-        this.anyanimation = true;
+        anyanimation = true;
     }
     public boolean isanyAnimation() {
         return anyanimation;
     }
 
-    private boolean traversalanimation = false;
+    private static boolean traversalanimation = false;
 
     public boolean istraversalAnimation() {
         return traversalanimation;
     }
-    private double idekwhyineedthisbutok =0;
+    private static double idekwhyineedthisbutok =0;
     private static ImageView playersprite;
     static Text floatingText = new Text("PERFECT!");
     private static int currentScore;
@@ -61,11 +62,16 @@ public class Player implements Serializable {
 
         return StickHero;
     }
+    public static Player getInstance() {
+        return StickHero;
+    }
 
     private Player(Rectangle stick, ImageView playerSprite) {
+        idekwhyineedthisbutok = 0;
         currentScore = 0;
         this.stick=stick;
         playersprite =playerSprite;
+        boolean goup = true;
 
     }
 
@@ -81,19 +87,22 @@ public class Player implements Serializable {
             stick.setTranslateY(stick.getTranslateY() - 5);
         }
     }
-
-    public void starttraversalanim()
-    {
-        this.traversalanimation = true;
+    public static void setPlayerSprite(String filepath) {
+        ImageView newplayersprite = new ImageView(new Image(filepath));
+        newplayersprite.setLayoutX(playersprite.getLayoutX());
+        newplayersprite.setLayoutY(playersprite.getLayoutY());
+        newplayersprite.setTranslateX(playersprite.getTranslateX());
+        newplayersprite.setFitHeight(playersprite.getFitHeight());
+        newplayersprite.setFitWidth(playersprite.getFitWidth());
+        ((Pane) playersprite.getParent()).getChildren().add(newplayersprite);
+        ((Pane) playersprite.getParent()).getChildren().remove(playersprite);
+        playersprite = newplayersprite;
     }
-    public void stoptraversalanim()
-    {
-        this.traversalanimation = false;
-    }
 
-    public void rotatestick()
-    {
-        //use pivot point and flip stick about bottom most point
+    public void starttraversalanim() {traversalanimation = true;}
+    public static void stoptraversalanim() {traversalanimation = false;}
+
+    public void rotatestick() {//use pivot point and flip stick about bottom most point
         someanimationplaying();
         stick.getTransforms().clear();
         Rotate flip90deg = new Rotate();
@@ -108,19 +117,16 @@ public class Player implements Serializable {
             traversestick();
         });
     }
-    public void flipback()
-    {
+    public static void flipback(){
         stoptraversalanim();
         Rotate flipback = new Rotate();
-        flipback.setPivotY(stick.getY() + stick.getHeight());
-        flipback.setPivotX(stick.getX());
+        flipback.setPivotY(Player.getInstance().stick.getY() + Player.getInstance().stick.getHeight());
+        flipback.setPivotX(Player.getInstance().stick.getX());
         flipback.setAngle(-90);
-        stick.setY(stick.getY()+stick.getHeight());
-        stick.setHeight(0);
-        stick.getTransforms().add(flipback);
+        Player.getInstance().stick.setY(Player.getInstance().stick.getY()+Player.getInstance().stick.getHeight());
+        Player.getInstance().stick.setHeight(0);
+        Player.getInstance().stick.getTransforms().add(flipback);
     }
-
-    //Strategy - Design Practice
     public void traversestick() {
         //move the player across stick between one platform to other and repeatedly check for collision logic
         //timeline that moves player in +ve x-axis by stick.getlength distance
@@ -131,15 +137,13 @@ public class Player implements Serializable {
         timeline.play();
         PlatformHandler.checkCollision();
         Cherry.checkCollision();
+        PlatformHandler.setstickoffset(stick.getHeight());
+        System.out.println("coordinates of latest perfect point and player traversal are " + PlatformHandler.getideallength() + " " + PlatformHandler.getPlayernetdistance());
+        double cooking = abs(PlatformHandler.getideallength() - PlatformHandler.getPlayernetdistance());
         timeline.setOnFinished(actionEvent -> {
-            StickHero.stoptraversalanim();
-            PlatformHandler.setstickoffset(stick.getHeight());
-            System.out.println("coordinates of latest perfect point and player traversal are " + PlatformHandler.getideallength() + " " + PlatformHandler.getPlayernetdistance());
-            double cooking = abs(PlatformHandler.getideallength() - PlatformHandler.getPlayernetdistance());
-            if(cooking< PlatformHandler.getwidth()/2)
-            {
-                if(cooking<7.5)
-                {
+            stoptraversalanim();
+            if(cooking< PlatformHandler.getwidth()/2) {
+                if(cooking<7.5) {
                     System.out.println("HKJADSHKJDSAHKJDSAJHK");
                     perfection();
                 }
@@ -149,14 +153,32 @@ public class Player implements Serializable {
                 PlatformHandler.makePlatforms(this);
                 flipback();
             }
-            else
-            {
+            else{
                 System.out.println("\n\n\nstick insufficient SUFFER\n\n\n");
 //              GameScreenController.gameOver();
                 death();
             }
         });
 
+    }
+    public static void fixposition(){
+        if(StickHero.upsideDown){
+            StickHero.upsideDown();
+        }
+        idekwhyineedthisbutok = PlatformHandler.getideallength();
+        KeyValue kv = new KeyValue(playersprite.translateXProperty(), idekwhyineedthisbutok+25); // need to reset stick and player relative positioning too probably
+        KeyFrame kf = new KeyFrame(Duration.millis(4000), kv);
+        Timeline timeline = new Timeline(kf);
+        timeline.play();
+        Player.getInstance().stick.setHeight(PlatformHandler.getideallength());
+        System.out.println("fixposition called");
+        timeline.setOnFinished(actionEvent -> {
+            System.out.println("fixposition called");
+            PlatformHandler.makePlatforms(StickHero);
+            System.out.println("fixposition called");
+            flipback();
+            System.out.println("fixposition called");
+        });
     }
     public void upsideDown() {
         int alternative = upsideDown ? 1 : -1;
@@ -199,11 +221,18 @@ public class Player implements Serializable {
 
     public static void death()
     {
+        stoptraversalanim();
         alive = false;
         writeNumCherriesToFile();
         writeHighScoreToFile();
         System.out.println("Player died");
         deathAnimation();
+        switchtoPauseScreen();
+        PauseScreenController.postinit();
+    }
+
+    private static void switchtoPauseScreen() {
+        ControllerBase.stage.setScene(MainApp.getscenes().get(2));
     }
 
     public static void deathAnimation()
@@ -215,31 +244,22 @@ public class Player implements Serializable {
         try (PrintWriter writer = new PrintWriter(new FileWriter("cherries.txt"))) {
             writer.write(String.valueOf(Cherry.getNumCherries()));
             System.out.println("NumCherries written to cherries.txt");
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ignored) {
         }
     }
 
-    private static void writeHighScoreToFile() {
+    static void writeHighScoreToFile() {
         if (currentScore > highScore)
         {
             try (PrintWriter writer = new PrintWriter(new FileWriter("highScore.txt"))) {
                 writer.write(String.valueOf(currentScore));
                 System.out.println("High Score written to highScore.txt");
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (IOException ignored) {
             }
         }
     }
 
-    public static void setHighScore(int highScore)
-    {
+    public static void setHighScore(int highScore) {
         Player.highScore = highScore;
     }
-
-    public static boolean isAlive() {
-        return alive;
-    }
-
-
 }
