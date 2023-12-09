@@ -88,15 +88,7 @@ public class Player implements Serializable {
         }
     }
     public static void setPlayerSprite(String filepath) {
-        ImageView newplayersprite = new ImageView(new Image(filepath));
-        newplayersprite.setLayoutX(playersprite.getLayoutX());
-        newplayersprite.setLayoutY(playersprite.getLayoutY());
-        newplayersprite.setTranslateX(playersprite.getTranslateX());
-        newplayersprite.setFitHeight(playersprite.getFitHeight());
-        newplayersprite.setFitWidth(playersprite.getFitWidth());
-        ((Pane) playersprite.getParent()).getChildren().add(newplayersprite);
-        ((Pane) playersprite.getParent()).getChildren().remove(playersprite);
-        playersprite = newplayersprite;
+        playersprite.setImage(new Image(filepath));
     }
 
     public void starttraversalanim() {traversalanimation = true;}
@@ -243,7 +235,7 @@ public class Player implements Serializable {
     }
 
     private static void writeNumCherriesToFile() {
-        try (PrintWriter writer = new PrintWriter(new FileWriter("cherries.txt"))) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter("com/example/controller/cherries.txt"))) {
             writer.write(String.valueOf(Cherry.getNumCherries()));
             System.out.println("NumCherries written to cherries.txt");
         } catch (IOException ignored) {
@@ -253,7 +245,7 @@ public class Player implements Serializable {
     static void writeHighScoreToFile() {
         if (currentScore > highScore)
         {
-            try (PrintWriter writer = new PrintWriter(new FileWriter("highScore.txt"))) {
+            try (PrintWriter writer = new PrintWriter(new FileWriter("com/example/controller/highScore.txt"))) {
                 writer.write(String.valueOf(currentScore));
                 System.out.println("High Score written to highScore.txt");
             } catch (IOException ignored) {

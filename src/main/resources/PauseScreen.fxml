@@ -17,7 +17,7 @@
          </effect>
       </ImageView>
 
-      <ImageView fx:id="volumeicon" onMouseReleased="#volumetoggle" fitHeight="150.0" fitWidth="150.0" layoutX="1162.0" layoutY="-35.0" onMouseClicked="#volumetoggle" pickOnBounds="true" preserveRatio="true" scaleX="0.5" scaleY="0.5">
+      <ImageView fx:id="volumeicon" fitHeight="150.0" fitWidth="150.0" layoutX="1162.0" layoutY="-35.0" onMouseClicked="#volumetoggle" pickOnBounds="true" preserveRatio="true" scaleX="0.5" scaleY="0.5">
          <image>
             <Image url="@soundyesicon.png" />
          </image>
