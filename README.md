@@ -19,6 +19,11 @@
 - Modified Singleton: Cherry
 - Strategy: traversestick() method in Player decides at runtime whether game will continue or player dies
   
+# JUnit Tests
+- PlayerTest.java
+- CherryTest.java
+- PlatformTest.java
+
 # Contibutors
 - [Riya Sachdeva - 2022411](https://github.com/riyasach189)
 - [Aarav Mathur - 2022005](https://github.com/13100D)
