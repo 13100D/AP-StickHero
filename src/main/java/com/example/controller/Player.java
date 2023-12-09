@@ -162,16 +162,21 @@ public class Player implements Serializable {
         if(StickHero.upsideDown){
             StickHero.upsideDown();
         }
+
         System.out.println(idekwhyineedthisbutok);
         System.out.println(PlatformHandler.getideallength());
         System.out.println(PlatformHandler.getPlayernetdistance());
         System.out.println(Player.getInstance().stick.getHeight());
+
+
         idekwhyineedthisbutok = PlatformHandler.getideallength()-250;
         KeyValue kv = new KeyValue(playersprite.translateXProperty(), idekwhyineedthisbutok+25); // need to reset stick and player relative positioning too probably
-        KeyFrame kf = new KeyFrame(Duration.millis(400), kv);
+        KeyFrame kf = new KeyFrame(Duration.millis(80), kv);
         Timeline timeline = new Timeline(kf);
         timeline.play();
-        Player.getInstance().stick.setHeight(Player.getInstance().stick.getHeight() + PlatformHandler.getideallength()-PlatformHandler.getPlayernetdistance()-250);
+        double old = Player.getInstance().stick.getHeight();
+        Player.getInstance().stick.setHeight(PlatformHandler.getideallength()-250);
+        Player.getInstance().stick.setTranslateX((Player.getInstance().stick.getTranslateX() - (Player.getInstance().stick.getHeight()-old))/2);
         timeline.setOnFinished(actionEvent -> {
             PlatformHandler.makePlatforms(StickHero);
             flipback();
