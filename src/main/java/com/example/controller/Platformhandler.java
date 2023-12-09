@@ -50,13 +50,17 @@ public class Platformhandler {
             platforms.add(this);
         }
     }
-    private static double prevperfectpoint = 250;
-    private static double perfectpoint;
+
+    private static double playernetdistance = 250;
     private static AnchorPane maxpane;
     private static final Random rand = new Random();
     private static final ArrayList<Platform> platforms = new ArrayList<>();
     private static boolean initialized = false;
 
+
+    public static double getPlayernetdistance() {
+        return playernetdistance;
+    }
 
     public static double getideallength(){
 //        //iterate across all platforms and print layoutx and width of both pillars as well as perfectionredblob
@@ -68,18 +72,18 @@ public class Platformhandler {
 //                System.out.println("platform "+i+" perfectionredblob layoutx = "+platforms.get(i).perfectionredblob.getLayoutX());
 //            }
 //        }
-        perfectpoint = (platforms.get(1).perfectionredblob.getLayoutX()  -  platforms.get(1).perfectionredblob.getLayoutX())-prevperfectpoint;
-        prevperfectpoint = 0;
-        return perfectpoint;
+         return (platforms.get(1).perfectionredblob.getLayoutX());
     }
-//    public static void setstickoffset(double length){
-//        System.out.println("prevprevperfectpoint = "+prevprevperfectpoint);
-//        System.out.println("prev stick length = " + length);
-//        prevperfectpoint = prevperfectpoint+prevprevperfectpoint-length;
-//    }
+    public static void setstickoffset(double length){
+
+        playernetdistance+=length;
+    }
+
     public static double getwidth(){
         return platforms.get(platforms.size()-1).width;
     }
+
+
     public static void makePlatforms(Player Stickhero)
     {
         if (!initialized)

@@ -1,10 +1,10 @@
 package com.example.controller;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
@@ -33,6 +33,9 @@ public class Player implements Serializable {
     }
     private double idekwhyineedthisbutok =0;
     private static ImageView playersprite;
+    static Text floatingText = new Text("PERFECT!");
+
+
     private int currentScore;
     boolean goup = true;
     private static Player StickHero = null;
@@ -56,7 +59,7 @@ public class Player implements Serializable {
     private Player(Rectangle stick, ImageView playerSprite) {
         this.currentScore = 0;
         this.stick=stick;
-        playersprite=playerSprite;
+        playersprite =playerSprite;
 
     }
 
@@ -111,25 +114,23 @@ public class Player implements Serializable {
         timeline.play();
         timeline.setOnFinished(actionEvent -> {
             StickHero.stoptraversalanim();
-            System.out.println("coordinates of latest perfect point are " + Platformhandler.getideallength());
-            double cooking =(Platformhandler.getideallength() - stick.getHeight());
-            System.out.println(stick.getHeight());
-            System.out.println("margin of life is" + Platformhandler.getwidth()/2);
-            System.out.println("you're off by " + abs(stick.getHeight() - cooking));
-            if (abs(stick.getHeight() - cooking) < 10) {
-                System.out.println("\n\nperfect\n\n");
+            Platformhandler.setstickoffset(stick.getHeight());
+            System.out.println("coordinates of latest perfect point and player traversal are " + Platformhandler.getideallength() + " " + Platformhandler.getPlayernetdistance());
+            double cooking = abs(Platformhandler.getideallength() - Platformhandler.getPlayernetdistance());
+            if(cooking<Platformhandler.getwidth()/2) {
+                if(cooking<7.5) {
+                    System.out.println("HKJADSHKJDSAHKJDSAJHK");
+                    perfection();
+                }
+                currentScore++;
+                GameScreenController.updateScore(this);
+                Platformhandler.makePlatforms(this);
+                flipback();
             }
-            if (abs(stick.getHeight() - cooking) < Platformhandler.getwidth()/2) {
-                System.out.println("alive by margin of " + abs(stick.getHeight() - cooking));
-                System.out.println("\n\nstill alive\n\n");
+            else{
+                System.out.println("\n\n\nstick insufficient SUFFER\n\n\n");
+//                GameScreenController.gameOver();
             }
-            else {
-                System.out.println("\n\nyou died\n\n");
-            }
-            currentScore++;
-            GameScreenController.updateScore(this);
-            Platformhandler.makePlatforms(this);
-            flipback();
         });
 
     }
@@ -138,7 +139,7 @@ public class Player implements Serializable {
         upsideDown = !upsideDown;
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.seconds(0.01), event -> playersprite.setScaleY(playersprite.getScaleY() * -1)),
-                new KeyFrame(Duration.seconds(0.01), event -> playersprite.setTranslateY(playersprite.getTranslateY()-(alternative*playersprite.getFitHeight())))
+                new KeyFrame(Duration.seconds(0.01), event -> playersprite.setTranslateY(playersprite.getTranslateY()-(alternative* playersprite.getFitHeight())))
         );
         timeline.setCycleCount(1);
         timeline.play();
@@ -152,5 +153,22 @@ public class Player implements Serializable {
         return currentScore;
     }
 
+    public void perfection(){
+        floatingText.setFont(new Font(20));
+        floatingText.setOpacity(1);
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), floatingText);
+        fadeTransition.setFromValue(1.0); // Fully visible
+        fadeTransition.setToValue(0.0);   // Completely transparent
+        fadeTransition.setCycleCount(1);  // Play once
+
+        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(0.5), floatingText);
+        translateTransition.setFromY(playersprite.getLayoutY());  // Initial Y position
+        translateTransition.setToY(playersprite.getLayoutY()-50);  // Move up by 50 pixels
+        translateTransition.setCycleCount(1);  // Play once
+
+        // Creating a ParallelTransition to combine FadeTransition and TranslateTransition
+        ParallelTransition parallelTransition = new ParallelTransition(fadeTransition, translateTransition);
+        parallelTransition.play();
+    }
 
 }
