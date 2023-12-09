@@ -124,7 +124,7 @@ public class GameScreenController extends ControllerBase{
             }
         }
         catch (IOException | NumberFormatException e) {
-            Cherry.setNumCherries(0);
+            Player.setHighScore(1);
             e.printStackTrace();
         }
     }

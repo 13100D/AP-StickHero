@@ -244,21 +244,26 @@ public class Player implements Serializable {
 
     }
 
-    private static void writeNumCherriesToFile() {
-        try (PrintWriter writer = new PrintWriter(new FileWriter("com/example/controller/cherries.txt"))) {
+    static void writeNumCherriesToFile() {
+        try (PrintWriter writer = new PrintWriter(new FileWriter("cherries.txt"))) {
             writer.write(String.valueOf(Cherry.getNumCherries()));
             System.out.println("NumCherries written to cherries.txt");
-        } catch (IOException ignored) {
+        }
+        catch (IOException ignored)
+        {
+            ignored.printStackTrace();
         }
     }
 
     static void writeHighScoreToFile() {
         if (currentScore > highScore)
         {
-            try (PrintWriter writer = new PrintWriter(new FileWriter("com/example/controller/highScore.txt"))) {
+            try (PrintWriter writer = new PrintWriter(new FileWriter("highScore.txt"))) {
                 writer.write(String.valueOf(currentScore));
                 System.out.println("High Score written to highScore.txt");
-            } catch (IOException ignored) {
+            } catch (IOException ignored)
+            {
+                ignored.printStackTrace();
             }
         }
     }
