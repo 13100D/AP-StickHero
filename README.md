@@ -10,6 +10,8 @@
 - Coins can be exchanged for revival after crash
 - If the player collides with a platform while upside down it counts as a crash
 - Perfect landing gets you one bonus point
+- Press ESC key to pause the game
+- If the game seems stuck, check console to know what has happened
 
 # Design Practices
 - Singleton: Player
