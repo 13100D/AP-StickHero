@@ -1,7 +1,18 @@
 # Steps to Run
 - Open the project in IntelliJ
-- Run MainApp
+- Run MainApp.java
 - If the JavaFX screen looks bigger than the laptop screen, adjust your laptop's display scale in Display Settings
+
+# Gameplay
+- Long press space bar to extend stick
+- Press space bar during stick traversal to flip upside down
+- Collect cherries
+- Cherries can be exchanged for new skins and revival after crash
+- If the player collides with a platform while upside down it counts as a crash
+- Perfect landing gets you one bonus point
+- To save the current game, go to 'Pause' menu
+- An old game can be reloaded from Main screen
+- Only one game can be stored at a time
 
 # Contibutors
 - [Riya Sachdeva - 2022411](https://github.com/riyasach189)
@@ -9,58 +20,4 @@
 - Group No. 131
 
 # Citations
-All graphics are copyrights of their creators, we are just borrowing them.
-
-
-
-RIYA
-So I have to do:
-- buy sprites
-- junit tests
-- save/reload
-
-ARV
-pause screen 
-cherry spawning
-collision logic(pillar / cherry)
-stick length check
-audio
-
-
-
-# to understand:
-
-sprites and animations
-- needed to implement
-
-
-- - player & stick
-    - needed for sprites
-- - cherries
-  - colision mechanics during animation to collect cherry
-
-
-
-Add flags so that keypresses during animation runtime flip player
-Cherry...
-Pillars spawning
-Same collision logic for pillars...
-Pillars spawn 3
-2 visible one outside frame
-Move back
-Once movement animation done instantly teleport the leftmost pillar to outside the screen
-Move to left once stick animation and movement has succeeded ( if stick length ends up within margin of acceptable values
-Currently stick is spawned / initialised when key pressed
-Need to use better approach
-Can't leave pillars and player unspawned
-Possible solution spawn static entries from fxml
-Use fx: Id in code
-
-# to implement:
-- spawn in towers
-- spawn in cherries
-
-
-https://www.javatpoint.com/javafx-playing-audio.
-
-audioplayer use the volume mute and unmute functions and call the same
+All graphics and media are copyrights of their creators, we are just borrowing them.
