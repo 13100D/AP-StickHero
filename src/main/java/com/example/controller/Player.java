@@ -112,7 +112,7 @@ public class Player implements Serializable {
         timeline.setOnFinished(actionEvent -> {
             StickHero.stoptraversalanim();
             System.out.println("coordinates of latest perfect point are " + Platformhandler.getideallength());
-            double cooking =(Platformhandler.getideallength() - Platformhandler.getsomething() - Platformhandler.getsomethingfat());
+            double cooking =(Platformhandler.getideallength() - stick.getHeight());
             System.out.println(stick.getHeight());
             System.out.println("margin of life is" + Platformhandler.getwidth()/2);
             System.out.println("you're off by " + abs(stick.getHeight() - cooking));
@@ -126,7 +126,6 @@ public class Player implements Serializable {
             else {
                 System.out.println("\n\nyou died\n\n");
             }
-            Platformhandler.setstickoffset(stick.getHeight());
             currentScore++;
             GameScreenController.updateScore(this);
             Platformhandler.makePlatforms(this);

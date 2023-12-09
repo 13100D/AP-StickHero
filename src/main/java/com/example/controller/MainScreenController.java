@@ -6,11 +6,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 import java.util.Objects;
-//import javafx.scene.media.Media;
-//import javafx.scene.media.MediaPlayer;
 
 public class MainScreenController extends ControllerBase {
 
@@ -23,6 +22,12 @@ public class MainScreenController extends ControllerBase {
     @FXML
     private Button helpButton;
     private static boolean isMuted = false;
+    private static MediaPlayer bgaudio;
+    public static void postInit() {
+        bgaudio= new MediaPlayer(new Media(Objects.requireNonNull(MainScreenController.class.getResource("/bgmusic.mp3")).toString()));
+        bgaudio.setAutoPlay(true);
+        bgaudio.setCycleCount(MediaPlayer.INDEFINITE);
+    }
 
     @FXML
     private void initialize() {
@@ -41,6 +46,7 @@ public class MainScreenController extends ControllerBase {
 
     private void toggleVolume() {
         isMuted = !isMuted;
+        bgaudio.setMute(isMuted);
         updateVolumeButtonImage();
         System.out.println("Volume is " + (isMuted ? "muted" : "unmuted"));
     }

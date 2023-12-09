@@ -17,7 +17,7 @@ public class Platformhandler {
 
     private static class Platform {
         private final Rectangle pillar;
-        private Rectangle perfectionredblob;
+        private final Rectangle perfectionredblob;
         private final double idealstickdistance;
         private final double width;
 
@@ -41,36 +41,42 @@ public class Platformhandler {
             this.width = randomWidthGenerator();
             this.idealstickdistance = -width/2;
             this.pillar = new Rectangle(width, 250, Color.rgb(1, 1, 1));
+            this.perfectionredblob = new Rectangle(15, 5, Color.rgb(255, 0, 0));
             this.pillar.setLayoutY(500);
             this.pillar.setLayoutX(250+idealstickdistance-width/2);
+            this.perfectionredblob.setLayoutY(500);
+            this.perfectionredblob.setLayoutY(250+idealstickdistance-perfectionredblob.getWidth()/2);
             maxpane.getChildren().add(pillar);
             platforms.add(this);
         }
     }
-    private static double prevperfectpoint = 0;
-    private static double prevprevperfectpoint = 0;
+    private static double prevperfectpoint = 250;
+    private static double perfectpoint;
     private static AnchorPane maxpane;
     private static final Random rand = new Random();
     private static final ArrayList<Platform> platforms = new ArrayList<>();
     private static boolean initialized = false;
 
-    public static double getsomething(){
-        return platforms.get(platforms.size()-2).pillar.getLayoutX();
-    }
-    public static double getsomethingfat(){
-        return platforms.get(platforms.size()-2).pillar.getWidth();
-    }
 
     public static double getideallength(){
-        prevprevperfectpoint = prevperfectpoint;
-        prevperfectpoint = (platforms.get(platforms.size()-1).pillar.getLayoutX()+platforms.get(platforms.size()-1).width/2)-prevperfectpoint-250;
-        return prevperfectpoint;
+//        //iterate across all platforms and print layoutx and width of both pillars as well as perfectionredblob
+//        for(int i=0;i<platforms.size();i++){
+//            System.out.println("platform "+i+" layoutx = "+platforms.get(i).pillar.getLayoutX());
+//            System.out.println("platform "+i+" width = "+platforms.get(i).pillar.getWidth());
+//
+//            if(platforms.get(i).perfectionredblob!=null){
+//                System.out.println("platform "+i+" perfectionredblob layoutx = "+platforms.get(i).perfectionredblob.getLayoutX());
+//            }
+//        }
+        perfectpoint = (platforms.get(1).perfectionredblob.getLayoutX()  -  platforms.get(1).perfectionredblob.getLayoutX())-prevperfectpoint;
+        prevperfectpoint = 0;
+        return perfectpoint;
     }
-    public static void setstickoffset(double length){
-        System.out.println("prevprevperfectpoint = "+prevprevperfectpoint);
-        System.out.println("prev stick length = " + length);
-        prevperfectpoint = prevperfectpoint+prevprevperfectpoint-length;
-    }
+//    public static void setstickoffset(double length){
+//        System.out.println("prevprevperfectpoint = "+prevprevperfectpoint);
+//        System.out.println("prev stick length = " + length);
+//        prevperfectpoint = prevperfectpoint+prevprevperfectpoint-length;
+//    }
     public static double getwidth(){
         return platforms.get(platforms.size()-1).width;
     }
@@ -142,7 +148,7 @@ public class Platformhandler {
         timeline.play();
 
         timeline.setOnFinished(event -> {
-            pillar_eliminator(stickhero);
+            pillar_eliminator();
             timeline2.play();
             stickhero.noneanimationplaying();
         });
@@ -150,7 +156,7 @@ public class Platformhandler {
 
 
 
-    public static void pillar_eliminator(Player stickhero){
+    public static void pillar_eliminator(){
         ((Pane) Player.getPlayerSprite().getParent()).getChildren().remove(platforms.get(0).pillar);
         ((Pane) Player.getPlayerSprite().getParent()).getChildren().remove(platforms.get(0).perfectionredblob);
         platforms.remove(0);

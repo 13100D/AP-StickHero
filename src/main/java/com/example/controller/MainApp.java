@@ -4,17 +4,12 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-//import javafx.scene.media.Media;
-//import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import java.io.File;
 
 public class MainApp extends Application {
 
     private Stage primaryStage;
-    //String bgMusicPath = "bgmusic.mp3";
-    //Media bgMusic = new Media(new File(bgMusicPath).toURI().toString());
-    //MediaPlayer mediaPlayer = new MediaPlayer(bgMusic);
 
     public static void main(String[] args) {
         launch(args);
@@ -25,8 +20,8 @@ public class MainApp extends Application {
         this.primaryStage = primaryStage;
         primaryStage.setTitle("Stick Hero");
         showScreen("/MainScreen.fxml");
-        //mediaPlayer.setAutoPlay(!MainScreenController.getIsMuted());
         primaryStage.show();
+        MainScreenController.postInit();
     }
 
     public void showScreen(String fxmlFile) {
