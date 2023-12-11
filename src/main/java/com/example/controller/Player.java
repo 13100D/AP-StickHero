@@ -4,7 +4,6 @@ import javafx.animation.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
@@ -26,6 +25,11 @@ public class Player implements Serializable {
     public static void noneanimationplaying() {
         anyanimation = false;
     }
+
+    public static Text getfloatingText() {
+        return floatingText;
+    }
+
     public void someanimationplaying() {
         anyanimation = true;
     }
@@ -40,8 +44,13 @@ public class Player implements Serializable {
     }
     private static double idekwhyineedthisbutok =0;
     private static ImageView playersprite;
-    static Text floatingText = new Text("PERFECT!");
+    private static final Text floatingText = new Text("PERFECT!");
     private static int currentScore;
+
+    public static int getHighScore() {
+        return highScore;
+    }
+
     private static int highScore;
     boolean goup = true;
     private static Player StickHero = null;
@@ -138,10 +147,9 @@ public class Player implements Serializable {
             {
                 if(cooking<7.5)
                 {
-                    System.out.println("HKJADSHKJDSAHKJDSAJHK");
-                    perfection();
+                    currentScore++;
+                    GameScreenController.perfection();
                 }
-
                 currentScore++;
                 GameScreenController.updateScore(this);
                 PlatformHandler.makePlatforms(this);
@@ -159,7 +167,7 @@ public class Player implements Serializable {
         if(StickHero.upsideDown){
             StickHero.upsideDown();
         }
-
+        GameScreenController.updateCherries();
         Rectangle stick=Player.getInstance().stick;
         PlatformHandler.setstickoffset(-stick.getHeight());
         idekwhyineedthisbutok -= stick.getHeight();
@@ -226,25 +234,7 @@ public class Player implements Serializable {
         return currentScore;
     }
 
-    public void perfection()
-    {
-        currentScore++;
-        floatingText.setFont(new Font(20));
-        floatingText.setOpacity(1);
-        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), floatingText);
-        fadeTransition.setFromValue(1.0); // Fully visible
-        fadeTransition.setToValue(0.0);   // Completely transparent
-        fadeTransition.setCycleCount(1);  // Play once
 
-        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(0.5), floatingText);
-        translateTransition.setFromY(playersprite.getLayoutY());  // Initial Y position
-        translateTransition.setToY(playersprite.getLayoutY()-50);  // Move up by 50 pixels
-        translateTransition.setCycleCount(1);  // Play once
-
-        // Creating a ParallelTransition to combine FadeTransition and TranslateTransition
-        ParallelTransition parallelTransition = new ParallelTransition(fadeTransition, translateTransition);
-        parallelTransition.play();
-    }
 
     public static void death()
     {

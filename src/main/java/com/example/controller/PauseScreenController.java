@@ -1,12 +1,8 @@
 package com.example.controller;
 
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
 import java.util.Objects;
@@ -18,9 +14,6 @@ public class PauseScreenController extends ControllerBase{
     public static Text deadtax_stat;
     public ImageView deadonly;
     public static ImageView deadonly_stat;
-    public Button volumeButton;
-    public Button switchButton;
-    private final boolean isMuted = MainScreenController.isMuted();
     public Text pausetext;
     public static Text pausetext_stat;
 
@@ -41,6 +34,7 @@ public class PauseScreenController extends ControllerBase{
 
             else if (Player.isAlive()) {
                 ControllerBase.stage.setScene(MainApp.getscenes().get(1));
+                GameScreenController.updateCherries();
             }
 
             else
@@ -74,7 +68,7 @@ public class PauseScreenController extends ControllerBase{
             //show pause screen
         }
     }
-    public void buyspr4(MouseEvent mouseEvent) {
+    public void buyspr4() {
         try {
             if (Cherry.getNumCherries() < 20) {
                 throw new InsufficientCherriesException("Not enough cherries to buy sprite 4");
@@ -91,7 +85,7 @@ public class PauseScreenController extends ControllerBase{
         }
     }
 
-    public void buyspr3(MouseEvent mouseEvent) {
+    public void buyspr3() {
         try {
             if (Cherry.getNumCherries() < 20) {
                 throw new InsufficientCherriesException("Not enough cherries to buy sprite 3");
@@ -108,7 +102,7 @@ public class PauseScreenController extends ControllerBase{
         }
     }
 
-    public void buyspr2(MouseEvent mouseEvent) {
+    public void buyspr2() {
         try {
             if (Cherry.getNumCherries() < 20) {
                 throw new InsufficientCherriesException("Not enough cherries to buy sprite 2");
@@ -125,7 +119,7 @@ public class PauseScreenController extends ControllerBase{
         }
     }
 
-    public void buyspr1(MouseEvent mouseEvent)
+    public void buyspr1()
     {
         try {
             if (Cherry.getNumCherries() < 20) {
@@ -143,7 +137,7 @@ public class PauseScreenController extends ControllerBase{
         }
     }
 
-    public void volumetoggle(MouseEvent mouseEvent) {
+    public void volumetoggle() {
         MainScreenController.mute_stat();
         updateVolumeButtonImage();
         System.out.println("Volume is " + (MainScreenController.isMuted() ? "muted" : "unmuted"));

@@ -1,6 +1,9 @@
 package com.example.controller;
 
 
+import javafx.animation.FadeTransition;
+import javafx.animation.ParallelTransition;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -9,7 +12,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -27,6 +32,7 @@ public class GameScreenController extends ControllerBase{
     private static boolean keydown = false;
     public Text cherrycount;
     private static Text cherrycount_stat;
+    private static Text bestbox_stat;
 
     public static void postInit() {
         stick = new Rectangle(3,1, Color.rgb(15,15,15));
@@ -40,6 +46,7 @@ public class GameScreenController extends ControllerBase{
         Player StickHero = Player.getInstance(stick, playersprite);
         maxpane_stat.getChildren().add(stick);
         maxpane_stat.getChildren().add(playersprite);
+        maxpane_stat.getChildren().add(Player.getfloatingText());
         PlatformHandler.makePlatforms(StickHero);
         System.out.println("Game init done");
         maxpane_stat.requestFocus();
@@ -56,6 +63,7 @@ public class GameScreenController extends ControllerBase{
         maxpane_stat = maxpane;
         scorebox_stat = scorebox;
         cherrycount_stat = cherrycount;
+        bestbox_stat = bestbox;
     }
 
     @FXML
@@ -105,10 +113,42 @@ public class GameScreenController extends ControllerBase{
 
     public static void updateScore(Player stickhero) {
         scorebox_stat.setText("Score: "+ stickhero.getCurrentScore());
+        updateHighScore(stickhero);
     }
-
+    public static void updateHighScore(Player stickhero) {
+        if(stickhero.getCurrentScore() > Player.getHighScore())
+        {
+            Player.setHighScore(stickhero.getCurrentScore());
+            bestbox_stat.setText("High Score: "+ stickhero.getCurrentScore());
+        }
+    }
     public static void updateCherries() {
         cherrycount_stat.setText("Coins: "+ Cherry.getNumCherries());
+    }
+
+    public static void perfection()
+    {
+        Text floatingText = Player.getfloatingText();
+        floatingText.setText("PERFECT");
+        floatingText.setFill(Color.rgb(255, 255, 255));
+        floatingText.setLayoutX(playersprite.getLayoutX());
+        floatingText.setLayoutY(playersprite.getLayoutY());
+        floatingText.setTranslateX(playersprite.getTranslateX());
+        floatingText.setFont(new Font(20));
+        floatingText.setOpacity(1);
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), floatingText);
+        fadeTransition.setFromValue(1.0); // Fully visible
+        fadeTransition.setToValue(0.0);   // Completely transparent
+        fadeTransition.setCycleCount(1);  // Play once
+
+        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(0.5), floatingText);
+        translateTransition.setFromY(playersprite.getLayoutY());  // Initial Y position
+        translateTransition.setToY(playersprite.getLayoutY()-50);  // Move up by 50 pixels
+        translateTransition.setCycleCount(1);  // Play once
+
+        // Creating a ParallelTransition to combine FadeTransition and TranslateTransition
+        ParallelTransition parallelTransition = new ParallelTransition(fadeTransition, translateTransition);
+        parallelTransition.play();
     }
 
     private void readHighScoreFromFile() {
@@ -125,7 +165,6 @@ public class GameScreenController extends ControllerBase{
         }
         catch (IOException | NumberFormatException e) {
             Player.setHighScore(1);
-            e.printStackTrace();
         }
     }
 }
