@@ -30,6 +30,8 @@ public class PauseScreenController extends ControllerBase{
 //            GameScreenController.postInit();
                 Player.fixposition();
                 Player.writeNumCherriesToFile();
+                Player.setAlive(true);
+                pausetext_stat.setText("PAUSED");
             }
 
             else if (Player.isAlive()) {

@@ -278,4 +278,8 @@ public class Player implements Serializable {
     public static void setHighScore(int highScore) {
         Player.highScore = highScore;
     }
+
+    public static void setAlive(boolean alive) {
+        Player.alive = alive;
+    }
 }
