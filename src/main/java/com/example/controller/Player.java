@@ -3,7 +3,6 @@ package com.example.controller;
 import javafx.animation.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -71,8 +70,6 @@ public class Player implements Serializable {
         currentScore = 0;
         this.stick=stick;
         playersprite =playerSprite;
-        boolean goup = true;
-
     }
 
     public void extendStick() {
@@ -118,7 +115,6 @@ public class Player implements Serializable {
         Player.getInstance().stick.setY(Player.getInstance().stick.getY()+Player.getInstance().stick.getHeight());
         Player.getInstance().stick.setHeight(0);
         Player.getInstance().stick.getTransforms().add(flipback);
-        System.out.println("Stick layout Y is " + Player.getInstance().stick.getTranslateY());
     }
 
     //Strategy - Design Practice
@@ -164,24 +160,51 @@ public class Player implements Serializable {
             StickHero.upsideDown();
         }
 
-        System.out.println(idekwhyineedthisbutok);
-        System.out.println(PlatformHandler.getideallength());
-        System.out.println(PlatformHandler.getPlayernetdistance());
-        System.out.println(Player.getInstance().stick.getHeight());
-
-
-//        idekwhyineedthisbutok = PlatformHandler.getideallength()-250;
-//        KeyValue kv = new KeyValue(playersprite.translateXProperty(), idekwhyineedthisbutok+25); // need to reset stick and player relative positioning too probably
-//        KeyFrame kf = new KeyFrame(Duration.millis(80), kv);
-//        Timeline timeline = new Timeline(kf);
-//        timeline.play();
-//        double old = Player.getInstance().stick.getHeight();
-//        Player.getInstance().stick.setHeight(PlatformHandler.getideallength()-250);
-//        Player.getInstance().stick.setTranslateX((Player.getInstance().stick.getTranslateX() - (Player.getInstance().stick.getHeight()-old))/2);
+        Rectangle stick=Player.getInstance().stick;
+        PlatformHandler.setstickoffset(-stick.getHeight());
+        idekwhyineedthisbutok -= stick.getHeight();
+        System.out.println("idekwhyineedthisbutok is " + idekwhyineedthisbutok);
+        System.out.println("ideallengthrn is " + PlatformHandler.getideallength());
+        System.out.println("playernetdistancerightnow is " + PlatformHandler.getPlayernetdistance());
+        System.out.println("stick height is " + stick.getHeight());
+        KeyValue kv = new KeyValue(playersprite.translateXProperty(), idekwhyineedthisbutok); // need to reset stick and player relative positioning too probably
+        KeyFrame kf = new KeyFrame(Duration.millis(500), kv);
+        Timeline timeline = new Timeline(kf);
+        timeline.play();
+//        PlatformHandler.checkCollision();
+//        Cherry.checkCollision();
+//        PlatformHandler.setstickoffset(stick.getHeight());
+//        System.out.println("coordinates of latest perfect point and player traversal are " + PlatformHandler.getideallength() + " " + PlatformHandler.getPlayernetdistance());
+//        double cooking = abs(PlatformHandler.getideallength() - PlatformHandler.getPlayernetdistance());
 //        timeline.setOnFinished(actionEvent -> {
-        Player.getPlayerSprite().setTranslateX(PlatformHandler.gettppointlayout()+PlatformHandler.getwidth()/2);
-        PlatformHandler.makePlatforms(StickHero);
-        flipback();
+//            stoptraversalanim();
+//            PlatformHandler.stopchecking();
+//            if(cooking< PlatformHandler.getwidth()/2)
+//            {
+//                if(cooking<7.5)
+//                {
+//                    System.out.println("HKJADSHKJDSAHKJDSAJHK");
+//                    perfection();
+//                }
+//
+//                currentScore++;
+//                GameScreenController.updateScore(this);
+//                PlatformHandler.makePlatforms(this);
+//                flipback();
+//            }
+//            else{
+//                System.out.println("\n\n\nstick insufficient SUFFER\n\n\n");
+////              GameScreenController.gameOver();
+//                death();
+//            }
+//        });
+        //move player back then reset stick and let player wreak havoc just like he did before
+        timeline.setOnFinished(actionEvent -> {
+            stoptraversalanim();
+            noneanimationplaying();
+            flipback();
+        });
+
 //        });
     }
     public void upsideDown() {
@@ -249,10 +272,7 @@ public class Player implements Serializable {
             writer.write(String.valueOf(Cherry.getNumCherries()));
             System.out.println("NumCherries written to cherries.txt");
         }
-        catch (IOException ignored)
-        {
-            ignored.printStackTrace();
-        }
+        catch (IOException ignored){}
     }
 
     static void writeHighScoreToFile() {
@@ -261,10 +281,7 @@ public class Player implements Serializable {
             try (PrintWriter writer = new PrintWriter(new FileWriter("highScore.txt"))) {
                 writer.write(String.valueOf(currentScore));
                 System.out.println("High Score written to highScore.txt");
-            } catch (IOException ignored)
-            {
-                ignored.printStackTrace();
-            }
+            } catch (IOException ignored){}
         }
     }
 
