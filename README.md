@@ -15,6 +15,9 @@
 - If the game seems stuck, check console to know what has happened
 - If you're trying to revive/buy sprites and the game seems stuck, you have insufficient cherries and that will be printed on the console
 
+# Demo Video
+- StickHero - Demo Video is enclosed in the repository
+
 # Design Patterns
 - Singleton: Player
 - Modified Singleton: Cherry
