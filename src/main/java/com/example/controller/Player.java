@@ -266,7 +266,7 @@ public class Player implements Serializable {
     }
 
     static void writeHighScoreToFile() {
-        if (currentScore > highScore)
+        if (currentScore >= highScore)
         {
             try (PrintWriter writer = new PrintWriter(new FileWriter("highScore.txt"))) {
                 writer.write(String.valueOf(currentScore));
