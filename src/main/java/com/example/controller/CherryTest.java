@@ -20,12 +20,7 @@ public class CherryTest {
     @Test
     public void reviveSubtractCherriesTest_Insufficient() {
         Cherry.setNumCherries(5);
-        try {
-            Cherry.reviveSubtractCherries();
-            fail("Expected InsufficientCherriesException");
-        } catch (InsufficientCherriesException e) {
-            // Expected exception
-        }
+        assertThrows(InsufficientCherriesException.class, Cherry::reviveSubtractCherries);
     }
 
     @Test
